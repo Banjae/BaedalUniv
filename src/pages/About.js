@@ -1,5 +1,5 @@
 //  About members page
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,20 +7,29 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+// AOS 적용
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ProfileUl = tw.ul`
   flex
-  justify-around
+  flex-col
+  justify-between
+  items-center
+  `;
+
+const ProfileLi = tw.li`
+  flex
 `;
 
-const Profile = tw.li`
-  flex
-  flex-col
-  items-center
-  w-1/6
+const Profile = tw.div`
+
+  w-32
+  h-64
   bg-slate-300
   shadow-lg
   rounded-lg
+  m-2
 `;
 
 const Name = tw.div`
@@ -28,6 +37,10 @@ const Name = tw.div`
 `;
 
 const About = () => {
+  useEffect(() => {
+    AOS.init({ once: true });
+  });
+
   const navigate = useNavigate();
   return (
     <>
@@ -38,57 +51,73 @@ const About = () => {
       <div>
         <div>FE Members</div>
         <ProfileUl>
-          <Profile>
-            <Name>반XX</Name>
-            <a href="https://github.com/Banjae" target="blank">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-          </Profile>
-          <Profile>
-            <Name>옥XX</Name>
-            <a href="https://github.com/dev-jiji" target="blank">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-          </Profile>
-          <Profile>
-            <Name>조XX</Name>
-            <a href="https://github.com/choj96" target="blank">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-          </Profile>
+          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
+            <Profile>
+              <Name>반XX</Name>
+              <a href="https://github.com/Banjae" target="blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </Profile>
+          </ProfileLi>
+          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
+            <Profile>
+              <Name>옥XX</Name>
+              <a href="https://github.com/dev-jiji" target="blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </Profile>
+          </ProfileLi>
+          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
+            <Profile>
+              <Name>조XX</Name>
+              <a href="https://github.com/choj96" target="blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </Profile>
+          </ProfileLi>
         </ProfileUl>
         <div>BE Members</div>
         <ProfileUl>
-          <Profile>
-            <Name>이XX</Name>
-            <a href="https://github.com/" target="blank">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-          </Profile>
-          <Profile>
-            <Name>문XX</Name>
-            <a href="https://github.com/" target="blank">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-          </Profile>
-          <Profile>
-            <Name>이XX</Name>
-            <a href="https://github.com/" target="blank">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-          </Profile>
-          <Profile>
-            <Name>이XX</Name>
-            <a href="https://github.com/" target="blank">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-          </Profile>
-          <Profile>
-            <Name>이XX</Name>
-            <a href="https://github.com/" target="blank">
-              <FontAwesomeIcon icon={faGithub} />
-            </a>
-          </Profile>
+          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
+            <Profile>
+              <Name>이XX</Name>
+              <a href="https://github.com/" target="blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </Profile>
+          </ProfileLi>
+          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
+            <Profile>
+              <Name>문XX</Name>
+              <a href="https://github.com/" target="blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </Profile>
+          </ProfileLi>
+          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
+            <Profile>
+              <Name>이XX</Name>
+              <a href="https://github.com/" target="blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </Profile>
+          </ProfileLi>
+          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
+            <Profile>
+              <Name>이XX</Name>
+              <a href="https://github.com/" target="blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </Profile>
+          </ProfileLi>
+          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
+            <Profile>
+              <Name>이XX</Name>
+              <a href="https://github.com/" target="blank">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+            </Profile>
+          </ProfileLi>
         </ProfileUl>
       </div>
     </>

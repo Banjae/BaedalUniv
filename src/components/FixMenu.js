@@ -11,28 +11,27 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
-const Fix = tw.div`
-  fixed
-  w-full
-  bg-white
-  border-t-2
-  center
-`;
-
-const FixUl = tw.ul`
-  flex
-  justify-around
-`;
-
-const FixLi = tw.li`
-  flex
-  flex-col
-  items-center
-  text-xl
-  m-1
-`;
-
 const Fixmenu = () => {
+  const Fix = tw.div`
+    fixed
+    w-full
+    bg-white
+    border-t-2
+    center
+  `;
+
+  const FixUl = tw.ul`
+    flex
+    justify-around
+  `;
+
+  const FixLi = tw.li`
+    flex
+    flex-col
+    items-center
+    text-xl
+    m-1
+  `;
   return (
     <>
       <Fix>

@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Header from "./pages/Header";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Shop from "./pages/shop/Shop";
@@ -11,8 +11,8 @@ import SIgnup from "./pages/SIgnup";
 import Mypage from "./pages/mypage/Mypage";
 import Order from "./pages/order/Order";
 import Cart from "./pages/Cart";
-import Footer from "./pages/Footer";
-import Fixmenu from "./pages/Fixmenu";
+import Footer from "./components/Footer";
+import Fixmenu from "./components/FixMenu";
 import NotFound from "./pages/NotFound";
 
 // tailwind-styled-component
