@@ -1,7 +1,7 @@
 import React from "react";
 
 const MypageSave = () => {
-  return <div>마이페이지안의 아낀배달비 페이지입니다.</div>;
+  return <div>지은님 화이팅.</div>;
 };
 
 export default MypageSave;
