@@ -38,7 +38,7 @@ const Name = tw.div`
 
 const About = () => {
   useEffect(() => {
-    AOS.init({ once: true });
+    AOS.init();
   });
 
   const navigate = useNavigate();
