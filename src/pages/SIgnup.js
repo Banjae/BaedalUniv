@@ -17,32 +17,45 @@ text-2xl
 text-slate-700
 `;
 
-
 const Bt = tw.div`
   flex
   justify-start
   m-3
   p-2
   border-2
+  rounded-lg
   border-gray-300
   h-12
   font-medium
   text-xl
+  bg-white
 `;
 
 const Check = tw.button`
 font-medium
 text-xs
-bg-zinc-400
+bg-gray-300
+border-2
+  rounded-lg
+  border-gray-300
+
 `;
 
 const Join = tw.button`
-w-full
-bg-zinc-400
+w-1/2
+px-8
+py-3
+bg-white
+border
+border-main
+rounded-lg
 text-base
+text-black
+text-2xl
 font-normal
-`
-
+mt-20
+mb-20
+`;
 
 const SIgnup = () => {
   const navigate = useNavigate();
@@ -89,58 +102,53 @@ const SIgnup = () => {
     }
   };
 
-//    // 3. 아이디, 닉네임, 이메일 검사요청
-//    if (!idCheck) {
-//     return alert("아이디 중복검사를 해주세요.");
-//   }
-//   if (!nickNameCheck) {
-//     return alert("닉네임 중복검사를 해주세요.");
-//   }
-//   if (!emailCheck) {
-//     return alert("이메일 중복검사를 해주세요.");
-//   }
+  //    // 3. 아이디, 닉네임, 이메일 검사요청
+  //    if (!idCheck) {
+  //     return alert("아이디 중복검사를 해주세요.");
+  //   }
+  //   if (!nickNameCheck) {
+  //     return alert("닉네임 중복검사를 해주세요.");
+  //   }
+  //   if (!emailCheck) {
+  //     return alert("이메일 중복검사를 해주세요.");
+  //   }
 
+  // // 2. 아이디,닉네임, 이메일 중복 검사
+  // const [idCheck, setIdCheck] = useState(false);
+  // const [nickNameCheck, setNickNameCheck] = useState(false);
+  // const [emailCheck, setEmailCheck] = useState(false);
 
+  //   const idCheckFn = (e) => {
+  //     e.preventDefault();
+  //     // 아이디가 입력되었는지 체크
+  //     if (!id) {
+  //       return alert("아이디를 입력해주세요");
+  //     }
 
-// // 2. 아이디,닉네임, 이메일 중복 검사
-// const [idCheck, setIdCheck] = useState(false);
-// const [nickNameCheck, setNickNameCheck] = useState(false);
-// const [emailCheck, setEmailCheck] = useState(false);
+  //   }
+  //   const nickNameCheckFn = (e) => {
+  //     e.preventDefault();
+  //     // 닉네임이 입력되었는지 체크
+  //     if (!nickName) {
+  //       return alert("닉네임을 입력해주세요");
+  //     }
+  //   }
+  //   const emailCheckFn = (e) => {
+  //     e.preventDefault();
+  //     // 닉네임이 입력되었는지 체크
+  //     if (!email) {
+  //       return alert("이메일을 입력해주세요");
+  //     }
+  //   }
 
-
-//   const idCheckFn = (e) => {
-//     e.preventDefault();
-//     // 아이디가 입력되었는지 체크
-//     if (!id) {
-//       return alert("아이디를 입력해주세요");
-//     }
-    
-//   }
-//   const nickNameCheckFn = (e) => {
-//     e.preventDefault();
-//     // 닉네임이 입력되었는지 체크
-//     if (!nickName) {
-//       return alert("닉네임을 입력해주세요");
-//     }
-//   }
-//   const emailCheckFn = (e) => {
-//     e.preventDefault();
-//     // 닉네임이 입력되었는지 체크
-//     if (!email) {
-//       return alert("이메일을 입력해주세요");
-//     }
-//   }
-
-  
-  
   return (
     <>
-      <div>
+      <Title className="flex flex-col items-center">
         <button onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faChevronLeft} />
+          회원가입
         </button>{" "}
-        회원가입
-      </div>
+      </Title>
 
       <div className="flex flex-col items-center">
         <div>
@@ -165,7 +173,7 @@ const SIgnup = () => {
               onChange={(e) => setId(e.target.value)}
               minLength={3}
             />
-            <Check >중복체크</Check>
+            <Check>중복체크</Check>
           </Bt>
 
           <Title>비밀번호</Title>
@@ -205,7 +213,7 @@ const SIgnup = () => {
               maxLength={10}
               minLength={2}
             />
-            <Check  >중복체크</Check>
+            <Check>중복체크</Check>
           </Bt>
 
           <Title>휴대폰 번호</Title>
@@ -252,19 +260,17 @@ const SIgnup = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="이메일을 입력해주세요"
             />
-            <Check  >중복체크</Check>
+            <Check>중복체크</Check>
           </Bt>
-
-          <Join
-            onClick={(e) => {
-              registFunc(e);
-            }}
-          >
-            가입하기
-          </Join>
         </div>
+        <Join
+          onClick={(e) => {
+            registFunc(e);
+          }}
+        >
+          가입하기
+        </Join>
       </div>
-
     </>
   );
 };
