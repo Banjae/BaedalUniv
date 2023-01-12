@@ -14,6 +14,7 @@ const LoadingSpinner = tw.div`
   z-10
   animate-slider
   items-center
+  text-main
 `;
 
 const Loading = () => {

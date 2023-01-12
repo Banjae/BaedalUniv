@@ -14,10 +14,11 @@ import tw from "tailwind-styled-components";
 const Fixmenu = () => {
   const Fix = tw.div`
     fixed
+    bottom-0
     w-full
     bg-white
-    border-t-2
     center
+    p-2
   `;
 
   const FixUl = tw.ul`
@@ -30,11 +31,11 @@ const Fixmenu = () => {
     flex-col
     items-center
     text-xl
-    m-1
+    text-main
   `;
   return (
     <>
-      <Fix>
+      <Fix className="bg-orange-50">
         <FixUl>
           <FixLi>
             <FontAwesomeIcon icon={faHouse} />

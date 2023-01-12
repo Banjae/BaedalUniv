@@ -14,6 +14,8 @@ const InputBt = tw.input`
   m-2 
 `;
 
+
+
 const SIgnup = () => {
   const navigate = useNavigate();
   return (

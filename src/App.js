@@ -20,9 +20,7 @@ import tw from "tailwind-styled-components";
 
 const Container = tw.div`
   p-6
-  m-4
-  text-center
-  border-2
+  bg-orange-50
 `;
 
 function App() {

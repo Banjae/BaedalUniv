@@ -6,7 +6,7 @@ import SearchBar from "../components/SearchBar";
 import Loading from "../components/Loading";
 
 // tailwind-styled-component
-// import tw from "tailwind-styled-components";
+import tw from "tailwind-styled-components";
 
 const Home = () => {
   return (

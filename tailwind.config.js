@@ -16,6 +16,12 @@ module.exports = {
       animation: {
         slider: "slider 5s linear infinite",
       },
+      fontFamily: {
+        baedal: "baedal",
+      },
+      colors: {
+        main: "#ff4713",
+      },
     },
     plugins: [],
   },

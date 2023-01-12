@@ -8,6 +8,8 @@ const SearchBar = () => {
     text-center
     bg-red-200
     text-zinc-300
+    h-12
+    w-2/4
   `;
 
   return (
