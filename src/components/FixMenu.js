@@ -19,6 +19,7 @@ const Fixmenu = () => {
     bg-white
     center
     p-2
+    bg-sub
   `;
 
   const FixUl = tw.ul`
@@ -35,7 +36,7 @@ const Fixmenu = () => {
   `;
   return (
     <>
-      <Fix className="bg-orange-50">
+      <Fix>
         <FixUl>
           <FixLi>
             <FontAwesomeIcon icon={faHouse} />

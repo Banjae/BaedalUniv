@@ -20,7 +20,7 @@ module.exports = {
         baedal: "baedal",
       },
       colors: {
-        main: "#FF4713",
+        main: "#ff4713",
         sub: "#F7F6F3",
       },
     },
