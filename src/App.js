@@ -14,6 +14,7 @@ import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
 import Fixmenu from "./components/FixMenu";
 import NotFound from "./pages/NotFound";
+import OrderLogin from "./pages/order/OrderLogin";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -38,6 +39,7 @@ function App() {
           <Route path="/Order" element={<Order />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/OrderLogin" element={<OrderLogin />} />
         </Routes>
       </Container>
       <Footer />

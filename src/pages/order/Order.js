@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { faCircleDot } from "@fortawesome/free-regular-svg-icons";
 // FontAwesome Icon 적용
 import tw from "tailwind-styled-components";
 
@@ -64,6 +63,9 @@ const Order = () => {
       <button onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
+
+      {/* 아래코드로 로그인 상태 구분해서 출력 */}
+      {/* {user.accessToken === "" ?():()} */}
       <div className="mb-10">
         <span className="block text-center mb-5 font-semibold text-2xl">
           주문하기
@@ -77,6 +79,7 @@ const Order = () => {
           </OrderLoginBt>
         </div>
       </div>
+
       <div className="flex justify-center">
         <div className="flex flex-col justify-start">
           <OrderTitle>주문자정보</OrderTitle>
@@ -132,6 +135,12 @@ const Order = () => {
               총 할인금액
             </span>
             <span className="ml-10 text-main">배달비 할인</span>
+          </div>
+          <div className="flex flex-row justify-end">
+            <span>결제금액원</span>
+          </div>
+          <div className="flex bg-blue-500 justify-center items-center w-25 h-16">
+            <span>원 결제하기</span>
           </div>
         </div>
       </div>
