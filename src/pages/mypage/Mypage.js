@@ -13,6 +13,8 @@ import tw from "tailwind-styled-components";
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import Modal from "./Modal";
+import ModalPw from "./ModalPw";
 
 const Title = tw.div`
 flex
@@ -56,7 +58,7 @@ const Mypage = () => {
   return (
     <>
       <div>
-        <Title className="flex justify-center mb-10">
+        <Title className="flex justify-center mb-20">
           <button onClick={() => navigate(-1)}>
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
@@ -66,34 +68,26 @@ const Mypage = () => {
         <div className="w-1/2 my-0 mx-auto ">
           <div className="flex justify-between mb-3">
             <Title>닉네임 님! 환영합니다.</Title>
-            <Bt>
-              <Link to="/Mypage/edit">닉네임 수정</Link>
-            </Bt>
+            <Modal title="000님의 닉네임 수정" name="닉네임"  />
           </div>
 
           <div className="flex justify-between mb-3">
             <Title>010-1234-5678</Title>
-            <Bt>
-              <Link to="/Mypage/edit">전화번호 수정</Link>
-            </Bt>
+            <Modal title="닉네임님의 전화번호 수정" name="전화번호" />
           </div>
 
           <div className="flex justify-between mb-3">
             <Title>xxxx@naver.com</Title>
-            <Bt>
-              <Link to="/Mypage/edit">이메일 수정</Link>
-            </Bt>
+            <Modal title="xxxx@naver.com" name="이메일" />
           </div>
 
           <div className="flex justify-end">
-            <Bt>
-              <Link to="/Mypage/edit">비밀번호 수정</Link>
-            </Bt>
+           <ModalPw title="000님의 비밀번호 수정" name="비밀번호"/>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-20">
         <Bt>
           <Link to="/Mypage/list">주문내역</Link>
         </Bt>

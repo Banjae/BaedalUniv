@@ -143,11 +143,11 @@ const SIgnup = () => {
 
   return (
     <>
-      <Title className="flex flex-col items-center">
+      <Title className="flex justify-center mb-10">
         <button onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faChevronLeft} />
-          회원가입
-        </button>{" "}
+         </button>
+         회원가입
       </Title>
 
       <div className="flex flex-col items-center">

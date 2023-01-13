@@ -76,11 +76,11 @@ const Login = () => {
 
   return (
     <>
-      <Title className="flex flex-col items-center mb-10">
+      <Title className="flex justify-center mb-10">
         <button onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
           로그인
-        </button>
       </Title>
 
       <div className="flex flex-col items-center">
