@@ -45,12 +45,12 @@ const Join = tw.button`
 w-1/2
 px-8
 py-3
-bg-white
+bg-main
 border
 border-main
 rounded-lg
 text-base
-text-black
+text-white
 text-2xl
 font-normal
 mt-20
@@ -143,11 +143,11 @@ const SIgnup = () => {
 
   return (
     <>
-      <Title className="flex flex-col items-center">
+      <Title className="flex justify-center mb-10">
         <button onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faChevronLeft} />
-          회원가입
-        </button>{" "}
+        </button>
+        회원가입
       </Title>
 
       <div className="flex flex-col items-center">
@@ -239,17 +239,18 @@ const SIgnup = () => {
           </Bt>
 
           {/* 서비스 이용장소 */}
-          {/* <Title for="pet-select">Choose a pet:</Title>
-
-<select name="pets" id="pet-select">
-<option value="">--Please choose an option--</option>
-<option value="dog">Dog</option>
-<option value="cat">Cat</option>
-<option value="hamster">Hamster</option>
-<option value="parrot">Parrot</option>
-<option value="spider">Spider</option>
-<option value="goldfish">Goldfish</option>
-</select> */}
+          <Title for="service-select">서비스 이용장소</Title>
+          <Bt>
+            <select name="" id="service-select">
+              <option value="">--Please choose an option--</option>
+              <option value="">00 대학</option>
+              <option value="">00 대학</option>
+              <option value="">00 대학</option>
+              <option value="">00 대학</option>
+              <option value="">00 대학</option>
+              <option value="">00 대학</option>
+            </select>
+          </Bt>
 
           <Title>이메일</Title>
           <Bt>
