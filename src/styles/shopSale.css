@@ -1,0 +1,40 @@
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.SaleSwiper {
+  font-size: 18px;
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.SaleSwiper img {
+  width: 100%;
+  height: 15vw;
+}
+
+.sale {
+  background-color: white;
+  height: 10%;
+  position: absolute;
+  top: 8%;
+  right: 0;
+  text-align: center;
+  width: 10%;
+  border-top: 3px solid #ff4713;
+  border-bottom: 3px solid #ff4713;
+  color: #ff4713;
+  font-size: 14px;
+  padding: 2px;
+}

@@ -1,0 +1,24 @@
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.BannerSwiper {
+  display: block;
+  border: 1px;
+}
+
+.BannerSwiper img {
+  height: 100%;
+  width: 100%;
+  display: block;
+}

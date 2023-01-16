@@ -8,37 +8,24 @@ body {
 }
 
 .swiper {
-  width: 80%;
+  width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
+.ListSwiper {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
   font-size: 18px;
   background: #d1d5db;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   padding: 10px;
-
-  /* Center slide text vertically */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
+  background: white;
 }
 
 .swiper-slide img {
   display: block;
-  width: 120px;
-  height: 70px;
+  width: 100%;
+  height: 60%;
   object-fit: cover;
 }

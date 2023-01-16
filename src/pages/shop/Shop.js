@@ -8,18 +8,25 @@ import ShopReview from "./ShopReview";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
+// 임시 이미지
+import food from "../../assets/food.jpg";
+import OrderTable from "../../components/OrderTable";
 
 const ShopUl = tw.ul`
   flex
   justify-center
   m-2
-`
+`;
 
 const Detail = () => {
   return (
     <>
-      <h2>상점 상세페이지 입니다.</h2>
-      <Link to="/order">주문하기</Link>
+      <div>
+        <div>
+          <img src={food} />
+        </div>
+      </div>
+      <OrderTable />
       <ShopUl>
         <li>
           <Link to="/shop/menu">메뉴</Link>
