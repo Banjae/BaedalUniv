@@ -11,6 +11,10 @@ import DetailStarRating from "./DetailStarRating";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
+// 임시 이미지
+import food from "../../assets/food.jpg";
+import OrderTable from "../../components/OrderTable";
+
 const ShopUl = tw.ul`
   flex
   justify-center
@@ -20,6 +24,11 @@ const ShopUl = tw.ul`
 const Detail = () => {
   return (
     <>
+      <div>
+        <div>
+          <img src={food} />
+        </div>
+      </div>
       <div className="flex-col text-center">
         <h2>한솥도시락</h2>
         <div className="flex justify-center items-center border border-t-0 py-5">
@@ -37,7 +46,10 @@ const Detail = () => {
         <div>사장님 한마디</div>
       </div>
 
-      <Link to="/order">주문하기</Link>
+      <Link to="/order">주문하기</Link>      
+      
+     <OrderTable />
+
       <ShopUl>
         <li>
           <Link to="/shop/menu">메뉴</Link>
