@@ -25,6 +25,7 @@ const Bt = tw.div`
   h-12
   font-medium
   text-xl
+  cursor-pointer
 `;
 
 const Check = tw.button`
@@ -55,14 +56,14 @@ const Modal = ({ title, name }) => {
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold mb-10">{title}</h3>
                   <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
                   >
-                    <button className="bg-transparent 
-                    text-slate-900   h-6 w-6 text-2xl block 
-                      z-10 ml-2">
+                    <span className="bg-transparent 
+                       h-6 w-6 text-2xl inline-block 
+                      z-10 ml-2 opacity-1">
                       ×
-                    </button>
+                    </span>
                     
                   </button>
                 </div>

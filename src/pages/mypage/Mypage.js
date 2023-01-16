@@ -23,6 +23,7 @@ ml-3
 font-semibold
 text-2xl
 text-slate-700
+
 `;
 
 const Bt = tw.div`
@@ -35,22 +36,24 @@ const Bt = tw.div`
   h-12
   font-medium
   text-xl
+  
 `;
 
 const Out = tw.button`
 w-1/2
 px-8
 py-3
-bg-white
+bg-main
 border
 border-main
 rounded-lg
 text-base
-text-black
+text-white
 text-2xl
 font-normal
 mt-20
 mb-20
+
 `;
 
 const Mypage = () => {
@@ -65,24 +68,24 @@ const Mypage = () => {
           마이페이지
         </Title>
 
-        <div className="w-1/2 my-0 mx-auto ">
-          <div className="flex justify-between mb-3">
+        <div className="w-1/2 my-0 mx-auto">
+          <div className="flex justify-between mb-3 items-center">
             <Title>닉네임 님! 환영합니다.</Title>
-            <Modal title="000님의 닉네임 수정" name="닉네임"  />
+            <Modal title="000님의 닉네임 수정" name="닉네임" />
           </div>
 
-          <div className="flex justify-between mb-3">
+          <div className="flex justify-between mb-3 items-center">
             <Title>010-1234-5678</Title>
             <Modal title="닉네임님의 전화번호 수정" name="전화번호" />
           </div>
 
-          <div className="flex justify-between mb-3">
+          <div className="flex justify-between mb-3 items-center">
             <Title>xxxx@naver.com</Title>
             <Modal title="xxxx@naver.com" name="이메일" />
           </div>
 
           <div className="flex justify-end">
-           <ModalPw title="000님의 비밀번호 수정" name="비밀번호"/>
+            <ModalPw title="000님의 비밀번호 수정" name="비밀번호" />
           </div>
         </div>
       </div>
