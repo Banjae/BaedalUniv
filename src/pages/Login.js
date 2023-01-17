@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { faChalkboardUser } from "@fortawesome/free-solid-svg-icons";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -36,12 +36,12 @@ const LoginBt = tw.button`
 w-1/2
 px-8
 py-3
-bg-white
+bg-main
 border
 border-main
 rounded-lg
 text-base
-text-black
+text-white
 text-2xl
 font-normal
 mt-20
@@ -76,11 +76,11 @@ const Login = () => {
 
   return (
     <>
-      <Title className="flex flex-col items-center mb-10">
+      <Title className="flex justify-center mb-10">
         <button onClick={() => navigate(-1)}>
           <FontAwesomeIcon icon={faChevronLeft} />
-          로그인
         </button>
+        로그인
       </Title>
 
       <div className="flex flex-col items-center">
@@ -106,13 +106,13 @@ const Login = () => {
       </div>
 
       <div className="flex flex-col items-center">
-      <LoginBt onClick={(e) => signInFunc(e)}>
+        <LoginBt onClick={(e) => signInFunc(e)}>
           <FontAwesomeIcon
-            icon={faChalkboardUser}
+            icon={faRightToBracket}
             style={{ marginRight: "20px" }}
           />
-         로그인
-          </LoginBt>
+          로그인
+        </LoginBt>
 
         <div>
           다양한 혜택을 위해

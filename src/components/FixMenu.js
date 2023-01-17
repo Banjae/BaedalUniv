@@ -20,6 +20,7 @@ const Fixmenu = () => {
     center
     p-2
     bg-sub
+    z-20
   `;
 
   const FixUl = tw.ul`
@@ -28,9 +29,6 @@ const Fixmenu = () => {
   `;
 
   const FixLi = tw.li`
-    flex
-    flex-col
-    items-center
     text-xl
     text-main
   `;
@@ -39,20 +37,28 @@ const Fixmenu = () => {
       <Fix>
         <FixUl>
           <FixLi>
-            <FontAwesomeIcon icon={faHouse} />
-            <Link to="/">Home</Link>
+            <Link to="/" className="flex flex-col">
+              <FontAwesomeIcon icon={faHouse} />
+              <span>Home</span>
+            </Link>
           </FixLi>
           <FixLi>
-            <FontAwesomeIcon icon={faUtensils} />
-            <Link to="/Shop">상점</Link>
+            <Link to="/Shop" className="flex flex-col">
+              <FontAwesomeIcon icon={faUtensils} />
+              <span>상점</span>
+            </Link>
           </FixLi>
           <FixLi>
-            <FontAwesomeIcon icon={faCartShopping} />
-            <Link to="/Cart">장바구니</Link>
+            <Link to="/Shop" className="flex flex-col">
+              <FontAwesomeIcon icon={faCartShopping} />
+              <span>장바구니</span>
+            </Link>
           </FixLi>
           <FixLi>
-            <FontAwesomeIcon icon={faUser} />
-            <Link to="/Mypage">마이페이지</Link>
+            <Link to="/Shop" className="flex flex-col">
+              <FontAwesomeIcon icon={faUser} />
+              <span>마이페이지</span>
+            </Link>
           </FixLi>
         </FixUl>
       </Fix>
