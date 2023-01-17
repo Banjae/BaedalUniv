@@ -1,11 +1,14 @@
 // shop Order
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 // FontAwesome Icon 적용
 import tw from "tailwind-styled-components";
+import Selectbox from "./Selectbox";
+import payco from "../../assets/Payco-4.png";
 
 const OrderLoginBt = tw.button`
 border-2
@@ -57,7 +60,7 @@ text-xl
 
 const Order = () => {
   const navigate = useNavigate();
-
+  const [showCate, setShowCate] = useState(false);
   return (
     <>
       <button onClick={() => navigate(-1)}>
@@ -96,7 +99,7 @@ const Order = () => {
             </select>
           </OrderDrop>
           <OrderText>수령장소</OrderText>
-          <OrderDrop>
+          <OrderDrop onClick={() => {}}>
             <select>
               <option>학사기숙사(A동)</option>
               <option>학사기숙사(B동)</option>
@@ -106,17 +109,17 @@ const Order = () => {
           </OrderDrop>
           <OrderTitle>결제수단</OrderTitle>
           <div className="flex flex-col justify-start ml-3">
-            <div className="mb-2">
-              <input type="checkbox" />
-              <span>카드결제</span>
+            <div>
+              <input type="radio" name="payment" />
+              <span className="ml-5">결제1</span>
             </div>
-            <div className="mb-2">
-              <input type="checkbox" />
-              <span className="mb-2">긱머니결제</span>
+            <div>
+              <input type="radio" name="payment" />
+              <span className="ml-5">결제2</span>
             </div>
-            <div className="mb-2">
-              <input type="checkbox" />
-              <span className="mb-2">PAYCO결제</span>
+            <div>
+              <input type="radio" name="payment" />
+              <span className="ml-5">결제3</span>
             </div>
           </div>
           <OrderTitle>결제정보</OrderTitle>
@@ -139,10 +142,73 @@ const Order = () => {
           <div className="flex flex-row justify-end">
             <span>결제금액원</span>
           </div>
-          <div className="flex bg-blue-500 justify-center items-center w-25 h-16">
+          <div className="flex bg-main justify-center items-center w-25 h-16 text-white">
             <span>원 결제하기</span>
           </div>
         </div>
+      </div>
+      <Selectbox />
+      <img src={payco} alt="페이코" className="font" />
+      <div></div>
+      <div className="order-info"></div>
+
+      <div className="receipt">
+        <h3>수령시간 / 장소</h3>
+        <div className="receipt-time"></div>
+        <div className="receipt-place"></div>
+      </div>
+
+      <div className="payment-method">
+        <h3>결제수단</h3>
+        <div>
+          <input type="radio" name="payment" />
+          <sapn>카드 결제</sapn>
+        </div>
+        <div>
+          <input type="radio" name="payment" />
+          <sapn>긱머니 결제</sapn>
+        </div>
+        <div>
+          <input type="radio" name="payment" />
+          <sapn>PAYCO 결제</sapn>
+        </div>
+      </div>
+
+      <div className="pay-info">
+        <h3>결제정보</h3>
+        <div>
+          <div className="menu-payment">
+            <span>상호명</span>
+            <div>
+              <div className="flex justify-between">
+                <span>역전돈까스</span>
+                <span>8,200</span>
+              </div>
+              <span>일회용나이프 [일회용 칼 줘]</span>
+            </div>
+          </div>
+
+          <div className="delivery-fee">
+            <div className="flex justify-between">
+              <span>배달비</span>
+              <span>3,800</span>
+            </div>
+            <div className="flex justify-between">
+              <span>총 할인금액</span>
+              <span>- 3,800</span>
+            </div>
+            <div className="flex justify-between">
+              <span>배달비 할인</span>
+              <span>- 3,800</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <span>결제금액 17,300원</span>
+        </div>
+      </div>
+      <div className="payment-box flex justify-center">
+        <span>17,300원 결제하기</span>
       </div>
     </>
   );

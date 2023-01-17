@@ -10,10 +10,10 @@ const OrderLogin = () => {
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
       <div className="flex justify-center items-center mb-5">
-        <span>록시갸토 첨단아크레타점</span>
+        <span className="font-semibold text-4xl">록시갸토 첨단아크레타점</span>
       </div>
       <div className="flex justify-center">
-        <div className="h-72 w-4/5 bg-slate-700"></div>
+        <div className="h-96 w-3/4 bg-orange-900"></div>
       </div>
       <div className="px-3">
         <div className="flex flex-col justify-start ml-20 mb-10">
@@ -60,8 +60,8 @@ const OrderLogin = () => {
         <span>line</span>
 
         <div className="">
-          <Link to="/cart"></Link>
-          <Link to="/order"></Link>
+          <Link to="/cart">장바구니</Link>
+          <Link to="/order">주문하기</Link>
         </div>
       </div>
     </>
