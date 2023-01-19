@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MypageEdit from "./MypageEdit";
 import MypageList from "./MypageList";
 import MypageQuit from "./MypageQuit";
-import MypageSave from "./MypageSave";
+import MypageSave from "./ModalSave";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Modal from "./Modal";
 import ModalPw from "./ModalPw";
+import ModalQuit from "./ModalQuit";
+import ModalSave from "./ModalSave";
 
 const Title = tw.div`
 flex
@@ -89,8 +91,7 @@ const Mypage = () => {
           </div>
         </div>
       </div>
-
-      <div className="flex justify-center mt-20">
+      {/* <div className="flex justify-center mt-20">
         <Bt>
           <Link to="/Mypage/list">주문내역</Link>
         </Bt>
@@ -107,11 +108,25 @@ const Mypage = () => {
         <Route path="list" element={<MypageList />} />
         <Route path="quit" element={<MypageQuit />} />
         <Route path="save" element={<MypageSave />} />
-      </Routes>
+      </Routes> */}
+
+
+      {/* 회원탈퇴 */}
+      <div className="flex justify-center">
+        <ModalQuit />
+      </div>
+
 
       <div className="flex justify-center">
-        <Out>회원탈퇴</Out>
-      </div>
+        <ModalSave />
+      </div>{" "}
+      <div className="flex justify-center">
+        <ModalQuit />
+      </div>{" "}
+
+
+
+
     </>
   );
 };
