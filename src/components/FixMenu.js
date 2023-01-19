@@ -12,26 +12,6 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 
 const Fixmenu = () => {
-  const Fix = tw.div`
-    fixed
-    bottom-0
-    w-full
-    bg-white
-    center
-    p-2
-    bg-sub
-    z-20
-  `;
-
-  const FixUl = tw.ul`
-    flex
-    justify-around
-  `;
-
-  const FixLi = tw.li`
-    text-xl
-    text-main
-  `;
   return (
     <>
       <Fix>
@@ -55,7 +35,7 @@ const Fixmenu = () => {
             </Link>
           </FixLi>
           <FixLi>
-            <Link to="/Shop" className="flex flex-col">
+            <Link to="/Mypage" className="flex flex-col">
               <FontAwesomeIcon icon={faUser} />
               <span>마이페이지</span>
             </Link>
@@ -65,5 +45,25 @@ const Fixmenu = () => {
     </>
   );
 };
+
+const Fix = tw.div`
+  fixed
+  bottom-0
+  w-full
+  bg-white
+  center
+  p-2
+  z-20
+  `;
+
+const FixUl = tw.ul`
+  flex
+  justify-around
+  `;
+
+const FixLi = tw.li`
+  text-xl
+  text-main
+`;
 
 export default Fixmenu;

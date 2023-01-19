@@ -11,8 +11,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 // 임시 이미지
 import food from "../assets/food.jpg";
+import { useNavigate } from "react-router";
 
 const ShopSale = () => {
+  const navigate = useNavigate();
+
+  const goToShop = () => {
+    navigate("/shop");
+  };
+
   return (
     <>
       <Swiper
@@ -21,7 +28,7 @@ const ShopSale = () => {
         freeMode={true}
         className="mySwiper"
       >
-        <SwiperSlide className="SaleSwiper">
+        <SwiperSlide className="SaleSwiper" onClick={goToShop}>
           <div className="sale">
             <span className="my-0 mx-auto">할인율</span>
           </div>
