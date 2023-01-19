@@ -16,11 +16,11 @@ import brand from "../assets/brand.jpg";
 const ShopList = () => {
   return (
     <>
-    <div className="flex justify-around">
-      <button>리뷰 많은 순</button>
-      <button>별점 많은 순</button>
-      <button>할인율 높은 순</button>
-    </div>
+      <div className="flex justify-around">
+        <button>리뷰 많은 순</button>
+        <button>별점 많은 순</button>
+        <button>할인율 높은 순</button>
+      </div>
       <Swiper
         slidesPerView={4}
         spaceBetween={30}
@@ -94,9 +94,5 @@ const ShopList = () => {
     </>
   );
 };
-
-const ListBt = tw.button`
-  border-
-`
 
 export default ShopList;

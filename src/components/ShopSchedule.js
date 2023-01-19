@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+import ShopList from "./ShopList";
 
 const ShopSchedule = () => {
-  const ShopArr = [
-    { title: "오늘1", content: false },
-    { title: "오늘2", content: false },
-    { title: "내일1", content: false },
-    { title: "내일2", content: true },
+  const shopArr = [
+    { title: "오늘 점심2", close: "몇시", pickup: "몇시" },
+    { title: "내일 점심1", close: "몇시", pickup: "몇시" },
+    { title: "오늘 점심1", close: "몇시", pickup: "몇시" },
+    { title: "내일 점심2", close: "몇시", pickup: "몇시" },
   ];
 
-  const [click, setClick] = useState(0);
+  const [click, setClick] = useState();
 
   const clickFunc = (index) => {
     setClick(index);
@@ -20,68 +21,53 @@ const ShopSchedule = () => {
   return (
     <>
       <div>
-        <ul className="flex justify-between">
-          {ShopArr.map((ele, index) => {
+        <div className="flex justify-between">
+          {shopArr.map((ele, index) => {
             return click === index ? (
-              <ScheBoxOn key={index} onClick={() => clickFunc(index)}>
-                {ele.title}
-              </ScheBoxOn>
+              <>
+                <ScheBoxOn key={index} onClick={() => clickFunc(index)}>
+                  <span>{ele.title}</span>
+                  <span>주문마감 {ele.close}</span>
+                  <span>배달 도착 {ele.pickup}</span>
+                </ScheBoxOn>
+              </>
             ) : (
-              <ScheBoxOff key={index} onClick={() => clickFunc(index)}>
-                {ele.title}
-              </ScheBoxOff>
+              <>
+                <ScheBoxOff key={index} onClick={() => clickFunc(index)}>
+                  <span>{ele.title}</span>
+                  <span>주문마감 {ele.close}</span>
+                  <span>배달 도착 {ele.pickup}</span>
+                </ScheBoxOff>
+              </>
             );
           })}
-          {/* <ScheBox onClick={clickFunc}>
-            <p>
-              오늘&nbsp;
-              <span className="font-bold">점심1</span>
-            </p>
-            <span>주문 ~11시 00분</span>
-            <span>도착 12시 10분</span>
-          </ScheBox>
-          <ScheBox onClick={clickFunc}>
-            <p>
-              오늘&nbsp;
-              <span className="font-bold">점심1</span>
-            </p>
-            <span>주문 ~11시 00분</span>
-            <span>도착 12시 10분</span>
-          </ScheBox>
-          <ScheBox onClick={setClick}>
-            <p>
-              오늘&nbsp;
-              <span className="font-bold">점심1</span>
-            </p>
-            <span>주문 ~11시 00분</span>
-            <span>도착 12시 10분</span>
-          </ScheBox>
-          <ScheBox onClick={setClick}>
-            <p>
-              오늘&nbsp;
-              <span className="font-bold">점심1</span>
-            </p>
-            <span>주문 ~11시 00분</span>
-            <span>도착 12시 10분</span>
-          </ScheBox> */}
-        </ul>
+        </div>
+        <ShopList />
       </div>
     </>
   );
 };
 
-const ScheBoxOn = tw.li`
+const ScheBoxOn = tw.div`
+  flex
+  flex-col
+  itmes-center
   rounded-lg
   bg-white
   border-2 
   border-main 
+  w-1/5
 `;
 
-const ScheBoxOff = tw.li`
+const ScheBoxOff = tw.div`
+  flex
+  flex-col
+  itmes-center
   rounded-lg
   bg-white
-  border 
+  border-2
   border-gray-300 
-`;
+  w-1/5
+  `;
 
 export default ShopSchedule;

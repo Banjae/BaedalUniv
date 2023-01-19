@@ -31,9 +31,9 @@ const Home = () => {
           <p>음식주문/ 도착 시간표</p>
           <ShopSchedule />
         </HomeBox>
-        <HomeBox>
+        {/* <HomeBox>
           <ShopList />
-        </HomeBox>
+        </HomeBox> */}
         <Banner />
       </HomeContainer>
     </>

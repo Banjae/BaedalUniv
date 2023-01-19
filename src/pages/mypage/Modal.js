@@ -4,8 +4,6 @@ import { useState } from "react";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
-
-
 const Title = tw.div`
 flex
 justify-start 
@@ -59,12 +57,13 @@ const Modal = ({ title, name }) => {
                     className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="bg-transparent 
-                       h-6 w-6 text-2xl inline-block 
-                      z-10 ml-2 opacity-1">
+                    <span
+                      className="bg-transparent 
+                      h-6 w-6 text-2xl inline-block 
+                      z-10 ml-2 opacity-1"
+                    >
                       ×
                     </span>
-                    
                   </button>
                 </div>
                 {/*body*/}

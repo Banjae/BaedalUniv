@@ -1,5 +1,5 @@
 // shop Detail page
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router";
 import { Link } from "react-router-dom";
 import ShopInfo from "./ShopInfo";
@@ -22,16 +22,22 @@ import tw from "tailwind-styled-components";
 import food from "../../assets/food.jpg";
 import OrderTable from "../../components/OrderTable";
 
-const ShopUl = tw.ul`
-  flex
-  justify-center
-  m-2
-`;
-
 const Detail = () => {
+  const detailArr = [
+    { title: "메뉴", link: "/shop/menu" },
+    { title: "정보", link: "/shop/info" },
+    { title: "리뷰", link: "/shop/review" },
+  ];
+
+  const [click, setClick] = useState();
+
+  const shopClickFunc = (index) => {
+    setClick(index);
+  };
+
   return (
     <>
-      <div>
+      <ShopContainer>
         <div>
           <img src={food} alt="img" className="w-10 h-10" />
         </div>
@@ -95,21 +101,65 @@ const Detail = () => {
       <ShopUl className="flex justify-center gap-36">
         <li>
           <Link to="/shop/menu">메뉴</Link>
+
         </li>
         <li>
-          <Link to="/shop/review">리뷰</Link>
+          <Link to="/shop/review" onClick={shopClickFunc}>
+            리뷰
+          </Link>
         </li>
         <li>
-          <Link to="/shop/info">정보</Link>
-        </li>
-      </ShopUl>
-      <Routes>
-        <Route path="info" element={<ShopInfo />} />
-        <Route path="menu" element={<ShopMenu />} />
-        <Route path="review" element={<ShopReview />} />
-      </Routes>
+          <Link to="/shop/info" onClick={shopClickFunc}>
+            정보
+          </Link>
+        </li> */}
+        <div className="bg-white flex justify-center w-full">
+          <Routes>
+            <Route path="info" element={<ShopInfo />} />
+            <Route path="menu" element={<ShopMenu />} />
+            <Route path="review" element={<ShopReview />} />
+          </Routes>
+        </div>
+      </ShopContainer>
     </>
   );
 };
+
+const ShopContainer = tw.div`
+  w-4/5
+  my-0
+  mx-auto
+`;
+
+const ShopUl = tw.div`
+  flex
+  justify-around
+  items-center
+  mt-3  
+`;
+
+const OnBox = tw.div`
+  w-1/3
+  h-10
+  flex
+  justify-center
+  items-center  
+  border-t-2
+  border-t-main
+  border-b-2
+  border-b-white 
+  bg-white
+`;
+
+const OffBox = tw.div`
+  w-1/3
+  h-10
+  flex
+  justify-center
+  items-center
+  border-t-2
+  border-white
+  bg-white
+`;
 
 export default Detail;

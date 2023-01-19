@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,30 +8,11 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 
 const SearchBar = () => {
-  const Home = tw.input`
-    text-center
-    text-black
-    h-10
-    w-2/4
-    bg-white 
-    border 
-    border-gray-300 
-    rounded-lg 
-    shadow-sm 
-    placeholder:text-gray-300 
-    focus:outline-none 
-    focus:border-main 
-    focus:ring-1 
-    focus:ring-main
-    m-2
-    `;
-
-  const SerchImg = tw.div`
-    absolute
-    left-[26%]
-    top-[27%]
-    text-gray-300
-    `;
+  const [seacrh, setSearch] = useState("");
+  const onChange = (e) => {
+    setSearch(e.target.value);
+  };
+  console.log(seacrh);
 
   return (
     <>
@@ -39,10 +20,40 @@ const SearchBar = () => {
         <SerchImg>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </SerchImg>
-        <Home type="text" placeholder="학교명을 입력해주세요" />
+        <Home
+          type="text"
+          placeholder="학교명을 입력해주세요"
+          value={seacrh}
+          onChange={onChange}
+        />
       </div>
     </>
   );
 };
+
+const Home = tw.input`
+text-center
+text-black
+h-10
+w-2/4
+bg-white 
+border 
+border-gray-300 
+rounded-lg 
+shadow-sm 
+placeholder:text-gray-300 
+focus:outline-none 
+focus:border-main 
+focus:ring-1 
+focus:ring-main
+m-2
+`;
+
+const SerchImg = tw.div`
+absolute
+left-[26%]
+top-[27%]
+text-gray-300
+`;
 
 export default SearchBar;
