@@ -45,7 +45,7 @@ const Order = () => {
       </button>
 
       <div className="order mb-10">
-        <div className="text-center mb-5 font-semibold text-2xl">주문하기</div>
+        <p className="text-center mb-5 font-semibold text-2xl">주문하기</p>
         <span className="block text-center mb-5">
           앗! 비로그인 주문시 적립,할인 등이 불가해요
         </span>
