@@ -51,13 +51,13 @@ const ModalSave = () => {
       <Bt onClick={() => setShowModal(true)}>아낀 배달비</Bt>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className=" flex justify-center items-center  overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className="relative flex flex-col  items-center w-full border-0 rounded-lg shadow-lg bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-center p-5 border-b border-solid border-slate-200 rounded-t ">
-                  <h2 className=" text-xl font-semibold mb-2 ">
+                <div className="flex items-center">
+                  <h2 className=" text-xl font-semibold m-10">
                     내가 아낀 배달비 조회
                   </h2>
                   <button
@@ -66,24 +66,43 @@ const ModalSave = () => {
                   >
                     <span
                       className="bg-transparent 
-                         h-6 w-6 text-2xl inline-block 
-                        z-10 ml-2 opacity-1"
+                         h-6 w-6 text-2xl  
+                        z-10 opacity-1"
                     >
                       ×
                     </span>
                   </button>
                 </div>
                 {/*body*/}
-                <div>닉네임 님이 지금까지 '배달대'로 아낀 배달비는?</div>
-                <div>총0원</div>
+                <div className="mb-12 px-10 py-3 border-2 border-red-400  rounded-2xl">
+                  <div className="mb-2">
+                    <span className="text-xl font-extrabold">닉네임</span> 님이
+                    지금까지
+                    <br />
+                  </div>
+                  <div className="pl-10">
+                    <span className="text-xl font-extrabold">'배달대'</span>로
+                    아낀 배달비는?
+                  </div>
+                </div>
+                <div className="border-b-4  border-orange-600">
+                  총 <span className="text-3xl font-extrabold ">0원</span>
+                </div>
                 {/*footer*/}
-                <div className="flex items-center justify-center border-2 mt-10 ">
-                  <div>
-                    <div>배달대에서 주문해야하는 이유! 요기있네?</div>
+                <div className="text-center mt-10 p-10  ">
+                  <div className="border-2 p-2">
+                    <div className="border-2 p-2 bg-main text-white">
+                      배달대에서 주문해야하는 이유! 요기있네?
+                    </div>
                     <div>
-                      {`해당 금액은 닉네임 회원님이 배달비 0원 '배달대' 주문으로
-                      아낀 배달비입니다. (각 상점별 주문건수 x 타 앱 평균배달비
-                      3,000원)`}
+                      해당 금액은{" "}
+                      <span className="text-xl font-extrabold">닉네임</span>{" "}
+                      회원님이
+                      <br />
+                      배달비 0원
+                      <span className="text-xl font-extrabold">'배달대'</span>
+                      주문으로 아낀 배달비입니다. <br />
+                      (각 상점별 주문건수 x 타 앱 평균배달비 3,000원)
                     </div>
                   </div>
                 </div>

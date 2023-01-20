@@ -111,7 +111,7 @@ const Mypage = () => {
         <Route path="save" element={<MypageSave />} />
       </Routes> */}
 
-      <div className="flex justify-center">
+      <div className="flex justify-center"> 
         <ModalSave />
         <div className="flex justify-center">
           <ModalList />

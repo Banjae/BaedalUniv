@@ -71,6 +71,22 @@ const Login = () => {
     if (!pw) {
       return alert("비밀번호를 입력하세요.");
     }
+
+    let body = {
+      ciId: id,
+      ciPwd: pw,
+    };
+    axios
+      .post("http://192.168.0.56:8888/member/login", body)
+      .then((res) => {
+        console.log(res.data);
+        alert(res.data.message);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.response);
+        alert(err.response.data.message);
+      });
   };
 
   const navigate = useNavigate();

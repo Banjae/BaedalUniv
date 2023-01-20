@@ -1,5 +1,5 @@
 // Signup page
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // FontAwesome Icon 적용
@@ -82,7 +82,7 @@ const SIgnup = () => {
     if (!pw) {
       return alert("비밀번호를 입력하세요");
     } else if (pw.length < 8) {
-      alert("8자 이상 쓰래이");
+      alert("비밀번호는 8자 이상 쓰래이");
     }
 
     if (!pwCheck) {
@@ -123,13 +123,17 @@ const SIgnup = () => {
       ciBirthday: birth,
       ciUiSeq: 1,
     };
+
     axios
       .post("http://192.168.0.56:8888/member/join", body)
       .then((res) => {
         console.log(res.data);
+        alert(res.data.message);
+        navigate("/Login");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
+        alert(err.response.data.message);
       });
   };
 
@@ -202,7 +206,7 @@ const SIgnup = () => {
               minLength={3}
             />
             <Check>중복체크</Check>
-              {/* 2. 아이디 중복검사
+            {/* 2. 아이디 중복검사
             <Check onClick={(e) => idCheckFn(e)}> 중복체크</Check> */}
           </Bt>
 

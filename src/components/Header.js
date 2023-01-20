@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 
 const Header = () => {
+
   const userinfo = "";
 
   const HeadContainer = tw.div`
@@ -77,7 +78,7 @@ const Header = () => {
         ) : (
           <ul className="flex justify-end space-x-3 p-4">
             <LogBt>
-              <button>로그아웃</button>
+              <button >로그아웃</button>
             </LogBt>
             <SignBt>
               <Link to="/Mypage">마이페이지</Link>
