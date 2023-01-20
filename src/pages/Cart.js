@@ -1,47 +1,48 @@
 // my Cart page
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+// import axios from "axios";
 // tailwind-styled-component
 // import tw from "tailwind-styled-components";
 
 const Cart = () => {
+  const [listData, setListData] = useState([]);
+  const clear = (e) => {};
+  // const deleteAllClick = () => {
+  //   if (window.confirm("정말 삭제하시겠습니까?")) {
+  //     // axios 를 이용하여 MongoDB 목록을 비워줌
+  //     // axios
+  //     //   .post("/api/post/deleteall")
+  //     //   .then(() => {
+  //     //     setSkip(0);
+  //     //     setTodoData([]);
+  //     //   })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  //   // localStorage.clear();
+  // };
   return (
     <>
-      <div>
-        <p className="text-center mb-5 font-semibold text-2xl">장바구니</p>
-        <p>굽네치킨 & 피자 매호점</p>
-        <p>New 남해마늘바사삭</p>
-        <div className="flex flex-row">
-          <div className="w-20 h-20 bg-main"></div>
-          <div className="flex flex-col ml-2">
-            <p>가격 : 19,000원</p>
-            {/* 옵션 */}
-            <p>부위 선택 (고바삭/마바삭) : 한마리</p>
-            <p>19,000 원</p>
-          </div>
+      <div className="flex border">
+        <div
+          className="w-24 h-24 bg-main rounded"></div>
+        <button>x</button>
+        <div className="flex flex-col">
+          <p>[반반도시락] 2가지 맛 선택 2가지 선택</p>
         </div>
-        {/* <button onClick={}>-</button>
-        count
-        <button onClick={}>+</button> */}
-        <div className="">
-          <div className="">
-            <p>배달비</p>
-            <p>0원</p>
-          </div>
-          <div className="">
-            <p>총 주문금액</p>
-            <p>0원</p>
-          </div>
-          <div className="">
-            <p>수령장소 :</p>
-            <p>00대학교 00건물</p>
-          </div>
+      </div>
+
+      <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center bg-white text-white w-52 h-10 mt-10 text-black border rounded">
+          <p>합계 원</p>
         </div>
         <Link
           to="/Order"
-          className="payment-box flex justify-center items-center bg-main text-white w-52 h-10 mt-10"
+          className="flex justify-center items-center bg-main text-white w-52 h-10 mt-10"
         >
-          <span>19,000원 주문하기</span>
+          <p>주문하기(개)</p>
         </Link>
       </div>
     </>
