@@ -3,7 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import MypageEdit from "./MypageEdit";
-import MypageList from "./MypageList";
+import MypageList from "./ModalList";
 import MypageQuit from "./MypageQuit";
 import MypageSave from "./ModalSave";
 
@@ -17,6 +17,7 @@ import Modal from "./Modal";
 import ModalPw from "./ModalPw";
 import ModalQuit from "./ModalQuit";
 import ModalSave from "./ModalSave";
+import ModalList from "./ModalList";
 
 const Title = tw.div`
 flex
@@ -110,23 +111,17 @@ const Mypage = () => {
         <Route path="save" element={<MypageSave />} />
       </Routes> */}
 
+      <div className="flex justify-center">
+        <ModalSave />
+        <div className="flex justify-center">
+          <ModalList />
+        </div>
+      </div>
 
       {/* 회원탈퇴 */}
       <div className="flex justify-center">
         <ModalQuit />
       </div>
-
-
-      <div className="flex justify-center">
-        <ModalSave />
-      </div>{" "}
-      <div className="flex justify-center">
-        <ModalQuit />
-      </div>{" "}
-
-
-
-
     </>
   );
 };

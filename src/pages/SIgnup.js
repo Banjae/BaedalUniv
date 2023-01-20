@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+import axios from "axios";
 
 const Title = tw.div`
 flex
@@ -80,14 +81,19 @@ const SIgnup = () => {
     }
     if (!pw) {
       return alert("비밀번호를 입력하세요");
+    } else if (pw.length < 8) {
+      alert("8자 이상 쓰래이");
     }
+
     if (!pwCheck) {
       return alert(" 비밀번호 확인을 입력하세요");
     }
+
     // 비밀번호가 같은지 비교처리
     if (pw !== pwCheck) {
       return alert("비밀번호는 같아야 합니다.");
     }
+
     if (!nickName) {
       return alert(" 닉네임을 입력하세요");
     }
@@ -100,46 +106,68 @@ const SIgnup = () => {
     if (!email) {
       return alert(" 이메일을 입력하세요");
     }
+
+    // 1. 아이디 검사요청
+    // if (!idCheck) {
+    //   return alert("아이디 중복검사를 해주세요.");
+    // }
+
+    let body = {
+      ciId: id,
+      ciPwd: pw,
+      ciCheckPwd: pwCheck,
+      ciName: name,
+      ciNickName: nickName,
+      ciEmail: email,
+      ciPhone: phoneNum,
+      ciBirthday: birth,
+      ciUiSeq: 1,
+    };
+    axios
+      .post("http://192.168.0.56:8888/member/join", body)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  //    // 3. 아이디, 닉네임, 이메일 검사요청
-  //    if (!idCheck) {
-  //     return alert("아이디 중복검사를 해주세요.");
-  //   }
-  //   if (!nickNameCheck) {
-  //     return alert("닉네임 중복검사를 해주세요.");
-  //   }
-  //   if (!emailCheck) {
-  //     return alert("이메일 중복검사를 해주세요.");
-  //   }
-
-  // // 2. 아이디,닉네임, 이메일 중복 검사
+  // 2. 아이디 중복검사
   // const [idCheck, setIdCheck] = useState(false);
-  // const [nickNameCheck, setNickNameCheck] = useState(false);
-  // const [emailCheck, setEmailCheck] = useState(false);
 
-  //   const idCheckFn = (e) => {
-  //     e.preventDefault();
-  //     // 아이디가 입력되었는지 체크
-  //     if (!id) {
-  //       return alert("아이디를 입력해주세요");
-  //     }
+  // const idCheckFn = (e) => {
+  //   e.preventDefault();
+  //   // 아이디 입력되었는지 체크
+  //   if (!id) {
+  //     return alert("아이디를 입력해주세요");
+  //   }
 
-  //   }
-  //   const nickNameCheckFn = (e) => {
-  //     e.preventDefault();
-  //     // 닉네임이 입력되었는지 체크
-  //     if (!nickName) {
-  //       return alert("닉네임을 입력해주세요");
-  //     }
-  //   }
-  //   const emailCheckFn = (e) => {
-  //     e.preventDefault();
-  //     // 닉네임이 입력되었는지 체크
-  //     if (!email) {
-  //       return alert("이메일을 입력해주세요");
-  //     }
-  //   }
+  //   // 아이디 존재 여부 파악
+  //   const body = {
+  //     ciId: id,
+  //   };
+  //   axios
+  //     .post("http://192.168.0.56:8888/member/join", body)
+  //     .then((response) => {
+  //       // 서버에서 정상적 처리 완료
+  //       if (response.data.success) {
+  //         if (response.data.check) {
+  //           // 등록가능
+  //           // 사용자 중복체크 완료
+  //           setIdCheck(true);
+  //           alert("등록이 가능합니다.");
+  //         } else {
+  //           // 등록 불가능
+  //           setIdCheck(false);
+  //           alert("이미 등록된 닉네임 입니다.");
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <>
@@ -174,6 +202,8 @@ const SIgnup = () => {
               minLength={3}
             />
             <Check>중복체크</Check>
+              {/* 2. 아이디 중복검사
+            <Check onClick={(e) => idCheckFn(e)}> 중복체크</Check> */}
           </Bt>
 
           <Title>비밀번호</Title>

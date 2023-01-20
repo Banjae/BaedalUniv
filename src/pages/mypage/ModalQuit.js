@@ -32,6 +32,8 @@ mb-20
 
 `;
 
+
+
 const ModalQuit = () => {
   const [showModal, setShowModal] = React.useState(false);
 
