@@ -61,7 +61,6 @@ const OrderTable = () => {
 };
 
 const Table = tw.div`
-  fixed
   top-44
   right-20
   w-72

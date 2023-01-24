@@ -5,24 +5,23 @@ import styled from "styled-components";
 const DetailStarRating = ({ starRatio }) => {
   return (
     <div className="relative">
-      <div className="flex w-[70px]">
-        <ImStarFull color="gray" size="14px" />
-        <ImStarFull color="gray" size="14px" />
-        <ImStarFull color="gray" size="14px" />
-        <ImStarFull color="gray" size="14px" />
-        <ImStarFull color="gray" size="14px" />
+      <div className="flex w-[100px]">
+        <ImStarFull color="gray" size="20px" />
+        <ImStarFull color="gray" size="20px" />
+        <ImStarFull color="gray" size="20px" />
+        <ImStarFull color="gray" size="20px" />
+        <ImStarFull color="gray" size="20px" />
       </div>
-      <StarWrap width={starRatio ? (starRatio * 70) / 5 : "70px"}>
-        <div className="flex w-[70px]">
-          <ImStarFull color="#FFA400" size="14px" />
-          <ImStarFull color="#FFA400" size="14px" />
-          <ImStarFull color="#FFA400" size="14px" />
-          <ImStarFull color="#FFA400" size="14px" />
-          <ImStarFull color="#FFA400" size="14px" />
+      <StarWrap width={(starRatio * 100) / 5}>
+        <div className="flex w-[100px]">
+          <ImStarFull color="#FFA400" size="20px" />
+          <ImStarFull color="#FFA400" size="20px" />
+          <ImStarFull color="#FFA400" size="20px" />
+          <ImStarFull color="#FFA400" size="20px" />
+          <ImStarFull color="#FFA400" size="20px" />
         </div>
       </StarWrap>
     </div>
-    // </div>
   );
 };
 const StarWrap = styled.div`
