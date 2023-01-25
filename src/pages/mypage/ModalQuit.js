@@ -6,12 +6,13 @@ import React from "react";
 import tw from "tailwind-styled-components";
 
 const Title = tw.div`
+
 flex
-justify-start 
-ml-3
+justify-start
+mx-3
 font-semibold
-text-2xl
-text-slate-700
+text-lg
+text-slate-600
 `;
 
 const Out = tw.button`
@@ -27,12 +28,10 @@ text-base
 text-white
 text-2xl
 font-normal
-mt-20
-mb-20
+my-5
+
 
 `;
-
-
 
 const ModalQuit = () => {
   const [showModal, setShowModal] = React.useState(false);
@@ -42,13 +41,16 @@ const ModalQuit = () => {
       <Out onClick={() => setShowModal(true)}>회원탈퇴</Out>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div
+            className=" justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            
+          >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-center p-5 border-b border-solid border-slate-200 rounded-t ">
-                  <h2 className="text-3xl font-semibold mb-2 ">
+                  <h2 className="text-3xl font-semibold mb-2 pl-4 ">
                     탈퇴전, 꼭 확인해주세요!!!
                   </h2>
                   <button
@@ -65,7 +67,7 @@ const ModalQuit = () => {
                   </button>
                 </div>
                 {/*body*/}
-                <Title className="leading-relaxed" style={{ margin: "30px" }}>
+                <Title className=" " style={{ margin: "30px", width: "400px"  }}>
                   - 탈퇴 후 재가입하더라도 이전 회원정보, 주문정보 및 등은
                   복구되지 않음
                   <br />
@@ -86,12 +88,45 @@ const ModalQuit = () => {
                 </Title>
 
                 {/*footer*/}
-                <div className="flex items-center justify-center border-t mt-10 ">
+                <div
+                  className="flex items-center 
+                justify-center 
+                border-t  "
+                >
                   <Out
                     className=""
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
+                    {/* 
+// 회원 탈퇴
+  const registOutFunc = (e) => {
+    e.preventDefault();
+   
+        axios
+          .post("/api/post/delete", body)
+          .then((response) => {
+            if (response.data.message) {
+              alert("회원 탈퇴하였습니다.");
+
+              // 회원정보 삭제 성공
+              dispatch(clearUser());
+              navigate("/login");
+            } else {
+              // 회원정보 삭제 실패
+              console.log("회원정보 삭제 실패시에는 다시 저장을 도전한다.");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  }; */}
                     탈퇴하기
                   </Out>
                 </div>

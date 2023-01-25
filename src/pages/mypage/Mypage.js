@@ -75,7 +75,7 @@ const Mypage = () => {
           <div className="flex justify-between mb-3 items-center">
             <Title>닉네임 님! 환영합니다.</Title>
             <Modal title="000님의 닉네임 수정" name="닉네임" />
-          </div>
+           </div>
 
           <div className="flex justify-between mb-3 items-center">
             <Title>010-1234-5678</Title>
@@ -112,7 +112,8 @@ const Mypage = () => {
       </Routes> */}
 
       <div className="flex justify-center"> 
-        <ModalSave />
+        <ModalSave name="닉네임" />
+        {/* signup에서 부여한 닉네임 코드랑 연동해야 함. */}
         <div className="flex justify-center">
           <ModalList />
         </div>

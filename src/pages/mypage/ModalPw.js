@@ -26,6 +26,7 @@ const Bt = tw.div`
   font-medium
   text-xl
   cursor-pointer
+  rounded-lg
 `;
 
 const Check = tw.button`

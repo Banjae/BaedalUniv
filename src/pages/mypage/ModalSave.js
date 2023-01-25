@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -40,11 +40,13 @@ const Bt = tw.div`
   h-12
   font-medium
   text-xl
-  
+  cursor-pointer
+  rounded-lg
 `;
 
-const ModalSave = () => {
+const ModalSave = ({ name }) => {
   const [showModal, setShowModal] = React.useState(false);
+  const [nickName, setNickName] = useState("");
 
   return (
     <>
@@ -61,7 +63,7 @@ const ModalSave = () => {
                     내가 아낀 배달비 조회
                   </h2>
                   <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    className="bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
                   >
                     <span
@@ -75,8 +77,12 @@ const ModalSave = () => {
                 </div>
                 {/*body*/}
                 <div className="mb-12 px-10 py-3 border-2 border-red-400  rounded-2xl">
-                  <div className="mb-2">
-                    <span className="text-xl font-extrabold">닉네임</span> 님이
+                  <div
+                    className="mb-2"
+                    value={nickName}
+                    onChange={(e) => setNickName(e.target.value)}
+                  >
+                    <span className="text-xl font-extrabold">{name}</span> 님이
                     지금까지
                     <br />
                   </div>
@@ -90,13 +96,13 @@ const ModalSave = () => {
                 </div>
                 {/*footer*/}
                 <div className="text-center mt-10 p-10  ">
-                  <div className="border-2 p-2">
-                    <div className="border-2 p-2 bg-main text-white">
+                  <div className="border-2 p-4 rounded-md">
+                    <div className="border-2 p-2 rounded-md bg-main text-white">
                       배달대에서 주문해야하는 이유! 요기있네?
                     </div>
                     <div>
                       해당 금액은{" "}
-                      <span className="text-xl font-extrabold">닉네임</span>{" "}
+                      <span className="text-xl font-extrabold">{name}</span>{" "}
                       회원님이
                       <br />
                       배달비 0원
