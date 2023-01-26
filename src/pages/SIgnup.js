@@ -102,6 +102,13 @@ const SIgnup = () => {
     }
   };
 
+  const autoHypen = (target) => {
+    target = target
+      .replace(/[^0-9]/g, "")
+      .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+    setPhoneNum(target);
+  };
+
   //    // 3. 아이디, 닉네임, 이메일 검사요청
   //    if (!idCheck) {
   //     return alert("아이디 중복검사를 해주세요.");
@@ -162,7 +169,6 @@ const SIgnup = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </Bt>
-
           <Title>아이디</Title>
           <Bt>
             <input
@@ -175,7 +181,6 @@ const SIgnup = () => {
             />
             <Check>중복체크</Check>
           </Bt>
-
           <Title>비밀번호</Title>
           <Bt>
             <input
@@ -188,7 +193,6 @@ const SIgnup = () => {
               placeholder="비밀번호를 입력해주세요"
             />
           </Bt>
-
           <Title>비밀번호 확인</Title>
           <Bt>
             <input
@@ -201,7 +205,6 @@ const SIgnup = () => {
               placeholder="비밀번호를 확인해주세요"
             />
           </Bt>
-
           <Title>닉네임</Title>
           <Bt>
             <input
@@ -215,18 +218,18 @@ const SIgnup = () => {
             />
             <Check>중복체크</Check>
           </Bt>
-
           <Title>휴대폰 번호</Title>
           <Bt>
             <input
               type="tell"
               required
               value={phoneNum}
-              onChange={(e) => setPhoneNum(e.target.value)}
+              onChange={(e) => autoHypen(e.target.value)}
+              maxLength={13}
+              // onInput={autoHypen}
               placeholder="휴대폰 번호를 입력해주세요"
             />
           </Bt>
-
           <Title>생년월일</Title>
           <Bt>
             <input
@@ -237,7 +240,6 @@ const SIgnup = () => {
               placeholder="생년월일을 입력해주세요"
             />
           </Bt>
-
           {/* 서비스 이용장소 */}
           <Title for="service-select">서비스 이용장소</Title>
           <Bt>
@@ -251,7 +253,6 @@ const SIgnup = () => {
               <option value="">00 대학</option>
             </select>
           </Bt>
-
           <Title>이메일</Title>
           <Bt>
             <input

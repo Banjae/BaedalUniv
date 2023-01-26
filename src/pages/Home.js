@@ -21,19 +21,6 @@ const Home = () => {
         <HomeBox>
           <SearchBar />
         </HomeBox>
-        <HomeBox>
-          <p>할인전</p>
-          <div>
-            <ShopSale />
-          </div>
-        </HomeBox>
-        <HomeBox>
-          <p>음식주문/ 도착 시간표</p>
-          <ShopSchedule />
-        </HomeBox>
-        {/* <HomeBox>
-          <ShopList />
-        </HomeBox> */}
         <Banner />
       </HomeContainer>
     </>
@@ -47,7 +34,7 @@ const HomeContainer = tw.div`
   mx-auto
 `;
 const HomeTitle = tw.div`
-  text-xl
+  text-2xl
 `;
 const HomeBox = tw.div`
   m-5

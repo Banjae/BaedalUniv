@@ -1,18 +1,33 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+import instance from "../api/axios";
+import request from "../api/requset";
 import ShopList from "./ShopList";
 
-const ShopSchedule = () => {
-  const shopArr = [
-    { title: "오늘 점심2", close: "몇시", pickup: "몇시" },
-    { title: "내일 점심1", close: "몇시", pickup: "몇시" },
-    { title: "오늘 점심1", close: "몇시", pickup: "몇시" },
-    { title: "내일 점심2", close: "몇시", pickup: "몇시" },
-  ];
+const ShopSchedule = ({ uiSeq }) => {
+  const [shopArr, setShopArr] = useState([]);
+  const [utiSeq, setUtiSeq] = useState();
+  const [time, setTime] = useState();
 
   const [click, setClick] = useState();
+
+  const fetchData = async () => {
+    axios
+      .get("http://192.168.0.56:8888/list/deliverytime?uiSeq=" + uiSeq)
+      .then((res) => {
+        setShopArr(res.data.list);
+        // console.log(res.data.list);
+      });
+  };
+
+  // console.log(shopArr[0]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const clickFunc = (index) => {
     setClick(index);
@@ -20,23 +35,25 @@ const ShopSchedule = () => {
 
   return (
     <>
+      <p>음식주문 / 도착 시간표</p>
       <div>
         <div className="flex justify-between">
           {shopArr.map((ele, index) => {
+            console.log(ele.utiName);
             return click === index ? (
               <>
                 <ScheBoxOn key={index} onClick={() => clickFunc(index)}>
-                  <span>{ele.title}</span>
-                  <span>주문마감 {ele.close}</span>
-                  <span>배달 도착 {ele.pickup}</span>
+                  <span>{ele.utiName}</span>
+                  <span>주문마감 {ele.utiCloseTime}</span>
+                  <span>배달 도착 {ele.utiDeliveryTime}</span>
                 </ScheBoxOn>
               </>
             ) : (
               <>
                 <ScheBoxOff key={index} onClick={() => clickFunc(index)}>
-                  <span>{ele.title}</span>
-                  <span>주문마감 {ele.close}</span>
-                  <span>배달 도착 {ele.pickup}</span>
+                  <span>{ele.utiName}</span>
+                  <span>주문마감 {ele.utiCloseTime}</span>
+                  <span>배달 도착 {ele.utiDeliveryTime}</span>
                 </ScheBoxOff>
               </>
             );

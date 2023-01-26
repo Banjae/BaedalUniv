@@ -19,11 +19,6 @@ import OrderLogin from "./pages/order/OrderLogin";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
-const Container = tw.div`
-  p-10
-  bg-sub
-  `;
-
 function App() {
   return (
     <Router>
@@ -47,5 +42,10 @@ function App() {
     </Router>
   );
 }
+
+const Container = tw.div`
+  p-10
+  bg-sub
+  `;
 
 export default App;

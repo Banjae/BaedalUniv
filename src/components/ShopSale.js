@@ -22,6 +22,7 @@ const ShopSale = () => {
 
   return (
     <>
+      <p>할인전</p>
       <Swiper
         slidesPerView={2}
         spaceBetween={30}
