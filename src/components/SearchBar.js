@@ -6,13 +6,31 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+import axios from "axios";
 
 const SearchBar = () => {
-  const [seacrh, setSearch] = useState("");
+  const [uniList, setUnivList] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const a = () => {
+    axios.get("http://192.168.0.56:8888/list/univ").then((res) => {
+      setUnivList(res.data.list);
+    });
+  };
+
+  // const serachLIst = setUniLi.filter;
+  // console.log(uniList);
+
   const onChange = (e) => {
+    e.preventDefault();
     setSearch(e.target.value);
   };
-  console.log(seacrh);
+
+  const filterTitle = uniList.filter((p) => {
+    return p.uiName.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+  });
+
+  console.log(filterTitle);
 
   return (
     <>
@@ -23,9 +41,15 @@ const SearchBar = () => {
         <Home
           type="text"
           placeholder="학교명을 입력해주세요"
-          value={seacrh}
+          value={search}
           onChange={onChange}
+          onClick={a}
         />
+      </div>
+      <div className="bg-white w-2/4 my-0 mx-auto">
+        {filterTitle.map((ele, index) => {
+          return <div>{ele}</div>;
+        })}
       </div>
     </>
   );
