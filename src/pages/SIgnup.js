@@ -70,6 +70,9 @@ const SIgnup = () => {
   const [birth, setBirth] = useState("");
   const [email, setEmail] = useState("");
 
+  // 연속버튼을 막는 변수
+  const [btFlag, setBtFlag] = useState(false);
+
   const registFunc = (e) => {
     e.preventDefault();
     //  1. 빈문자열 일때, 경고창 띄우기
@@ -108,9 +111,21 @@ const SIgnup = () => {
     }
 
     // 1. 아이디 검사요청
-    // if (!idCheck) {
-    //   return alert("아이디 중복검사를 해주세요.");
-    // }
+    if (!idCheck) {
+      return alert("아이디 중복검사를 해주세요.");
+    }
+
+    // 2. 닉네임 검사요청
+    if (!nickNameCheck) {
+      return alert("닉네임 중복검사를 해주세요.");
+    }
+    // 3. 이메일 검사요청
+    if (!emailCheck) {
+      return alert("이메일 중복검사를 해주세요.");
+    }
+
+    // 연속 클릭 막기 (회원가입 버튼 여러번 누르면 안되니까)
+    setBtFlag(true);
 
     let body = {
       ciId: id,
@@ -134,44 +149,120 @@ const SIgnup = () => {
       .catch((err) => {
         console.log(err.response);
         alert(err.response.data.message);
+        setBtFlag(false);
       });
   };
 
-  // 2. 아이디 중복검사
-  // const [idCheck, setIdCheck] = useState(false);
+  // 1. 아이디 중복검사
+  const [idCheck, setIdCheck] = useState(false);
 
-  // const idCheckFn = (e) => {
-  //   e.preventDefault();
-  //   // 아이디 입력되었는지 체크
-  //   if (!id) {
-  //     return alert("아이디를 입력해주세요");
-  //   }
+  const idCheckFn = (e) => {
+    e.preventDefault();
+    // 아이디 입력되었는지 체크
+    if (!id) {
+      return alert("아이디를 입력해주세요");
+    }
 
-  //   // 아이디 존재 여부 파악
-  //   const body = {
-  //     ciId: id,
-  //   };
-  //   axios
-  //     .post("http://192.168.0.56:8888/member/join", body)
-  //     .then((response) => {
-  //       // 서버에서 정상적 처리 완료
-  //       if (response.data.success) {
-  //         if (response.data.check) {
-  //           // 등록가능
-  //           // 사용자 중복체크 완료
-  //           setIdCheck(true);
-  //           alert("등록이 가능합니다.");
-  //         } else {
-  //           // 등록 불가능
-  //           setIdCheck(false);
-  //           alert("이미 등록된 닉네임 입니다.");
-  //         }
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+    // 아이디 존재 여부 파악
+    const body = {
+      ciId: id,
+    };
+    axios
+      .post("http://192.168.0.56:8888/member/check/id", body)
+      .then((response) => {
+        // 서버에서 정상적 처리 완료
+        if (response.data) {
+          if (response.data) {
+            // 등록가능
+            // 사용자 중복체크 완료
+            setIdCheck(true);
+            alert(response.data.message);
+          } else {
+            // 등록 불가능
+            setIdCheck(false);
+            alert(response.data.message);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        alert(error.response.data.message);
+      });
+  };
+
+  // 2. 닉네임 중복검사
+  const [nickNameCheck, setNickNameCheck] = useState(false);
+
+  const nickNameCheckFn = (e) => {
+    e.preventDefault();
+    // 닉네임 입력되었는지 체크
+    if (!nickName) {
+      return alert("닉네임을 입력해주세요");
+    }
+
+    // 닉네임 존재 여부 파악
+    const body = {
+      ciNickName: nickName,
+    };
+    axios
+      .post("http://192.168.0.56:8888/member/check/nickName", body)
+      .then((response) => {
+        // 서버에서 정상적 처리 완료
+        if (response.data) {
+          if (response.data) {
+            // 등록가능
+            // 사용자 중복체크 완료
+            setNickNameCheck(true);
+            alert(response.data.message);
+          } else {
+            // 등록 불가능
+            setNickNameCheck(false);
+            alert(response.data.message);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        alert(error.response.data.message);
+      });
+  };
+
+  // 3. 이메일 중복검사
+  const [emailCheck, setEmailCheck] = useState(false);
+
+  const emailCheckFn = (e) => {
+    e.preventDefault();
+    // 이메일 입력되었는지 체크
+    if (!email) {
+      return alert("이메일을 입력해주세요");
+    }
+
+    // 이메일 존재 여부 파악
+    const body = {
+      ciEmail: email,
+    };
+    axios
+      // .post("http://192.168.0.56:8888/member/check/email", body)
+      .then((response) => {
+        // 서버에서 정상적 처리 완료
+        if (response.data) {
+          if (response.data) {
+            // 등록가능
+            // 사용자 중복체크 완료
+            setEmailCheck(true);
+            alert(response.data.message);
+          } else {
+            // 등록 불가능
+            setEmailCheck(false);
+            alert(response.data.message);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        alert(error.response.data.message);
+      });
+  };
 
   return (
     <>
@@ -205,9 +296,8 @@ const SIgnup = () => {
               onChange={(e) => setId(e.target.value)}
               minLength={3}
             />
-            <Check>중복체크</Check>
-            {/* 2. 아이디 중복검사
-            <Check onClick={(e) => idCheckFn(e)}> 중복체크</Check> */}
+            {/* 1. 아이디 중복검사 이벤트 */}
+            <Check onClick={(e) => idCheckFn(e)}> 중복체크</Check>
           </Bt>
 
           <Title>비밀번호</Title>
@@ -247,7 +337,7 @@ const SIgnup = () => {
               maxLength={10}
               minLength={2}
             />
-            <Check>중복체크</Check>
+            <Check onClick={(e) => nickNameCheckFn(e)}> 중복체크</Check>
           </Bt>
 
           <Title>휴대폰 번호</Title>
@@ -295,10 +385,11 @@ const SIgnup = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="이메일을 입력해주세요"
             />
-            <Check>중복체크</Check>
+            <Check onClick={(e) => emailCheckFn(e)}> 중복체크</Check>
           </Bt>
         </div>
         <Join
+          disabled={btFlag}
           onClick={(e) => {
             registFunc(e);
           }}

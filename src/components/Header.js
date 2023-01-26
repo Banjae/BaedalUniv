@@ -91,7 +91,7 @@ const Header = () => {
             <LogBt>
             <button onClick={() => logOutFn()}
                 className="btn btn-outline-light me-2">
-                  {user.id}
+       
                   로그아웃
               
                   </button> 
