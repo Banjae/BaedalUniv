@@ -1,5 +1,5 @@
 // Signup page
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // FontAwesome Icon 적용
@@ -7,14 +7,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+import axios from "axios";
 
 const Title = tw.div`
 flex
 justify-start 
 ml-3
-font-semibold
-text-2xl
-text-slate-700
+text-xl
+text-main
 `;
 
 const Bt = tw.div`
@@ -32,13 +32,11 @@ const Bt = tw.div`
 `;
 
 const Check = tw.button`
-font-medium
 text-xs
-bg-gray-300
-border-2
-  rounded-lg
-  border-gray-300
-
+bg-main
+text-white
+rounded-lg
+px-2
 `;
 
 const Join = tw.button`
@@ -57,6 +55,8 @@ mt-20
 mb-20
 `;
 
+
+
 const SIgnup = () => {
   const navigate = useNavigate();
 
@@ -67,39 +67,236 @@ const SIgnup = () => {
   const [nickName, setNickName] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
   const [birth, setBirth] = useState("");
+  const [ui,setUi]=useState("")
   const [email, setEmail] = useState("");
+
+  // 연속버튼을 막는 변수
+  const [btFlag, setBtFlag] = useState(false);
 
   const registFunc = (e) => {
     e.preventDefault();
     //  1. 빈문자열 일때, 경고창 띄우기
     if (!name) {
-      return alert("이름을 입력하세요");
+      alert("이름을 입력하세요");
+      return;
     }
     if (!id) {
-      return alert("아이디를 입력하세요");
+      alert("아이디를 입력하세요");
+      return;
     }
     if (!pw) {
-      return alert("비밀번호를 입력하세요");
+      alert("비밀번호를 입력하세요");
+      return;
+    } else if (pw.length < 8) {
+      alert("비밀번호는 8자 이상 쓰래이");
+      return;
     }
+
     if (!pwCheck) {
-      return alert(" 비밀번호 확인을 입력하세요");
+      alert(" 비밀번호 확인을 입력하세요");
+      return;
     }
+
     // 비밀번호가 같은지 비교처리
     if (pw !== pwCheck) {
-      return alert("비밀번호는 같아야 합니다.");
+      alert("비밀번호는 같아야 합니다.");
+      return;
     }
+
     if (!nickName) {
-      return alert(" 닉네임을 입력하세요");
+      alert(" 닉네임을 입력하세요");
+      return;
     }
     if (!phoneNum) {
-      return alert(" 휴대번호를 입력하세요");
+      alert(" 휴대번호를 입력하세요");
+      return;
     }
     if (!birth) {
-      return alert(" 생년월일을 입력하세요");
+      alert(" 생년월일을 입력하세요");
+      return;
+    }
+    if (!ui) {
+      alert(" 대학을 체크하세요");
+      return;
     }
     if (!email) {
-      return alert(" 이메일을 입력하세요");
+      alert(" 이메일을 입력하세요");
+      return;
     }
+
+    // 1. 아이디 검사요청
+    if (!idCheck) {
+      alert("아이디 중복검사를 해주세요.");
+      return;
+    }
+
+    // 2. 닉네임 검사요청
+    if (!nickNameCheck) {
+      alert("닉네임 중복검사를 해주세요.");
+      return;
+    }
+    // 3. 이메일 검사요청
+    if (!emailCheck) {
+      alert("이메일 중복검사를 해주세요.");
+      return;
+    }
+
+    // 연속 클릭 막기 (회원가입 버튼 여러번 누르면 안되니까)
+    setBtFlag(true);
+    if (
+      name &&
+      id &&
+      pw &&
+      pwCheck &&
+      nickName &&
+      phoneNum &&
+      birth &&
+      ui&&
+      email &&
+      idCheck &&
+      nickNameCheck &&
+      emailCheck
+    ) {
+      let body = {
+        ciId: id,
+        ciPwd: pw,
+        ciCheckPwd: pwCheck,
+        ciName: name,
+        ciNickName: nickName,
+        ciEmail: email,
+        ciPhone: phoneNum,
+        ciBirthday: birth,
+        ciUiSeq: 1,
+      };
+
+      axios
+        .post("http://192.168.0.56:8888/member/join", body)
+        .then((res) => {
+          console.log(res.data);
+          alert(res.data.message);
+          navigate("/Login");
+        })
+        .catch((err) => {
+          console.log(err.response);
+          alert(err.response.data.message);
+          setBtFlag(false);
+        });
+    }
+  };
+
+
+  // 1. 아이디 중복검사
+  const [idCheck, setIdCheck] = useState(false);
+
+  const idCheckFn = (e) => {
+    e.preventDefault();
+    // 아이디 입력되었는지 체크
+    if (!id) {
+      alert("아이디를 입력해주세요");
+      return;
+    }
+
+    // 아이디 존재 여부 파악
+    const body = {
+      ciId: id,
+    };
+    axios
+      .post("http://192.168.0.56:8888/member/check/id", body)
+      .then((response) => {
+        // 서버에서 정상적 처리 완료
+        if (response.data) {
+          if (response.data) {
+            // 등록가능
+            // 사용자 중복체크 완료
+            alert(response.data.message);
+            setIdCheck(true);
+          } else {
+            // 등록 불가능
+            alert(response.data.message);
+            setIdCheck(false);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        alert(error.response.data.message);
+      });
+  };
+
+  // 2. 닉네임 중복검사
+  const [nickNameCheck, setNickNameCheck] = useState(false);
+
+  const nickNameCheckFn = (e) => {
+    e.preventDefault();
+    // 닉네임 입력되었는지 체크
+    if (!nickName) {
+      alert("닉네임을 입력해주세요");
+      return;
+    }
+
+    // 닉네임 존재 여부 파악
+    const body = {
+      ciNickName: nickName,
+    };
+    axios
+      .post("http://192.168.0.56:8888/member/check/nickName", body)
+      .then((response) => {
+        // 서버에서 정상적 처리 완료
+        if (response.data) {
+          if (response.data) {
+            // 등록가능
+            // 사용자 중복체크 완료
+            alert(response.data.message);
+            setNickNameCheck(true);
+          } else {
+            // 등록 불가능
+            alert(response.data.message);
+            setNickNameCheck(false);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        alert(error.response.data.message);
+      });
+  };
+
+  // 3. 이메일 중복검사
+  const [emailCheck, setEmailCheck] = useState(false);
+
+  const emailCheckFn = (e) => {
+    e.preventDefault();
+    // 이메일 입력되었는지 체크
+    if (!email) {
+      alert("이메일을 입력해주세요");
+      return;
+    }
+
+    // 이메일 존재 여부 파악
+    const body = {
+      ciEmail: email,
+    };
+    axios
+      .post("http://192.168.0.56:8888/member/check/email", body)
+      .then((response) => {
+        // 서버에서 정상적 처리 완료
+        if (response.data) {
+          if (response.data) {
+            // 등록가능
+            // 사용자 중복체크 완료
+            alert(response.data.message);
+            setEmailCheck(true);
+          } else {
+            // 등록 불가능
+            alert(response.data.message);
+            setEmailCheck(false);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        alert(error.response.data.message);
+      });
   };
 
   const autoHypen = (target) => {
@@ -109,50 +306,11 @@ const SIgnup = () => {
     setPhoneNum(target);
   };
 
-  //    // 3. 아이디, 닉네임, 이메일 검사요청
-  //    if (!idCheck) {
-  //     return alert("아이디 중복검사를 해주세요.");
-  //   }
-  //   if (!nickNameCheck) {
-  //     return alert("닉네임 중복검사를 해주세요.");
-  //   }
-  //   if (!emailCheck) {
-  //     return alert("이메일 중복검사를 해주세요.");
-  //   }
-
-  // // 2. 아이디,닉네임, 이메일 중복 검사
-  // const [idCheck, setIdCheck] = useState(false);
-  // const [nickNameCheck, setNickNameCheck] = useState(false);
-  // const [emailCheck, setEmailCheck] = useState(false);
-
-  //   const idCheckFn = (e) => {
-  //     e.preventDefault();
-  //     // 아이디가 입력되었는지 체크
-  //     if (!id) {
-  //       return alert("아이디를 입력해주세요");
-  //     }
-
-  //   }
-  //   const nickNameCheckFn = (e) => {
-  //     e.preventDefault();
-  //     // 닉네임이 입력되었는지 체크
-  //     if (!nickName) {
-  //       return alert("닉네임을 입력해주세요");
-  //     }
-  //   }
-  //   const emailCheckFn = (e) => {
-  //     e.preventDefault();
-  //     // 닉네임이 입력되었는지 체크
-  //     if (!email) {
-  //       return alert("이메일을 입력해주세요");
-  //     }
-  //   }
-
   return (
     <>
-      <Title className="flex justify-center mb-10">
-        <button onClick={() => navigate(-1)}>
-          <FontAwesomeIcon icon={faChevronLeft} />
+      <Title className="flex justify-center mb-10 mr-10" style={{color:"black"}}>
+        <button onClick={() => navigate(-1)} >
+          <FontAwesomeIcon icon={faChevronLeft} className="pr-3"/>
         </button>
         회원가입
       </Title>
@@ -162,6 +320,7 @@ const SIgnup = () => {
           <Title>이름</Title>
           <Bt>
             <input
+             className="placeholder:text-base pl-2 mb-1"
               type="text"
               placeholder="이름을 입력해주세요"
               required
@@ -172,6 +331,7 @@ const SIgnup = () => {
           <Title>아이디</Title>
           <Bt>
             <input
+             className="placeholder:text-base pl-2 mb-1"
               type="text"
               placeholder="아이디를 입력해주세요"
               required
@@ -179,11 +339,13 @@ const SIgnup = () => {
               onChange={(e) => setId(e.target.value)}
               minLength={3}
             />
-            <Check>중복체크</Check>
+            {/* 1. 아이디 중복검사 이벤트 */}
+            <Check onClick={(e) => idCheckFn(e)}> 중복체크</Check>
           </Bt>
           <Title>비밀번호</Title>
           <Bt>
             <input
+             className="placeholder:text-base pl-2 mb-1"
               type="password"
               required
               value={pw}
@@ -196,6 +358,7 @@ const SIgnup = () => {
           <Title>비밀번호 확인</Title>
           <Bt>
             <input
+             className="placeholder:text-base pl-2 mb-1"
               type="password"
               required
               value={pwCheck}
@@ -208,6 +371,7 @@ const SIgnup = () => {
           <Title>닉네임</Title>
           <Bt>
             <input
+             className="placeholder:text-base pl-2 mb-1"
               type="text"
               placeholder="닉네임을 입력해주세요"
               required
@@ -216,11 +380,12 @@ const SIgnup = () => {
               maxLength={10}
               minLength={2}
             />
-            <Check>중복체크</Check>
+            <Check onClick={(e) => nickNameCheckFn(e)}> 중복체크</Check>
           </Bt>
           <Title>휴대폰 번호</Title>
           <Bt>
             <input
+             className="placeholder:text-base pl-2 mb-1"
               type="tell"
               required
               value={phoneNum}
@@ -233,6 +398,7 @@ const SIgnup = () => {
           <Title>생년월일</Title>
           <Bt>
             <input
+             className="placeholder:text-base pl-2 mb-1"
               type="text"
               required
               value={birth}
@@ -241,10 +407,10 @@ const SIgnup = () => {
             />
           </Bt>
           {/* 서비스 이용장소 */}
-          <Title for="service-select">서비스 이용장소</Title>
-          <Bt>
+          <Title for="service-select" >서비스 이용장소</Title>
+          <Bt  style={{fontSize:"16px", color:"gray"}}>
             <select name="" id="service-select">
-              <option value="">--Please choose an option--</option>
+              <option value="">-- 이용하실 대학을 선택해주세요 --</option>
               <option value="">00 대학</option>
               <option value="">00 대학</option>
               <option value="">00 대학</option>
@@ -256,16 +422,18 @@ const SIgnup = () => {
           <Title>이메일</Title>
           <Bt>
             <input
+             className="placeholder:text-base pl-2 mb-1"
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="이메일을 입력해주세요"
             />
-            <Check>중복체크</Check>
+            <Check onClick={(e) => emailCheckFn(e)}> 중복체크</Check>
           </Bt>
         </div>
         <Join
+          disabled={btFlag}
           onClick={(e) => {
             registFunc(e);
           }}

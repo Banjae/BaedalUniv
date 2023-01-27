@@ -1,6 +1,7 @@
 // Login page
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -13,9 +14,8 @@ const Title = tw.div`
 flex
 justify-start 
 ml-3
-font-semibold
-text-2xl
-text-slate-700
+text-xl
+text-main
 `;
 
 const InputBt = tw.input`
@@ -70,23 +70,43 @@ const Login = () => {
     if (!pw) {
       return alert("비밀번호를 입력하세요.");
     }
+
+    let body = {
+      ciId: id,
+      ciPwd: pw,
+    };
+    axios
+      .post("http://192.168.0.56:8888/member/login", body)
+      .then((res) => {
+        console.log(res.data);
+        alert(res.data.message);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.response);
+        alert(err.response.data.message);
+      });
   };
 
   const navigate = useNavigate();
 
   return (
     <>
-      <Title className="flex justify-center mb-10">
+      <Title
+        className="flex justify-center mb-10 mr-10"
+        style={{ color: "black" }}
+      >
         <button onClick={() => navigate(-1)}>
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <FontAwesomeIcon icon={faChevronLeft} className="pr-3" />
         </button>
         로그인
       </Title>
 
       <div className="flex flex-col items-center">
-        <div>
+        <div className="mb-5">
           <Title>아이디</Title>
           <InputBt
+            className="placeholder:text-sm placeholder:text-main pl-2 mb-1 border-main focus:outline-none "
             type="text"
             value={id}
             onChange={(event) => setId(event.target.value)}
@@ -97,6 +117,7 @@ const Login = () => {
         <div>
           <Title>비밀번호</Title>
           <InputBt
+            className="placeholder:text-base pl-2 mb-1  border-main focus:outline-none "
             type="password"
             value={pw}
             onChange={(event) => setPw(event.target.value)}

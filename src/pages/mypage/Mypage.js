@@ -3,7 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import MypageEdit from "./MypageEdit";
-import MypageList from "./MypageList";
+import MypageList from "./ModalList";
 import MypageQuit from "./MypageQuit";
 import MypageSave from "./ModalSave";
 
@@ -17,6 +17,18 @@ import Modal from "./Modal";
 import ModalPw from "./ModalPw";
 import ModalQuit from "./ModalQuit";
 import ModalSave from "./ModalSave";
+import ModalList from "./ModalList";
+
+
+const Page=tw.div`
+flex
+justify-start 
+ml-3
+text-xl
+text-balck
+`
+
+
 
 const Title = tw.div`
 flex
@@ -58,23 +70,25 @@ mb-20
 
 `;
 
+
+
 const Mypage = () => {
   const navigate = useNavigate();
   return (
     <>
       <div>
-        <Title className="flex justify-center mb-20">
+        <Page className="flex justify-center mb-20 mr-10">
           <button onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faChevronLeft} />
+            <FontAwesomeIcon icon={faChevronLeft} className="pr-3"/>
           </button>
           마이페이지
-        </Title>
+        </Page>
 
         <div className="w-1/2 my-0 mx-auto">
           <div className="flex justify-between mb-3 items-center">
             <Title>닉네임 님! 환영합니다.</Title>
             <Modal title="000님의 닉네임 수정" name="닉네임" />
-          </div>
+           </div>
 
           <div className="flex justify-between mb-3 items-center">
             <Title>010-1234-5678</Title>
@@ -110,23 +124,18 @@ const Mypage = () => {
         <Route path="save" element={<MypageSave />} />
       </Routes> */}
 
+      <div className="flex justify-center"> 
+        <ModalSave name="닉네임" />
+        {/* signup에서 부여한 닉네임 코드랑 연동해야 함. */}
+        <div className="flex justify-center">
+          <ModalList />
+        </div>
+      </div>
 
       {/* 회원탈퇴 */}
       <div className="flex justify-center">
         <ModalQuit />
       </div>
-
-
-      <div className="flex justify-center">
-        <ModalSave />
-      </div>{" "}
-      <div className="flex justify-center">
-        <ModalQuit />
-      </div>{" "}
-
-
-
-
     </>
   );
 };

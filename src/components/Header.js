@@ -1,14 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useTransition } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
+import { useSelector } from "react-redux";
+
+
+
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
 const Header = () => {
+  const user = useSelector((state) => state.user);
   const userinfo = "";
 
   const HeadContainer = tw.div`
@@ -55,6 +60,13 @@ const Header = () => {
   h-8
   `;
 
+
+  // 로그아웃 기능
+  const navigate = useNavigate();
+  const logOutFn = () => {
+    navigate("/login");
+  };
+
   return (
     <header>
       <HeadContainer>
@@ -77,7 +89,13 @@ const Header = () => {
         ) : (
           <ul className="flex justify-end space-x-3 p-4">
             <LogBt>
-              <button>로그아웃</button>
+            <button onClick={() => logOutFn()}
+                className="btn btn-outline-light me-2">
+       
+                  로그아웃
+              
+                  </button> 
+                
             </LogBt>
             <SignBt>
               <Link to="/Mypage">마이페이지</Link>
