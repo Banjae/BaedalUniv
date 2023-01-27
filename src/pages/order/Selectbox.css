@@ -1,9 +1,0 @@
-.select-box img {
-  height: 12px;
-  width: 12px;
-  transition: all ease 1s;
-}
-.select-box.open img {
-  transform: rotate(180deg);
-  transition: all ease 1s;
-}

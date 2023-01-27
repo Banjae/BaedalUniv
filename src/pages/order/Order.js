@@ -5,7 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 // FontAwesome Icon 적용
 import tw from "tailwind-styled-components";
+import { useEffect, useState } from "react";
 // import payco from "../../assets/Payco-4.png";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const LoginBt = tw.button`
 border-2
@@ -37,7 +40,46 @@ text-xl
 `;
 
 const Order = () => {
+  const [list, setList] = useState([]);
+  const [time, setTime] = useState([]);
   const navigate = useNavigate();
+  const params = useParams();
+
+  const fetchData = async () => {
+    try {
+      const params = {};
+
+      const response = await axios.get(
+        "http://192.168.0.56:8888/list/pickuparea",
+        {
+          params,
+        }
+      );
+      const response2 = await axios.get(
+        "http://192.168.0.56:8888/list/deliverytime",
+        {
+          params,
+        }
+      );
+
+      setList(response.data.list);
+      setTime(response2.data.list);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const onChangeHanlder = (e) => {
+    setList(e.currentTarget.value);
+  };
+  const onChangeHanlder2 = (e) => {
+    setTime(e.currentTarget.value);
+  };
+
   return (
     <>
       <button onClick={() => navigate(-1)}>
@@ -69,23 +111,43 @@ const Order = () => {
             <div className="receipt-time ml-5">
               <div className=" flex flex-col">
                 <span>수령시각</span>
-                <select className="rounded-lg border-2 border-gray-300">
-                  <option>주문취소</option>
+
+                <select
+                  className="rounded-lg border-2 border-gray-300"
+                  onChange={onChangeHanlder2}
+                  value={list}
+                >
+                  {time.map((time) => (
+                    <option key={time.utiSeq} value={time}>
+                      {time.utiCloseTime} 주문마감 / {time.utiDeliveryTime} 수령
+                    </option>
+                  ))}
+                  {/* <option>주문취소</option>
                   <option>오늘 16:50 주문마감 / 18:10~18:30 수령</option>
                   <option>오늘 16:50 주문마감 / 18:10~18:30 수령</option>
-                  <option>오늘 16:50 주문마감 / 18:10~18:30 수령</option>
+                  <option>오늘 16:50 주문마감 / 18:10~18:30 수령</option> */}
                 </select>
               </div>
             </div>
             <div className="receipt-place ml-5">
               <div className=" flex flex-col">
                 <span>수령장소</span>
-                <select className="rounded-lg border-2 border-gray-300">
-                  <option>학사기숙사(A동)</option>
+                <select
+                  className="rounded-lg border-2 border-gray-300"
+                  onChange={onChangeHanlder}
+                  value={list}
+                >
+                  {list.map((list) => (
+                    <option key={list.puaSeq} value={list}>
+                      {list.puaName}
+                    </option>
+                  ))}
+                </select>
+
+                {/* <option>학사기숙사(A동)</option>
                   <option>학사기숙사(B동)</option>
                   <option>학사기숙사(C동)</option>
-                  <option>학사기숙사(D동)</option>
-                </select>
+                  <option>학사기숙사(D동)</option> */}
               </div>
             </div>
           </div>
@@ -95,11 +157,11 @@ const Order = () => {
             <div className="ml-5">
               <div className="">
                 <input type="radio" name="payment" />
-                <sapn className="ml-3">카드 결제</sapn>
+                <span className="ml-3">카드 결제</span>
               </div>
               <div className="">
                 <input type="radio" name="payment" />
-                <sapn className="ml-3">긱머니 결제</sapn>
+                <span className="ml-3">긱머니 결제</span>
               </div>
               <div className="flex">
                 <input type="radio" name="payment" />

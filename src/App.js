@@ -15,14 +15,10 @@ import Footer from "./components/Footer";
 import Fixmenu from "./components/FixMenu";
 import NotFound from "./pages/NotFound";
 import OrderLogin from "./pages/order/OrderLogin";
+import Payment from "./pages/order/Payment";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-
-const Container = tw.div`
-  p-10
-  bg-sub
-  `;
 
 function App() {
   return (
@@ -40,6 +36,7 @@ function App() {
           <Route path="/Cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/OrderLogin" element={<OrderLogin />} />
+          <Route path="/Payment" element={<Payment />} />
         </Routes>
       </Container>
       <Footer />
@@ -47,5 +44,10 @@ function App() {
     </Router>
   );
 }
+
+const Container = tw.div`
+  p-10
+  bg-sub
+  `;
 
 export default App;

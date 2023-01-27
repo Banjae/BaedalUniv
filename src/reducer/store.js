@@ -1,33 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-import storageSession from "redux-persist/lib/storage/session";
-
-import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
-
-
-import userSlice from "./userSlice";
-
-const reducers = combineReducers({
-  user: userSlice.reducer,
+export default configureStore({
+  reducer: {},
 });
-
-const persistConfig = {
-  key: "root",
-  storage: storageSession,
-  whitelist: ["user"],
-};
-const presistedReducer = persistReducer(persistConfig, reducers);
-
-
-
-const store = configureStore({
-  reducer: presistedReducer,
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware({
-      serializableCheck: false,
-    });
-  },
-  devTools: process.env.NODE_ENV !== "production",
+let players = createSlice({
+  name: "players",
+  initialState: [],
 });
-export default store;

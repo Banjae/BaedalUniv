@@ -21,15 +21,29 @@ import tw from "tailwind-styled-components";
 // 임시 이미지
 import food from "../../assets/food.jpg";
 import OrderTable from "../../components/OrderTable";
+import axios from "axios";
+import instance from "../../api/axios";
+import request from "../../api/requset";
 
 const Detail = () => {
   const detailArr = [
     { title: "메뉴", link: "/shop/menu", content: "Link" },
-    { title: "정보", link: "/shop/info" },
-    { title: "리뷰", link: "/shop/review" },
+    { title: "리뷰", link: "/shop/info" },
+    { title: "정보", link: "/shop/review" },
   ];
 
-  const [click, setClick] = useState(0);
+  const fetchData = async () => {
+    await instance
+      .get(request.shopinfo)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [click, setClick] = useState();
 
   const shopClickFunc = (index) => {
     setClick(index);
