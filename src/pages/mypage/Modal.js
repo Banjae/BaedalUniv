@@ -13,6 +13,23 @@ text-2xl
 text-slate-700
 `;
 
+const Change=tw.div`
+flex
+justify-start
+m-3
+p-2
+border-2
+h-12
+text-lg
+cursor-pointer
+rounded-lg
+bg-main
+text-white
+`
+
+
+
+
 const Bt = tw.div`
   flex
   justify-start
@@ -28,13 +45,11 @@ const Bt = tw.div`
 `;
 
 const Check = tw.button`
-font-medium
 text-xs
-bg-gray-300
-border-2
-  rounded-lg
-  border-gray-300
-
+bg-main
+text-white
+rounded-lg
+px-2
 `;
 
 const Modal = ({ title, name }) => {
@@ -44,7 +59,7 @@ const Modal = ({ title, name }) => {
 
   return (
     <>
-      <Bt onClick={() => setShowModal(true)}>{name}수정</Bt>
+      <Change onClick={() => setShowModal(true)} className="w-32 justify-center">{name}수정</Change>
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -71,6 +86,7 @@ const Modal = ({ title, name }) => {
                 <Title style={{ margin: "40px" }}>{name}</Title>
                 <Bt>
                   <input
+                   className="placeholder:text-base pl-2 mb-1"
                     type="text"
                     placeholder={`변경할 ${name}을 입력해주세요`}
                     required
@@ -84,7 +100,7 @@ const Modal = ({ title, name }) => {
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="text-black-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >

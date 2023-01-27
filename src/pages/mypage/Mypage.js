@@ -19,6 +19,17 @@ import ModalQuit from "./ModalQuit";
 import ModalSave from "./ModalSave";
 import ModalList from "./ModalList";
 
+
+const Page=tw.div`
+flex
+justify-start 
+ml-3
+text-xl
+text-balck
+`
+
+
+
 const Title = tw.div`
 flex
 justify-start 
@@ -59,17 +70,19 @@ mb-20
 
 `;
 
+
+
 const Mypage = () => {
   const navigate = useNavigate();
   return (
     <>
       <div>
-        <Title className="flex justify-center mb-20">
+        <Page className="flex justify-center mb-20 mr-10">
           <button onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faChevronLeft} />
+            <FontAwesomeIcon icon={faChevronLeft} className="pr-3"/>
           </button>
           마이페이지
-        </Title>
+        </Page>
 
         <div className="w-1/2 my-0 mx-auto">
           <div className="flex justify-between mb-3 items-center">

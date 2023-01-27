@@ -65,7 +65,7 @@ const ModalQuit = () => {
 
   return (
     <>
-      <Out onClick={() => setShowModal(true)}>회원탈퇴</Out>
+      <Out onClick={() => setShowModal(true)} className="mt-10">회원탈퇴</Out>
       {showModal ? (
         <>
           <div className=" justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">

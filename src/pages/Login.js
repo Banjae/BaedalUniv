@@ -14,9 +14,8 @@ const Title = tw.div`
 flex
 justify-start 
 ml-3
-font-semibold
-text-2xl
-text-slate-700
+text-xl
+text-main
 `;
 
 const InputBt = tw.input`
@@ -93,17 +92,21 @@ const Login = () => {
 
   return (
     <>
-      <Title className="flex justify-center mb-10">
+      <Title
+        className="flex justify-center mb-10 mr-10"
+        style={{ color: "black" }}
+      >
         <button onClick={() => navigate(-1)}>
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <FontAwesomeIcon icon={faChevronLeft} className="pr-3" />
         </button>
         로그인
       </Title>
 
       <div className="flex flex-col items-center">
-        <div>
+        <div className="mb-5">
           <Title>아이디</Title>
           <InputBt
+            className="placeholder:text-sm placeholder:text-main pl-2 mb-1 border-main focus:outline-none "
             type="text"
             value={id}
             onChange={(event) => setId(event.target.value)}
@@ -114,6 +117,7 @@ const Login = () => {
         <div>
           <Title>비밀번호</Title>
           <InputBt
+            className="placeholder:text-base pl-2 mb-1  border-main focus:outline-none "
             type="password"
             value={pw}
             onChange={(event) => setPw(event.target.value)}

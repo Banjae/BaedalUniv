@@ -31,6 +31,24 @@ mb-20
 
 `;
 
+const Change=tw.div`
+flex
+justify-start
+m-3
+p-2
+border-2
+h-12
+font-medium
+text-lg
+cursor-pointer
+rounded-lg
+bg-main
+text-white
+`
+
+
+
+
 const Bt = tw.div`
   flex
   justify-start
@@ -53,7 +71,7 @@ const ModalList = () => {
 
   return (
     <>
-      <Bt onClick={() => setShowModal(true)}>주문 내역</Bt>
+      <Change onClick={() => setShowModal(true)} className="w-32 justify-center">주문 내역</Change>
       {showModal ? (
         <>
           <div

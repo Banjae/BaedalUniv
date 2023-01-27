@@ -5,15 +5,20 @@ import { useState } from "react";
 import tw from "tailwind-styled-components";
 
 
-
-const Title = tw.div`
+const Change=tw.div`
 flex
-justify-start 
-ml-3
-font-semibold
-text-2xl
-text-slate-700
-`;
+justify-start
+m-3
+p-2
+border-2
+h-12
+text-lg
+cursor-pointer
+rounded-lg
+bg-main
+text-white
+`
+
 
 const Bt = tw.div`
   flex
@@ -29,15 +34,6 @@ const Bt = tw.div`
   rounded-lg
 `;
 
-const Check = tw.button`
-font-medium
-text-xs
-bg-gray-300
-border-2
-  rounded-lg
-  border-gray-300
-
-`;
 
 const ModalPw = ({ title, name }) => {
   const [showModal, setShowModal] = React.useState(false);
@@ -49,7 +45,7 @@ const ModalPw = ({ title, name }) => {
 
   return (
     <>
-      <Bt onClick={() => setShowModal(true)}>{name}수정</Bt>
+      <Change onClick={() => setShowModal(true)} className="mb-10 w-32 justify-center">{name}수정</Change>
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -75,6 +71,7 @@ const ModalPw = ({ title, name }) => {
 
                 <Bt>
                   <input
+                   className="placeholder:text-base pl-2 mb-1"
                     type="password"
                     required
                     value={pw}
@@ -88,6 +85,7 @@ const ModalPw = ({ title, name }) => {
 
                 <Bt>
                   <input
+                   className="placeholder:text-base pl-2 mb-1"
                     type="password"
                     required
                     value={newPw}
@@ -101,6 +99,7 @@ const ModalPw = ({ title, name }) => {
                 
                 <Bt>
                   <input
+                   className="placeholder:text-base pl-2 mb-1"
                     type="password"
                     required
                     value={pwCheck}
@@ -114,7 +113,7 @@ const ModalPw = ({ title, name }) => {
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="text-black-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >

@@ -30,6 +30,23 @@ mb-20
 
 `;
 
+const Change=tw.div`
+flex
+justify-start
+m-3
+p-2
+border-2
+h-12
+text-lg
+cursor-pointer
+rounded-lg
+bg-main
+text-white
+`
+
+
+
+
 const Bt = tw.div`
   flex
   justify-start
@@ -50,7 +67,7 @@ const ModalSave = ({ name }) => {
 
   return (
     <>
-      <Bt onClick={() => setShowModal(true)}>아낀 배달비</Bt>
+      <Change onClick={() => setShowModal(true)} className="w-32 justify-center">아낀 배달비</Change>
       {showModal ? (
         <>
           <div className=" flex justify-center items-center  overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
