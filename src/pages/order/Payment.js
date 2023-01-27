@@ -1,6 +1,30 @@
 import React from "react";
 
 const Payment = () => {
+  const todayTime = () => {
+    let now = new Date();
+    let todayYear = now.getFullYear();
+    let todayMonth = now.getMonth() + 1;
+    let todayDate = now.getDate();
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
+    let datOfWeek = week[now.getDay()];
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
+    return (
+      todayYear +
+      "년 " +
+      todayMonth +
+      "월 " +
+      todayDate +
+      "일 " +
+      datOfWeek +
+      hours +
+      ":" +
+      minutes
+    );
+  };
+
   return (
     <>
       <div className="flex flex-col justify-center items-center">
@@ -19,6 +43,11 @@ const Payment = () => {
             <p className="mb-1">토마토 파스타 1개</p>
             <p className="mb-1">토핑: 청양고추,새우튀김</p>
             <p className="mb-1">6,600원</p>
+            <div>
+              {todayTime().slice(0, 9)}
+              <span>{todayTime().slice(9, 12)}</span>
+              <span>{todayTime().slice(12, 19)}</span>
+            </div>
           </div>
         </div>
         <div className="flex flex-col justify-center items-center mt-10">
