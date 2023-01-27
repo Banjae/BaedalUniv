@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -12,8 +12,26 @@ import tw from "tailwind-styled-components";
 
 // 임시 img
 import brand from "../assets/brand.jpg";
+import axios from "axios";
 
-const ShopList = () => {
+const ShopList = ({ utiSeq }) => {
+  const [shopList, setShopList] = useState();
+
+  const fetchData = async () => {
+    axios
+      .get("http://192.168.0.56:8888/list/store?utiSeq=" + utiSeq)
+      .then((res) => {
+        setShopList(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="flex justify-around">

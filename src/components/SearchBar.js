@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,14 +16,15 @@ const SearchBar = () => {
   const [uniList, setUnivList] = useState([]);
   const [search, setSearch] = useState("");
   const [uiSeq, setUiSeq] = useState();
-  const [content, setContent] = useState();
+  const [uiName, setUiName] = useState();
+
+  const searchList = useRef();
 
   const fetchData = async () => {
     await instance
       .get(request.univ)
       .then((res) => {
         setUnivList(res.data.list);
-        // setUiSeq(res.data.list[1].uiSeq);
       })
       .catch((err) => {
         console.log(err);
@@ -37,6 +38,7 @@ const SearchBar = () => {
   const onChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
+    searchList.current.classList.remove("hidden");
   };
 
   const filterTitle = uniList.filter((p) => {
@@ -45,13 +47,14 @@ const SearchBar = () => {
 
   const clickFunc = (e) => {
     const { name } = e.target;
-    setContent(name);
     setSearch(name);
     const matchNum = (ele) => {
       if (ele.uiName === name) return true;
     };
     const univNum = uniList.find(matchNum);
+    setUiName(univNum.uiName);
     setUiSeq(univNum.uiSeq);
+    searchList.current.classList.add("hidden");
   };
 
   return (
@@ -69,7 +72,7 @@ const SearchBar = () => {
           />
         </form>
       </div>
-      <SearchList>
+      <SearchList ref={searchList}>
         {filterTitle.map((ele, index) => {
           return (
             <SearchItem
@@ -83,16 +86,11 @@ const SearchBar = () => {
           );
         })}
       </SearchList>
-      {search === content ? (
+      {search === uiName && (
         <>
           <ShopSale uiSeq={uiSeq} />
           <ShopSchedule uiSeq={uiSeq} />
         </>
-      ) : (
-        <SearchNot>
-          <p>#배달대</p>
-          <p>#배달비 0원!</p>
-        </SearchNot>
       )}
     </>
   );

@@ -10,24 +10,26 @@ import ShopList from "./ShopList";
 const ShopSchedule = ({ uiSeq }) => {
   const [shopArr, setShopArr] = useState([]);
   const [utiSeq, setUtiSeq] = useState();
-  const [time, setTime] = useState();
-
-  const [click, setClick] = useState();
+  const [click, setClick] = useState(0);
 
   const fetchData = async () => {
     axios
-      .get("http://192.168.0.56:8888/list/deliverytime?uiSeq=" + uiSeq)
+      .get("http://192.168.0.153:8888/list/deliverytime?uiSeq=" + uiSeq)
       .then((res) => {
         setShopArr(res.data.list);
-        // console.log(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
-
-  // console.log(shopArr[0]);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  shopArr.map((ele, inedx) => {
+    console.log(ele.utiSeq);
+  });
 
   const clickFunc = (index) => {
     setClick(index);
@@ -39,7 +41,6 @@ const ShopSchedule = ({ uiSeq }) => {
       <div>
         <div className="flex justify-between">
           {shopArr.map((ele, index) => {
-            console.log(ele.utiName);
             return click === index ? (
               <>
                 <ScheBoxOn key={index} onClick={() => clickFunc(index)}>
@@ -59,7 +60,7 @@ const ShopSchedule = ({ uiSeq }) => {
             );
           })}
         </div>
-        <ShopList />
+        <ShopList utiSeq={utiSeq} />
       </div>
     </>
   );

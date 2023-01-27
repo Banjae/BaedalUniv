@@ -2,6 +2,22 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
+    <script>
+      let cssRule = "font-size:20px; font-family:Nanum Gothic";
+      let cssLogo =
+        "color:#ff4713;" +
+        "font-size: 50px;" +
+        "font-weight: bold;" +
+        "letter-space:-1px;" +
+        "font-family:Tahoma,Arial,sans-serif";
+      if (window.console != undefined) {
+        setTimeout(console.log.bind(console, "%c배달대", cssLogo), 0);
+        setTimeout(
+          console.log.bind(console, "%c배달대는 배달비 0원!", cssRule),
+          0
+        );
+      }
+    </script>
 
     <!-- seo  적용 예정 -->
     <!-- favicon 적용 예정 -->

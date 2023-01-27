@@ -10,7 +10,7 @@ import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 
 const OrderTable = () => {
   const [count, setCount] = useState(1);
-  const [cart, setCart] = useState("");
+  const [cart, setCart] = useState("2");
 
   const minusBt = () => {
     count <= 1 ? alert("최소 1개는 주문해라잉") : setCount(count - 1);
