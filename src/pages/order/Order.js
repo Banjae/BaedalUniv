@@ -43,7 +43,6 @@ const Order = () => {
   const [list, setList] = useState([]);
   const [time, setTime] = useState([]);
   const navigate = useNavigate();
-  const params = useParams();
 
   const fetchData = async () => {
     try {

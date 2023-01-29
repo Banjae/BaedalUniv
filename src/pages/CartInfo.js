@@ -1,9 +1,36 @@
-// my Cart page
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+// cart 정보 가져오기
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { inCart, clearCart } from "../reducer/cartSlice";
 
-const Cart = () => {
-  let cart = useSelector((state) => state);
+const CartInfo = () => {
+  // 카트 정보 수정을 위해서 정보를 가지고 온다.
+  const dispatch = useDispatch();
+  let cart = useSelector((state) => state.cart);
+
+  const [name, setName] = useState("");
+  const [price, setprice] = useState("");
+  const [optionName, setOptionName] = useState("");
+  const [optionPrice, setOptionPrice] = useState("");
+  const [totalPrice, setTotalPrice] = useState("");
+  useEffect(() => {
+    setName(cart.name);
+    setprice(cart.price);
+    setOptionName(cart.optionName);
+    setOptionPrice(cart.optionPrice);
+    setTotalPrice(cart.totalPrice);
+  });
+
+  const optionUpdateFn = (e) => {
+    e.preventDefault();
+  };
+  const deleteAllFn = () => {
+    e.preventDefault();
+    axios.delete;
+  };
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="mb-10">장바구니</div>
@@ -43,4 +70,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartInfo;
