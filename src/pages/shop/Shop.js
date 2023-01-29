@@ -52,7 +52,7 @@ const Detail = () => {
   return (
     <>
       <ShopContainer>
-        <div className="w-[70%]">
+        <div className="w-[70%] md:w-[100%]">
           <div className="flex justify-between gap-5">
             <img src={food} alt="img" className="w-[30%]" />
             <div className="flex-col text-center bg-white py-2">
@@ -92,7 +92,7 @@ const Detail = () => {
               {/* <div></div> 를 <Link to="/"></Link> 수정*/}
               <div>
                 <div className="flex justify-center">
-                  <div className="flex justify-center w-[50%] h-10 bg-gray-200 rounded-xl p-2 ">
+                  <div className="flex justify-center w-[70%] md:[90%] h-10 bg-gray-200 rounded-xl p-2 ">
                     <span className="overflow-hidden text-ellipsis">
                       <strong>사장님알림</strong>☆ 전체부분 맛집랭킹 1위 항상
                       사랑해주시는 고객님들께 감사드리며 매일 더 노력하는
@@ -102,6 +102,7 @@ const Detail = () => {
                       #정직하게 #양심있게 #맛있게
                     </span>
                     <button className="w-6 h-6 ml-2">
+                      <Link to="/info" />
                       <img src={Arrow} alt="" />
                     </button>
                   </div>
