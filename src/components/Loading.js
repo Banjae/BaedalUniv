@@ -17,12 +17,24 @@ const LoadingSpinner = tw.div`
   text-main
 `;
 
+const LoadingBack = tw.div`
+  absolute
+  top-0
+  left-0
+  w-full
+  h-full
+  bg-white
+  z-10
+`;
+
 const Loading = () => {
   return (
     <>
-      <LoadingSpinner>
-        <img src={Baedal} alt="로딩중" width="10%" />
-      </LoadingSpinner>
+      <LoadingBack>
+        <LoadingSpinner>
+          <img src={Baedal} alt="로딩중" width="10%" />
+        </LoadingSpinner>
+      </LoadingBack>
     </>
   );
 };

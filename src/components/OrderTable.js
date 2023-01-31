@@ -81,10 +81,9 @@ const OrderTable = () => {
 const MotherTable = tw.div`
   relative
   h-auto
-  w-40
   hidden
   lg:block
-  lg:w-72
+  lg:w-[400px]
 `;
 
 const Table = tw.div`
