@@ -13,6 +13,7 @@ body {
 }
 
 .SaleSwiper {
+  position: relative;
   font-size: 18px;
   background: white;
   border-radius: 1rem;

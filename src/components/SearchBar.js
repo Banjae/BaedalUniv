@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import instance from "../api/axios";
+import request from "../api/requset";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,24 +10,19 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
-import instance from "../api/axios";
-import request from "../api/requset";
-import ShopSchedule from "./ShopSchedule";
-import ShopSale from "./ShopSale";
-
 const SearchBar = () => {
-  const [uniList, setUnivList] = useState([]);
+  const [uniList, setUniList] = useState([]);
   const [search, setSearch] = useState("");
-  const [uiSeq, setUiSeq] = useState();
-  const [uiName, setUiName] = useState();
 
   const searchList = useRef();
+
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     await instance
       .get(request.univ)
       .then((res) => {
-        setUnivList(res.data.list);
+        setUniList(res.data.list);
       })
       .catch((err) => {
         console.log(err);
@@ -48,13 +46,16 @@ const SearchBar = () => {
   const clickFunc = (e) => {
     const { name } = e.target;
     setSearch(name);
-    const matchNum = (ele) => {
+    const matchName = (ele) => {
       if (ele.uiName === name) return true;
     };
-    const univNum = uniList.find(matchNum);
-    setUiName(univNum.uiName);
-    setUiSeq(univNum.uiSeq);
+    const univNum = uniList.find(matchName);
     searchList.current.classList.add("hidden");
+    navigate(`/Shopmain/${name}`);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -63,12 +64,12 @@ const SearchBar = () => {
         <SerchImg>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </SerchImg>
-        <form>
-          <Search
+        <form onSubmit={onSubmit}>
+          <SearchBox
             type="text"
             placeholder="학교명을 입력해주세요"
             value={search}
-            onChange={onChange}
+            onChange={(e) => onChange(e)}
           />
         </form>
       </div>
@@ -86,17 +87,18 @@ const SearchBar = () => {
           );
         })}
       </SearchList>
-      {search === uiName && (
-        <>
-          <ShopSale uiSeq={uiSeq} />
+      {/* {keyword === uiName ? (
+        <div>
           <ShopSchedule uiSeq={uiSeq} />
-        </>
-      )}
+        </div>
+      ) : (
+        <div>검색해주세오</div>
+      )} */}
     </>
   );
 };
 
-const Search = tw.input`
+const SearchBox = tw.input`
   text-center
   text-black
   h-10
@@ -132,13 +134,7 @@ const SearchList = tw.div`
 
 const SearchItem = tw.button`
   text-center
-`;
-
-const SearchNot = tw.div`
-  flex
-  items-center
-  justify-center
-  h-96
+  hover:bg-black
 `;
 
 export default SearchBar;

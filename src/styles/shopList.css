@@ -21,6 +21,7 @@ body {
   border-radius: 1rem;
   padding: 10px;
   background: white;
+  overflow: hidden;
 }
 
 .swiper-slide img {

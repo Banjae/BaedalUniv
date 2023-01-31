@@ -5,18 +5,26 @@ import React, { useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
 import instance from "../api/axios";
 import request from "../api/requset";
+import Loading from "./Loading";
 import ShopList from "./ShopList";
+import ShopSale from "./ShopSale";
 
 const ShopSchedule = ({ uiSeq }) => {
   const [shopArr, setShopArr] = useState([]);
   const [utiSeq, setUtiSeq] = useState();
-  const [click, setClick] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const params = {
+    uiSeq: uiSeq,
+  };
 
   const fetchData = async () => {
-    axios
-      .get("http://192.168.0.153:8888/list/deliverytime?uiSeq=" + uiSeq)
+    await instance
+      .get(request.deliverytime, { params })
       .then((res) => {
+        setUtiSeq(res.data.list[0].utiSeq);
         setShopArr(res.data.list);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -25,14 +33,10 @@ const ShopSchedule = ({ uiSeq }) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [uiSeq]);
 
-  shopArr.map((ele, inedx) => {
-    console.log(ele.utiSeq);
-  });
-
-  const clickFunc = (index) => {
-    setClick(index);
+  const clickFunc = (ele) => {
+    setUtiSeq(ele.utiSeq);
   };
 
   return (
@@ -40,27 +44,26 @@ const ShopSchedule = ({ uiSeq }) => {
       <p>음식주문 / 도착 시간표</p>
       <div>
         <div className="flex justify-between">
-          {shopArr.map((ele, index) => {
-            return click === index ? (
-              <>
-                <ScheBoxOn key={index} onClick={() => clickFunc(index)}>
-                  <span>{ele.utiName}</span>
-                  <span>주문마감 {ele.utiCloseTime}</span>
-                  <span>배달 도착 {ele.utiDeliveryTime}</span>
-                </ScheBoxOn>
-              </>
-            ) : (
-              <>
-                <ScheBoxOff key={index} onClick={() => clickFunc(index)}>
-                  <span>{ele.utiName}</span>
-                  <span>주문마감 {ele.utiCloseTime}</span>
-                  <span>배달 도착 {ele.utiDeliveryTime}</span>
-                </ScheBoxOff>
-              </>
+          {shopArr.map((ele) => {
+            return (
+              <ScheBoxOn key={ele.utiSeq} onClick={() => clickFunc(ele)}>
+                <span>{ele.utiName}</span>
+                <span>주문마감 {ele.utiCloseTime}</span>
+                <span>배달 도착 {ele.utiDeliveryTime}</span>
+              </ScheBoxOn>
             );
+            // : (
+            //     <ScheBoxOff key={ele.utiSeq} onClick={() => clickFunc(ele)}>
+            //       <span>{ele.utiName}</span>
+            //       <span>주문마감 {ele.utiCloseTime}</span>
+            //       <span>배달 도착 {ele.utiDeliveryTime}</span>
+            //     </ScheBoxOff>
+            // );
           })}
         </div>
+        <ShopSale utiSeq={utiSeq} />
         <ShopList utiSeq={utiSeq} />
+        {/* {loading && <Loading />} */}
       </div>
     </>
   );
