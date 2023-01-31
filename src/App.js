@@ -17,6 +17,9 @@ import Fixmenu from "./components/FixMenu";
 import NotFound from "./pages/NotFound";
 import OrderLogin from "./pages/order/OrderLogin";
 import Payment from "./pages/order/Payment";
+import SearchBar from "./components/SearchBar";
+import AllShop from "./pages/shop/AllShopList";
+import ShopMain from "./pages/ShopMain";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -28,8 +31,10 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Shopmain/:keyword" element={<ShopMain />} />
+          <Route path="/Allshop" element={<AllShop />} />
+          <Route path="/Shop/:siSeq" element={<Shop />} />
           <Route path="/About" element={<About />} />
-          <Route path="/Shop/*" element={<Shop />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<SIgnup />} />
           <Route path="/Mypage/*" element={<Mypage />} />

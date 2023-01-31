@@ -1,23 +1,15 @@
 // main Home page
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
-import Loading from "../components/Loading";
-import ShopList from "../components/ShopList";
-import ShopSchedule from "../components/ShopSchedule";
-import ShopSale from "../components/ShopSale";
 import Banner from "../components/Banner";
+
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
 const Home = () => {
   return (
     <>
-      {/* <Loading /> */}
       <HomeContainer>
-        <HomeTitle>
-          <p>"어디로 배달해드릴까요?"</p>
-        </HomeTitle>
+        <HomeTitle>"어디로 배달해드릴까요?"</HomeTitle>
         <HomeBox>
           <SearchBar />
         </HomeBox>
