@@ -1,8 +1,11 @@
 const request = {
   univ: "/list/univ",
-  pickup: "/list/pickuparea",
+  uniSearch: "/list/univ/search",
+  deliverytime: "/list/deliverytime",
+  store: "/list/store",
+  dcstore: "/list/dcstore",
   // shop
-  shopinfo: "/store/info",
+  shopinfo: "/store/menu/list",
 };
 
 export default request;

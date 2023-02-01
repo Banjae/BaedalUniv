@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 // user 정보 가져오기
-import { useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -12,36 +12,32 @@ import axios from "axios";
 const Modal = ({ title, name }) => {
   const user = useSelector((state) => state.user);
   const [showModal, setShowModal] = React.useState(false);
-  const [nickName, setNickName] = useState("");
-  const [nickNameCheck, setNickNameCheck] = useState(false);
+  const [phone, setPhone] = useState("");
 
-  // 1. 닉네임 중복검사
-  const nickNameCheckFn = (e) => {
+  // 1. 전화번호 중복검사
+  const [phoneCheck, setPhoneCheck] = useState(false);
+  const phoneCheckFn = (e) => {
     e.preventDefault();
-    // 닉네임 입력되었는지 체크
-    if (!nickName) {
-      alert("닉네임을 입력해주세요");
+    // 전화번호 입력되었는지 체크
+    if (!phone) {
+      alert("전화번호를 입력해주세요");
       return;
     }
-
-    // 닉네임 존재 여부 파악
+    // 전화번호 존재 여부 파악
     const body = {
-      ciNickName: nickName,
+      ciPhone: phone,
     };
     axios
-      .post("http://192.168.0.56:8888/member/check/nickName", body)
+      .post("http://192.168.0.56:8888/member/check/phone", body)
       .then((response) => {
         // 서버에서 정상적 처리 완료
         if (response.data) {
           if (response.data) {
-            // 등록가능
-            // 사용자 중복체크 완료
             alert(response.data.message);
-            setNickNameCheck(true);
+            setPhoneCheck(true);
           } else {
-            // 등록 불가능
             alert(response.data.message);
-            setNickNameCheck(false);
+            setPhoneCheck(false);
           }
         }
       })
@@ -51,35 +47,43 @@ const Modal = ({ title, name }) => {
       });
   };
 
-  // 2. 닉네임 변경요청
-  const nameUpdateFn = (e) => {
+  // 2. 전화번호 변경요청
+  const phoneUpdateFn = (e) => {
     e.preventDefault();
-    if (!nickName) {
-      return alert("닉네임을 입력하세요.");
+    if (!phone) {
+  alert("전화번호를 입력하세요.")
+      return
     }
-    // 닉네임 검사 요청
-    if (!nickNameCheck) {
-      return alert("닉네임 중복검사를 해주세요.");
+    // 전화번호 검사 요청
+    if (!phoneCheck) {
+  alert("전화번호 중복검사를 해주세요.")
+      return
     }
-
     const body = {
-      cinickName: nickName,
+      ciPhone: phone,
     };
-
     axios
-      .post("http://192.168.0.56:8888/member/update/nickname", body)
+      .post("http://192.168.0.56:8888/member/update/phone", body)
       .then((response) => {
-        // 서버에서 정상적 처리 완료
-        if (response.data.status) {
-          alert(response.data.message);
-        } else {
-          alert(response.data.message);
+        if (response.data) {
+          if (response.data) {
+            alert(response.data.message);
+          } else {
+            alert(response.data.message);
+          }
         }
       })
       .catch((error) => {
         console.log(error.response);
         alert(error.response.data.message);
       });
+  };
+// 전화번호 정규식 표현
+  const autoHypen = (target) => {
+    target = target
+      .replace(/[^0-9]/g, "")
+      .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+    setPhone(target);
   };
 
   return (
@@ -116,21 +120,20 @@ const Modal = ({ title, name }) => {
                   </button>
                 </div>
                 {/*body*/}
-                <Title style={{ margin: "40px" }}>{user.ciNickName}</Title>
+                <Title style={{ margin: "40px" }}>{user.ciPhone}</Title>
                 <Bt>
                   <input
                     className="placeholder:text-base pl-2 mb-1"
-                    type="text"
+                    type="tel"
                     placeholder={`변경할 ${name}을 입력해주세요`}
                     required
-                    value={nickName}
-                    onChange={(e) => setNickName(e.target.value)}
-                    maxLength={10}
+                    value={phone}
+                    onChange={(e) => autoHypen(e.target.value)}
+                    maxLength={13}
                     minLength={2}
                   />
-                  <Check onClick={(e) => nickNameCheckFn(e)}>중복체크</Check>
+                  <Check onClick={(e) => phoneCheckFn(e)}>중복체크</Check>
                 </Bt>
-
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
@@ -143,7 +146,7 @@ const Modal = ({ title, name }) => {
                   <button
                     className="bg-main text-white active:bg-main font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={(e) => nameUpdateFn(e)}
+                    onClick={(e) => phoneUpdateFn(e)}
                   >
                     변경
                   </button>
@@ -166,7 +169,6 @@ font-semibold
 text-2xl
 text-slate-700
 `;
-
 const Change = tw.div`
 flex
 justify-start
@@ -180,7 +182,6 @@ rounded-lg
 bg-main
 text-white
 `;
-
 const Bt = tw.div`
   flex
   justify-between
@@ -194,14 +195,12 @@ const Bt = tw.div`
   cursor-pointer
   rounded-lg
 `;
-
 const Check = tw.button`
 text-xs
 bg-main
 text-white
 rounded-lg
 px-2
-
 `;
 
 export default Modal;

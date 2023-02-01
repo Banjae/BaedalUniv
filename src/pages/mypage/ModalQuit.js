@@ -1,4 +1,4 @@
-// 회원탈퇴 서버는 todo_mongo > UseInfo 에서 참고
+// 회원탈퇴 서버코드는 todo_mongo > UseInfo 에서 참고
 
 import React from "react";
 import axios from "axios";
@@ -6,49 +6,19 @@ import { useNavigate } from "react-router-dom";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-
-const Title = tw.div`
-
-flex
-justify-start
-mx-3
-font-semibold
-text-lg
-text-slate-600
-`;
-
-const Out = tw.button`
-
-w-1/2
-px-8
-py-3
-bg-main
-border
-border-main
-rounded-lg
-text-base
-text-white
-text-2xl
-font-normal
-my-5
-
-
-`;
+import { useSelector } from "react-redux";
 
 const ModalQuit = () => {
   const navigate = useNavigate();
-
   const [showModal, setShowModal] = React.useState(false);
 
   // 회원 탈퇴
-  const registOutFunc = (e) => {
-    let body={
+  const user = useSelector((state) => state.user);
+  const num = user.ciSeq;
 
-    }
-
-    e.preventDefault();
+  const registOutFunc = () => {
     axios
-      .post("http://192.168.0.56:8888/member/delete",body)
+      .delete("http://192.168.0.56:8888/member/delete?ciSeq=" + num)
       .then((response) => {
         if (response.data.message) {
           alert("회원 탈퇴하였습니다.");
@@ -65,7 +35,9 @@ const ModalQuit = () => {
 
   return (
     <>
-      <Out onClick={() => setShowModal(true)} className="mt-10">회원탈퇴</Out>
+      <Out onClick={() => setShowModal(true)} className="mt-10">
+        회원탈퇴
+      </Out>
       {showModal ? (
         <>
           <div className=" justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -110,18 +82,13 @@ const ModalQuit = () => {
                   일정기간 법령에 근거해 보관하며 이는 개인정보 처리방침에서
                   확인가능 함
                 </Title>
-
                 {/*footer*/}
                 <div
                   className="flex items-center 
                 justify-center 
                 border-t  "
                 >
-                  <Out
-                    className=""
-                    type="button"
-                    onClick={(e) => registOutFunc(e)}
-                  >
+                  <Out className="" type="button" onClick={registOutFunc}>
                     탈퇴하기
                   </Out>
                 </div>
@@ -134,5 +101,28 @@ const ModalQuit = () => {
     </>
   );
 };
+
+const Title = tw.div`
+flex
+justify-start
+mx-3
+font-semibold
+text-lg
+text-slate-600
+`;
+const Out = tw.button`
+w-1/2
+px-8
+py-3
+bg-main
+border
+border-main
+rounded-lg
+text-base
+text-white
+text-2xl
+font-normal
+my-5
+`;
 
 export default ModalQuit;
