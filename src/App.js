@@ -17,6 +17,7 @@ import Fixmenu from "./components/FixMenu";
 import NotFound from "./pages/NotFound";
 import OrderLogin from "./pages/order/OrderLogin";
 import Payment from "./pages/order/Payment";
+import ShopDetail from "./pages/order/ShopDetail";
 import SearchBar from "./components/SearchBar";
 import AllShop from "./pages/shop/AllShopList";
 import ShopMain from "./pages/ShopMain";
@@ -44,6 +45,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/OrderLogin" element={<OrderLogin />} />
           <Route path="/Payment" element={<Payment />} />
+          <Route path="/ShopDetail" element={<ShopDetail />} />
         </Routes>
       </Container>
       <Footer />

@@ -8,38 +8,8 @@ import tw from "tailwind-styled-components";
 import { useEffect, useState } from "react";
 // import payco from "../../assets/Payco-4.png";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
-const LoginBt = tw.button`
-border-2
-border-gray-300
-w-96
-rounded-lg
-h-16
-font-semibold
-text-xl
-`;
-
-const Title = tw.span`
-font-semibold
-text-2xl
-text-slate-700
-mb-10
-`;
-const Inputbox = tw.input`
-flex
-justify-start
-m-3
-p-2
-rounded-lg
-border-2
-border-gray-300
-h-12
-font-medium
-text-xl
-`;
-
-const Order = () => {
+const Order = (props) => {
   const [list, setList] = useState([]);
   const [time, setTime] = useState([]);
   const navigate = useNavigate();
@@ -78,7 +48,6 @@ const Order = () => {
   const onChangeHanlder2 = (e) => {
     setTime(e.currentTarget.value);
   };
-
   return (
     <>
       <button onClick={() => navigate(-1)}>
@@ -105,11 +74,11 @@ const Order = () => {
             <Inputbox type="text" placeholder="핸드폰번호를 입력해주세요" />
           </div>
 
-          <div className="receipt">
-            <Title>수령시간 / 장소</Title>
+          <div className="receipt mb-4">
+            <Title className="mb-4">수령시간 / 장소</Title>
             <div className="receipt-time ml-5">
               <div className=" flex flex-col">
-                <span>수령시각</span>
+                <span className="mb-2">수령시각</span>
 
                 <select
                   className="rounded-lg border-2 border-gray-300"
@@ -130,7 +99,7 @@ const Order = () => {
             </div>
             <div className="receipt-place ml-5">
               <div className=" flex flex-col">
-                <span>수령장소</span>
+                <span className="mb-2">수령장소</span>
                 <select
                   className="rounded-lg border-2 border-gray-300"
                   onChange={onChangeHanlder}
@@ -151,8 +120,8 @@ const Order = () => {
             </div>
           </div>
 
-          <div className="payment-method">
-            <Title>결제수단</Title>
+          <div className="payment-method mb-4">
+            <Title className="mb-4">결제수단</Title>
             <div className="ml-5">
               <div className="">
                 <input type="radio" name="payment" />
@@ -169,8 +138,8 @@ const Order = () => {
             </div>
           </div>
 
-          <div className="pay-info">
-            <Title>결제정보</Title>
+          <div className="pay-info mb-4">
+            <Title className="mb-4">결제정보</Title>
             <div className="menu-payment ml-5">
               <span>상호명</span>
               <div>
@@ -205,4 +174,32 @@ const Order = () => {
   );
 };
 
+const LoginBt = tw.button`
+border-2
+border-gray-300
+w-96
+rounded-lg
+h-16
+font-semibold
+text-xl
+`;
+
+const Title = tw.span`
+font-semibold
+text-2xl
+text-slate-700
+mb-12
+`;
+const Inputbox = tw.input`
+flex
+justify-start
+m-3
+p-2
+rounded-lg
+border-2
+border-gray-300
+h-12
+font-medium
+text-xl
+`;
 export default Order;
