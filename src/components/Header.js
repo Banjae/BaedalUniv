@@ -1,69 +1,27 @@
-import React, { useTransition } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { clearUser } from "../reducers/userSlice";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
-import { useSelector } from "react-redux";
-
-
+// 사용자 정보 사용하기
+import { useDispatch, useSelector } from "react-redux";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
-  const userinfo = "";
 
-  const HeadContainer = tw.div`
-  flex 
-  justify-between 
-  bg-white 
-  px-6 
-  h-20
-  `;
-
-  const HeadTitle = tw.div`
-  flex 
-  items-center 
-  text-4xl 
-  font-baedal 
-  text-main
-  `;
-
-  const LogBt = tw.div`
-  flex 
-  justify-center 
-  items-center 
-  rounded-full 
-  shadow-md 
-  border
-  border-gray-300
-  text-sm
-  w-1/2 
-  h-8
-  `;
-
-  const SignBt = tw.li`
-  flex 
-  justify-center 
-  items-center 
-  rounded-full 
-  shadow-md 
-  bg-main 
-  border
-  border-main
-  text-white
-  text-sm 
-  w-1/2 
-  h-8
-  `;
-
+  const dispatch = useDispatch();
 
   // 로그아웃 기능
   const navigate = useNavigate();
   const logOutFn = () => {
+    dispatch(clearUser());
+    window.sessionStorage.setItem("userInfo");
     navigate("/login");
   };
 
@@ -76,9 +34,9 @@ const Header = () => {
             <FontAwesomeIcon icon={faGraduationCap} />
           </Link>
         </HeadTitle>
-        {/* user가 로그인 / 비로그인시 다르게 출력 */}
-        {userinfo === "" ? (
-          <ul className="flex gap-5 items-center w-40">
+        {/* user가 로그인 / 비로그인시 다르게 출력 , 토큰으로 바꿔줄 예정*/}
+        {user.ciNickName === "" ? (
+          <ul className="flex gap-5 items-center w-48">
             <LogBt>
               <Link to="/Login">로그인</Link>
             </LogBt>
@@ -87,23 +45,59 @@ const Header = () => {
             </SignBt>
           </ul>
         ) : (
-          <ul className="flex justify-end space-x-3 p-4">
+          <ul className="flex gap-5 items-center w-48">
             <LogBt>
-            <button onClick={() => logOutFn()}
-                className="btn btn-outline-light me-2">
-       
-                  로그아웃
-              
-                  </button> 
-                
+              <button className="btn btn-outline-light me-2">
+                {user.ciNickName}님
+              </button>
             </LogBt>
-            <SignBt>
-              <Link to="/Mypage">마이페이지</Link>
-            </SignBt>
+            <SignBt onClick={() => logOutFn()}>로그아웃</SignBt>
           </ul>
         )}
       </HeadContainer>
     </header>
   );
 };
+
+const HeadContainer = tw.div`
+flex 
+justify-between 
+bg-white 
+px-6 
+h-20
+`;
+const HeadTitle = tw.div`
+flex 
+items-center 
+text-4xl 
+font-baedal 
+text-main
+`;
+const LogBt = tw.div`
+flex 
+justify-center 
+items-center 
+rounded-full 
+shadow-md 
+border
+border-gray-300
+text-sm
+p-3
+h-8
+`;
+const SignBt = tw.button`
+flex 
+justify-center 
+items-center 
+rounded-full 
+shadow-md 
+bg-main 
+border
+border-main
+text-white
+text-sm 
+p-3
+h-8
+`;
+
 export default Header;

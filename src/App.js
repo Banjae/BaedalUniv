@@ -9,6 +9,7 @@ import Shop from "./pages/shop/Shop";
 import Login from "./pages/Login";
 import SIgnup from "./pages/SIgnup";
 import Mypage from "./pages/mypage/Mypage";
+import Review from "./pages/mypage/Review";
 import Order from "./pages/order/Order";
 import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
@@ -37,6 +38,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<SIgnup />} />
           <Route path="/Mypage/*" element={<Mypage />} />
+          <Route path="/Review" element={<Review />} />
           <Route path="/Order" element={<Order />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />

@@ -1,77 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import food from "../../assets/brand.jpg";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-
-const Title = tw.div`
-flex
-justify-start 
-ml-3
-font-semibold
-text-2xl
-text-slate-700
-`;
-
-const Out = tw.button`
-
-w-1/2
-px-8
-py-3
-bg-main
-border
-border-main
-rounded-lg
-text-base
-text-white
-text-2xl
-font-normal
-mt-20
-mb-20
-
-`;
-
-const Change=tw.div`
-flex
-justify-start
-m-3
-p-2
-border-2
-h-12
-font-medium
-text-lg
-cursor-pointer
-rounded-lg
-bg-main
-text-white
-`
-
-
-
-
-const Bt = tw.div`
-  flex
-  justify-start
-  m-3
-  p-2
-  border-2
-  border-gray-300
-  h-12
-  font-medium
-  text-xl
-  cursor-pointer
-  rounded-lg
-`;
-
-const TAILWINDBT =
-  "px-6 py-2 bg-main rounded-md text-white hover:scale-105 transition-all";
+import { Link } from "react-router-dom";
 
 const ModalList = () => {
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <Change onClick={() => setShowModal(true)} className="w-32 justify-center">주문 내역</Change>
+      <Change
+        onClick={() => setShowModal(true)}
+        className="w-32 justify-center"
+      >
+        주문 내역
+      </Change>
       {showModal ? (
         <>
           <div
@@ -134,7 +78,9 @@ const ModalList = () => {
                       className="flex justify-between 
                     "
                     >
-                      <button className={TAILWINDBT}>리뷰쓰기</button>
+                      <Link to="/Review" className={TAILWINDBT}>
+                        리뷰쓰기
+                      </Link>
                       <button className={TAILWINDBT}>가게보기</button>
                       <button className={TAILWINDBT}>주문상세</button>
                     </div>
@@ -160,5 +106,22 @@ const ModalList = () => {
     </>
   );
 };
+
+const Change = tw.div`
+flex
+justify-start
+m-3
+p-2
+border-2
+h-12
+font-medium
+text-lg
+cursor-pointer
+rounded-lg
+bg-main
+text-white
+`;
+const TAILWINDBT =
+  "px-6 py-2 bg-main rounded-md text-white hover:scale-105 transition-all";
 
 export default ModalList;
