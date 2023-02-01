@@ -46,16 +46,17 @@ const ShopList = ({ utiSeq }) => {
 
   const goToShop = (e) => {
     const storeNum = e.storeSeq;
-    navigate(`/shop/${storeNum}`);
+    navigate(`/shop/${storeNum}`, { state: utiSeq });
   };
 
   return (
-    <>
-      <div className="flex justify-around">
+    <SLcontainer>
+      {/* <div className="flex justify-around">
         <button>리뷰 많은 순</button>
         <button>별점 많은 순</button>
         <button>할인율 높은 순</button>
-      </div>
+      </div> */}
+      <SLtitle>상점</SLtitle>
       <Swiper
         slidesPerView={4}
         spaceBetween={30}
@@ -98,9 +99,13 @@ const ShopList = ({ utiSeq }) => {
         })}
       </Swiper>
       {/* {loading && <Loading />} */}
-    </>
+    </SLcontainer>
   );
 };
+
+const SLcontainer = tw.div`
+  mt-10
+`
 
 const NotWorking = tw.div` 
   flex
@@ -116,6 +121,11 @@ const NotWorking = tw.div`
   opacity-70
   text-white
   text-3xl
+`;
+
+const SLtitle = tw.p`
+text-2xl
+my-2
 `;
 
 export default ShopList;

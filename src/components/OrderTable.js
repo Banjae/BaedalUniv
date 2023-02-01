@@ -83,7 +83,7 @@ const MotherTable = tw.div`
   h-auto
   hidden
   lg:block
-  lg:w-[400px]
+  lg:w-[350px]
 `;
 
 const Table = tw.div`

@@ -130,11 +130,15 @@ const SearchList = tw.div`
   w-2/4 
   my-0 
   mx-auto
+  rounded-lg 
 `;
 
 const SearchItem = tw.button`
   text-center
-  hover:bg-black
-`;
+  hover:border-main 
+  hover:ring-2 
+  hover:ring-main
+  rounded-lg
+  `;
 
 export default SearchBar;

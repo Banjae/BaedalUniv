@@ -39,12 +39,29 @@ const ShopSchedule = ({ uiSeq }) => {
     setUtiSeq(ele.utiSeq);
   };
 
+  let now = new Date();
+  const hour = now.getHours();
+  const minutes = now.getMinutes();
+  const nowTime = `${hour}:${minutes}`;
+  console.log(nowTime);
+
+  // const setTime = if(nowTime < ) {
+
+  // } else if {
+
+  // } else if {
+
+  // } else {
+
+  // }
+
   return (
     <>
-      <p>음식주문 / 도착 시간표</p>
+      <SStitle>음식주문 / 도착 시간표</SStitle>
       <div>
         <div className="flex justify-between">
           {shopArr.map((ele) => {
+            console.log(ele.utiCloseTime < nowTime);
             return (
               <ScheBoxOn key={ele.utiSeq} onClick={() => clickFunc(ele)}>
                 <span>{ele.utiName}</span>
@@ -63,7 +80,7 @@ const ShopSchedule = ({ uiSeq }) => {
         </div>
         <ShopSale utiSeq={utiSeq} />
         <ShopList utiSeq={utiSeq} />
-        {/* {loading && <Loading />} */}
+        {loading && <Loading />}
       </div>
     </>
   );
@@ -72,12 +89,15 @@ const ShopSchedule = ({ uiSeq }) => {
 const ScheBoxOn = tw.div`
   flex
   flex-col
-  itmes-center
+  items-center
+  justify-center
   rounded-lg
   bg-white
   border-2 
-  border-main 
+  border-white 
   w-1/5
+  h-[150px]
+  text-xl
 `;
 
 const ScheBoxOff = tw.div`
@@ -89,6 +109,11 @@ const ScheBoxOff = tw.div`
   border-2
   border-gray-300 
   w-1/5
+  `;
+
+const SStitle = tw.p`
+    text-2xl
+    my-2
   `;
 
 export default ShopSchedule;

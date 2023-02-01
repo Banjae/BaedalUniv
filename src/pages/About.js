@@ -16,90 +16,106 @@ const About = () => {
     AOS.init();
   });
 
+  const frontMemberList = [
+    {
+      name: "반재원",
+      content: "Home / Shop",
+      link: "https://github.com/Banjae",
+    },
+    {
+      name: "옥지은",
+      content: "Login / Signup",
+      link: "https://github.com/dev-jiji",
+    },
+    {
+      name: "조준영",
+      content: "Order / Cart",
+      link: "https://github.com/choj96",
+    },
+  ];
+
+  const backMemberList = [
+    {
+      name: "이영은",
+      content: "대장",
+      link: "https://github.com/",
+    },
+    {
+      name: "문주영",
+      content: "부대장",
+      link: "https://github.com/",
+    },
+    {
+      name: "우민경",
+      content: "쫄병",
+      link: "https://github.com/",
+    },
+    {
+      name: "이민석",
+      content: "쫄병",
+      link: "https://github.com/",
+    },
+    {
+      name: "이호진",
+      content: "쫄병",
+      link: "https://github.com/",
+    },
+  ];
+
   const navigate = useNavigate();
+
   return (
     <>
       <button onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
       <div>
-        <div className="text-center text-2xl">FE Members</div>
+        <div className="text-center text-4xl m-3">FE Members</div>
         <ProfileUl>
-          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
-            <Profile>
-              <Name>반재원</Name>
-              <PorfileCenter>
-                <ProfilePic></ProfilePic>
-                <ProfileP>
-                  담당파트
-                  <br />
-                  홈 / 상점 
-                </ProfileP>
-              </PorfileCenter>
-              <Link to="https://github.com/Banjae" target="blank">
-                <FontAwesomeIcon icon={faGithub} />
-              </Link>
-            </Profile>
-          </ProfileLi>
-          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
-            <Profile>
-              <Name>옥지은</Name>
-              <Link to="https://github.com/dev-jiji" target="blank">
-                <FontAwesomeIcon icon={faGithub} />
-              </Link>
-            </Profile>
-          </ProfileLi>
-          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
-            <Profile>
-              <Name>조준영</Name>
-              <Link to="https://github.com/choj96" target="blank">
-                <FontAwesomeIcon icon={faGithub} />
-              </Link>
-            </Profile>
-          </ProfileLi>
+          {frontMemberList.map((ele, idx) => {
+            return (
+              <ProfileLi data-aos="zoom-in" data-aos-duration="3000" key={idx}>
+                <Profile>
+                  <Name>{ele.name}</Name>
+                  <PorfileCenter>
+                    <ProfilePic></ProfilePic>
+                    <ProfileP>
+                      담당파트
+                      <br />
+                      {ele.content}
+                    </ProfileP>
+                  </PorfileCenter>
+                  <Link to={ele.link} target="blank">
+                    <FontAwesomeIcon icon={faGithub} />
+                  </Link>
+                </Profile>
+              </ProfileLi>
+            );
+          })}
         </ProfileUl>
-        <div>BE Members</div>
+
+        <div className="text-center text-2xl">BE Members</div>
         <ProfileUl>
-          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
-            <Profile>
-              <Name>이영은</Name>
-              <Link to="https://github.com/" target="blank">
-                <FontAwesomeIcon icon={faGithub} />
-              </Link>
-            </Profile>
-          </ProfileLi>
-          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
-            <Profile>
-              <Name>문주영</Name>
-              <Link to="https://github.com/" target="blank">
-                <FontAwesomeIcon icon={faGithub} />
-              </Link>
-            </Profile>
-          </ProfileLi>
-          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
-            <Profile>
-              <Name>우민경</Name>
-              <Link to="https://github.com/" target="blank">
-                <FontAwesomeIcon icon={faGithub} />
-              </Link>
-            </Profile>
-          </ProfileLi>
-          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
-            <Profile>
-              <Name>이민석</Name>
-              <Link to="https://github.com/" target="blank">
-                <FontAwesomeIcon icon={faGithub} />
-              </Link>
-            </Profile>
-          </ProfileLi>
-          <ProfileLi data-aos="zoom-in" data-aos-duration="3000">
-            <Profile>
-              <Name>이호진</Name>
-              <Link to="https://github.com/" target="blank">
-                <FontAwesomeIcon icon={faGithub} />
-              </Link>
-            </Profile>
-          </ProfileLi>
+          {backMemberList.map((ele, idx) => {
+            return (
+              <ProfileLi data-aos="zoom-in" data-aos-duration="3000" key={idx}>
+                <Profile>
+                  <Name>{ele.name}</Name>
+                  <PorfileCenter>
+                    <ProfilePic></ProfilePic>
+                    <ProfileP>
+                      담당파트
+                      <br />
+                      {ele.content}
+                    </ProfileP>
+                  </PorfileCenter>
+                  <Link to={ele.link} target="blank">
+                    <FontAwesomeIcon icon={faGithub} />
+                  </Link>
+                </Profile>
+              </ProfileLi>
+            );
+          })}
         </ProfileUl>
       </div>
     </>

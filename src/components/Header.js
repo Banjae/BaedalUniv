@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 
-import { clearUser } from "../reducers/userSlice";
+import { clearUser } from "../reducer/userSlice";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

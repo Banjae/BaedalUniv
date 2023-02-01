@@ -5,7 +5,8 @@ const request = {
   store: "/list/store",
   dcstore: "/list/dcstore",
   // shop
-  shopinfo: "/store/menu/list",
+  shop: "/store/menu/list",
+  shopinfo: "/store/info",
 };
 
 export default request;

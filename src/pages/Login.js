@@ -4,7 +4,7 @@ import axios from "axios";
 
 // user 정보 업데이트
 import { useDispatch } from "react-redux";
-import { loginUser } from "../reducers/userSlice";
+import { loginUser } from "../reducer/userSlice";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

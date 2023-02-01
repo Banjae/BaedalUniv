@@ -50,12 +50,12 @@ const ShopSale = ({ utiSeq }) => {
 
   const goToShop = (e) => {
     const storeNum = e.storeSeq;
-    navigate(`/shop/${storeNum}`);
+    navigate(`/shop/${storeNum}`, { state: utiSeq });
   };
 
   return (
-    <>
-      <p>할인전</p>
+    <SScontainer>
+      <SStitle>할인전</SStitle>
       <Swiper
         slidesPerView={2}
         spaceBetween={30}
@@ -115,9 +115,13 @@ const ShopSale = ({ utiSeq }) => {
         })}
       </Swiper>
       {/* {loading && <Loading />} */}
-    </>
+    </SScontainer>
   );
 };
+
+const SScontainer = tw.div`
+  mt-10
+`;
 
 const NotWorking = tw.div` 
   flex
@@ -133,6 +137,11 @@ const NotWorking = tw.div`
   opacity-70
   text-white
   text-3xl
+`;
+
+const SStitle = tw.p`
+text-2xl
+my-2
 `;
 
 export default ShopSale;

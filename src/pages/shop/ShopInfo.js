@@ -1,27 +1,143 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import instance from "../../api/axios";
+import request from "../../api/requset";
 
-const ShopInfo = () => {
+// tailwind-styled-component
+import tw from "tailwind-styled-components";
+
+const ShopInfo = ({ utiSeq }) => {
+  const [infoArr, setInfoArr] = useState([]);
+  const [pickUpTimeList, setPickUpTimeList] = useState([]);
+
+  const { siSeq } = useParams();
+
+  const params = {
+    siSeq: siSeq,
+    utiSeq: utiSeq,
+  };
+
+  const fetchData = async () => {
+    await instance
+      .get(request.shopinfo, { params })
+      .then((res) => {
+        setInfoArr(res.data.data);
+        setPickUpTimeList(res.data.data.closePickUpTimeList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [utiSeq, siSeq]);
+
   return (
     <>
-      <div>
-        <div className="flex flex-col items-center">
-          <div className="flex justify-center w-[50%] bg-gray-200 rounded-xl p-2 ">
-            <div>
-              <strong>사장님한마디</strong>☆ 전체부분 맛집랭킹 1위 항상
-              사랑해주시는 고객님들께 감사드리며 매일 더 노력하는 멘부리가
-              되겠습니다☆ ☆리뷰약속이벤트☆ 리뷰약속이벤트는 요청사항 기재가 아닌
-              메뉴란에서 선택 부탁드립니다. ☆음식에 문제가 있거나 궁금하신 점은
-              언제든지 가게로 연락주세요. <br />
-              #정직하게 #양심있게 #맛있게
-            </div>
+      <SIcontainer>
+        <OwnerWord>
+          <strong>사장님한마디🥳</strong>
+          <OwnerWordText>
+            <p>
+              {infoArr.ownerWord === ""
+                ? "사장님 한마디가 없어요"
+                : infoArr.ownerWord}
+            </p>
+          </OwnerWordText>
+        </OwnerWord>
+        <SIbox>
+          <strong>업체정보</strong>
+          <div>
+            <span>전화번호</span>
+            <SIdetail>{infoArr.phoneNumber}</SIdetail>
           </div>
-          <div className="bg-yellow-200">업체정보</div>
-          <div className="bg-yellow-200">사업자정보</div>
-          <div className="bg-yellow-200">원산지정보</div>
-        </div>
-      </div>
+        </SIbox>
+        <SIbox>
+          <strong>사업자정보</strong>
+          <div>
+            <span>대표자</span>
+            <SIdetail>{infoArr.ownerName}</SIdetail>
+          </div>
+          <div>
+            <span>상호명</span>
+            <SIdetail>{infoArr.sdiName}</SIdetail>
+          </div>
+          <div>
+            <span>사업자등록번호</span>
+            <SIdetail>{infoArr.businessNumber}</SIdetail>
+          </div>
+        </SIbox>
+        <SItime>
+          <p>주문마감 / 도착시간</p>
+          {pickUpTimeList.map((ele) => {
+            return (
+              <div key={ele.utiSeq}>
+                <p>{ele.closeTime}</p>
+                <p>{ele.pickupTime}</p>
+              </div>
+            );
+          })}
+        </SItime>
+      </SIcontainer>
     </>
   );
 };
+
+const SIcontainer = tw.div`
+  flex
+  flex-col
+  items-center
+  bg-white
+  h-full
+  w-full
+  mt-2
+`;
+
+const OwnerWord = tw.div`
+  flex
+  flex-col
+  border
+  border-gray-300
+  rounded-lg
+  w-[90%]
+  text-lg
+  bg-white
+  m-2
+  p-2
+  `;
+
+const OwnerWordText = tw.div`
+  flex
+  my-0
+  mx-auto
+  w-[95%]
+`;
+
+const SIbox = tw.div`
+  flex
+  flex-col
+  w-full
+  border-t-2
+  border-gray-300
+  p-2
+  m-1
+`;
+
+const SIdetail = tw.span`
+  ml-[70px]
+`;
+
+const SItime = tw.div`
+  flex
+  flex-col
+  items-center
+  border
+  border-gray-300
+  rounded-lg
+  w-[60%]
+  m-2
+  p-2
+`;
 
 export default ShopInfo;

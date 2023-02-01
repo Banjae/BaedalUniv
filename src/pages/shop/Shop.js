@@ -1,6 +1,6 @@
 // shop Detail page
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router-dom";
 import ShopInfo from "./ShopInfo";
 import ShopMenu from "./ShopMenu";
 import ShopReview from "./ShopReview";
@@ -23,20 +23,23 @@ import tw from "tailwind-styled-components";
 import food from "../../assets/food.jpg";
 
 const Detail = () => {
+  const loaction = useLocation();
+  const utiSeq = loaction.state;
   const { siSeq } = useParams();
-  const [storeNmae, setStoreName] = useState("");
-  const [menuList, setMenuList] = useState([]);
+  const goToAbout = useRef();
+  const [click, setClick] = useState(0);
+  const [infoArr, setInfoArr] = useState([]);
 
   const params = {
     siSeq: siSeq,
+    utiSeq: utiSeq,
   };
 
   const fetchData = async () => {
     await instance
       .get(request.shopinfo, { params })
       .then((res) => {
-        setStoreName(res.data.store);
-        setMenuList(res.data.list);
+        setInfoArr(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -45,65 +48,59 @@ const Detail = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  const [click, setClick] = useState(0);
+  }, [siSeq, utiSeq]);
 
   return (
     <>
       <ShopContainer>
-        <div className="w-[70%] md:w-[100%]">
+        <div className="w-[80%] md:w-[90%]">
           <div className="flex justify-between gap-5">
             <img src={food} alt="img" className="w-[30%]" />
-            <div className="flex-col text-center bg-white py-2">
-              <p className="text-2xl tracking-wide">{storeNmae}</p>
+            <div className="flex-col text-center bg-white w-full py-2">
+              <p className="text-2xl tracking-wide">{infoArr.siName}</p>
               <div className="flex justify-center items-center py-5">
                 <div className="flex items-center">
                   <DetailStarRating starRatio={4.6} />
                   <p className="text-2xl pl-2">4.6</p>
                 </div>
               </div>
-              <div>
-                <span className="block text-sm ">
-                  최소주문금액{" "}
-                  <span className="line-through decoration-orange-600">
-                    5,000원
-                  </span>{" "}
-                  0원
-                  {/* <FontAwesomeIcon
-              icon={faArrowRightLong}
-              className="absolute top-1 right-7 text-red-600 text" /> */}
-                </span>
-
-                <span className="text-sm">
-                  배달비
-                  <span className="line-through decoration-orange-600">
-                    4,000원
-                  </span>
-                  0원
-                </span>
-              </div>
+              <ShopPriceBox>
+                <ShopPrice>
+                  <span className="block text-md ">최소주문금액</span>
+                  <div>
+                    <span className="line-through decoration-orange-600">
+                      {infoArr.minOrderPrice}원
+                    </span>
+                    <span className="ml-2">0원</span>
+                  </div>
+                </ShopPrice>
+                <ShopPrice>
+                  <span className="text-md">배달비</span>
+                  <div>
+                    <span className="line-through decoration-rose-600">
+                      {infoArr.deliveryPrice}원
+                    </span>
+                    <span className="ml-2">0원</span>
+                  </div>
+                </ShopPrice>
+              </ShopPriceBox>
               <div className="flex justify-center text-2xl tracking-wide mb-2">
-                주문마감 {siSeq.storeCloseTime}
-                <RxDividerVertical style={{ marginTop: "4px" }} /> 음식수령
-                18:10
+                주문마감 {infoArr.storeCloseTime}
+                <RxDividerVertical style={{ marginTop: "4px" }} />
+                음식수령 {infoArr.utiDeliveryTime}
               </div>
-              {/* 나중에  링크로 이동시켜줘야함 */}
-              {/* <div></div> 를 <Link to="/"></Link> 수정*/}
+
               <div className="flex justify-center">
-                <div className="flex justify-center w-[70%] md:[90%] h-10 bg-gray-200 rounded-xl p-2 ">
+                <div className="flex justify-center w-[70%] md:[90%] h-10 bg-gray-200 rounded-lg p-2 ">
                   <span className="overflow-hidden text-ellipsis">
-                    <strong>사장님알림</strong>☆ 전체부분 맛집랭킹 1위 항상
-                    사랑해주시는 고객님들께 감사드리며 매일 더 노력하는 멘부리가
-                    되겠습니다☆ ☆리뷰약속이벤트☆ 리뷰약속이벤트는 요청사항
-                    기재가 아닌 메뉴란에서 선택 부탁드립니다. ☆음식에 문제가
-                    있거나 궁금하신 점은 언제든지 가게로 연락주세요. #정직하게
-                    #양심있게 #맛있게
+                    <strong>사장님알림</strong>
+                    {infoArr.ownerWord === "" ? "없어" : infoArr.ownerWord}
                   </span>
                   <button
-                    className="w-6 h-6 ml-2 font-2xl"
+                    className="w-6 h-6 ml-3 font-2xl"
                     onClick={() => {
                       setClick(2);
+                      goToAbout.current.scrollIntoView({ behavior: "smooth" });
                     }}
                   >
                     <img src={Arrow} alt="" />
@@ -113,72 +110,49 @@ const Detail = () => {
             </div>
           </div>
 
-          <ShopAbout>
+          <ShopAbout ref={goToAbout}>
             <ShopAboutBt
+              className={click === 0 ? "border-main" : "border-white"}
               onClick={() => {
                 setClick(0);
+                goToAbout.current.scrollIntoView({ behavior: "smooth" });
               }}
             >
               메뉴
             </ShopAboutBt>
+
             <ShopAboutBt
+              className={click === 1 ? "border-main" : "border-white"}
               onClick={() => {
                 setClick(1);
+                goToAbout.current.scrollIntoView({ behavior: "smooth" });
               }}
             >
               리뷰
             </ShopAboutBt>
+
             <ShopAboutBt
+              className={click === 2 ? "border-main" : "border-white"}
               onClick={() => {
                 setClick(2);
+                goToAbout.current.scrollIntoView({ behavior: "smooth" });
               }}
             >
               정보
             </ShopAboutBt>
           </ShopAbout>
-          <div className="mt-4 flex justify-center">
+
+          <ShopMRI>
             <div className={click === 0 ? "block" : "hidden"}>
-              <ShopMenu menuList={menuList} />
+              <ShopMenu />
             </div>
             <div className={click === 1 ? "block" : "hidden"}>
               <ShopReview />
             </div>
             <div className={click === 2 ? "block" : "hidden"}>
-              <ShopInfo />
+              <ShopInfo utiSeq={utiSeq} />
             </div>
-          </div>
-          {/* {detailArr.map((ele, index) => {
-              return click === index ? (
-                <OnBox>
-                  <Link
-                    to={ele.link}
-                    key={index}
-                    onClick={() => shopClickFunc(index)}
-                  >
-                    {ele.title}
-                  </Link>
-                </OnBox>
-              ) : (
-                <OffBox>
-                  <Link
-                    to={ele.link}
-                    key={index}
-                    onClick={() => shopClickFunc(index)}
-                  >
-                    {ele.title}
-                  </Link>
-                </OffBox>
-              );
-            })} */}
-
-          {/* <div className="bg-white flex justify-center w-full">
-            <Routes>
-              <Route index element={<ShopMenu />} />
-              <Route path="menu" element={<ShopMenu />} />
-              <Route path="info" element={<ShopInfo />} />
-              <Route path="review" element={<ShopReview />} />
-            </Routes>
-          </div> */}
+          </ShopMRI>
         </div>
         <OrderTable />
       </ShopContainer>
@@ -207,6 +181,30 @@ const ShopAboutBt = tw.button`
   border-b-2
   w-full
   h-full
+`;
+
+const OffShopAboutBt = tw.button`
+  border-b-2
+  border-white
+  w-full
+  h-full
+`;
+
+const ShopMRI = tw.div`
+  w-full
+  h-full
+`;
+
+const ShopPriceBox = tw.div`
+  my-1
+  mx-auto
+  w-[50%]
+`;
+
+const ShopPrice = tw.div`
+  flex
+  justify-between
+  w-full
 `;
 
 export default Detail;
