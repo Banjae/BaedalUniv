@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState= {
-  ciBirthday:"",
-  ciEmail:"",
+const initialState = {
+  ciBirthday: "",
+  ciEmail: "",
   ciId: "",
   ciJoinDt: "",
   ciName: "",
@@ -12,7 +12,7 @@ const initialState= {
   ciSeq: "",
   ciStatus: "",
   ciUiSeq: "",
-}
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -32,7 +32,7 @@ const userSlice = createSlice({
       state.ciUiSeq = action.payload.ciUiSeq;
     },
     clearUser: (state, action) => {
-      state.ciBirthday ="";
+      state.ciBirthday = "";
       state.ciEmail = "";
       state.ciId = "";
       state.ciJoinDt = "";
