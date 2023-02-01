@@ -12,24 +12,23 @@ import axios from "axios";
 const Modal = ({ title, name }) => {
   const user = useSelector((state) => state.user);
   const [showModal, setShowModal] = React.useState(false);
-  const [nickName, setNickName] = useState("");
-  const [nickNameCheck, setNickNameCheck] = useState(false);
+  const [email, setEmail] = useState("");
 
-  // 1. 닉네임 중복검사
-  const nickNameCheckFn = (e) => {
+  // 1. 이메일 중복검사
+  const emailCheckFn = (e) => {
     e.preventDefault();
-    // 닉네임 입력되었는지 체크
-    if (!nickName) {
-      alert("닉네임을 입력해주세요");
+    // 이메일 입력되었는지 체크
+    if (!email) {
+      alert("이메일을 입력해주세요");
       return;
     }
 
-    // 닉네임 존재 여부 파악
+    // 이메일 존재 여부 파악
     const body = {
-      ciNickName: nickName,
+      ciEmail: email,
     };
     axios
-      .post("http://192.168.0.56:8888/member/check/nickName", body)
+      .post("http://192.168.0.56:8888/member/check/email", body)
       .then((response) => {
         // 서버에서 정상적 처리 완료
         if (response.data) {
@@ -37,11 +36,9 @@ const Modal = ({ title, name }) => {
             // 등록가능
             // 사용자 중복체크 완료
             alert(response.data.message);
-            setNickNameCheck(true);
           } else {
             // 등록 불가능
             alert(response.data.message);
-            setNickNameCheck(false);
           }
         }
       })
@@ -51,27 +48,23 @@ const Modal = ({ title, name }) => {
       });
   };
 
-  // 2. 닉네임 변경요청
-  const nameUpdateFn = (e) => {
+  // 2. 이메일 변경요청
+  const emailUpdateFn = (e) => {
     e.preventDefault();
-    if (!nickName) {
-      return alert("닉네임을 입력하세요.");
+    // 이메일 검사 요청
+    if (!email) {
+      alert("이메일을 입력하세요.");
+      return;
     }
-    // 닉네임 검사 요청
-    if (!nickNameCheck) {
-      return alert("닉네임 중복검사를 해주세요.");
-    }
-
-    const body = {
-      cinickName: nickName,
+    let body = {
+      ciEmail: email,
     };
-
     axios
-      .post("http://192.168.0.56:8888/member/update/nickname", body)
+      .post("http://192.168.0.56:8888/member/update/email", body)
       .then((response) => {
-        // 서버에서 정상적 처리 완료
-        if (response.data.status) {
+        if (response.data.success) {
           alert(response.data.message);
+          setEmail(email);
         } else {
           alert(response.data.message);
         }
@@ -116,19 +109,18 @@ const Modal = ({ title, name }) => {
                   </button>
                 </div>
                 {/*body*/}
-                <Title style={{ margin: "40px" }}>{user.ciNickName}</Title>
+                <Title style={{ margin: "40px" }}>{user.ciEmail}</Title>
                 <Bt>
                   <input
                     className="placeholder:text-base pl-2 mb-1"
-                    type="text"
+                    type="email"
                     placeholder={`변경할 ${name}을 입력해주세요`}
                     required
-                    value={nickName}
-                    onChange={(e) => setNickName(e.target.value)}
-                    maxLength={10}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     minLength={2}
                   />
-                  <Check onClick={(e) => nickNameCheckFn(e)}>중복체크</Check>
+                  <Check onClick={(e) => emailCheckFn(e)}>중복체크</Check>
                 </Bt>
 
                 {/*footer*/}
@@ -143,7 +135,7 @@ const Modal = ({ title, name }) => {
                   <button
                     className="bg-main text-white active:bg-main font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={(e) => nameUpdateFn(e)}
+                    onClick={(e) => emailUpdateFn(e)}
                   >
                     변경
                   </button>
@@ -166,7 +158,6 @@ font-semibold
 text-2xl
 text-slate-700
 `;
-
 const Change = tw.div`
 flex
 justify-start
@@ -180,7 +171,6 @@ rounded-lg
 bg-main
 text-white
 `;
-
 const Bt = tw.div`
   flex
   justify-between
@@ -194,14 +184,12 @@ const Bt = tw.div`
   cursor-pointer
   rounded-lg
 `;
-
 const Check = tw.button`
 text-xs
 bg-main
 text-white
 rounded-lg
 px-2
-
 `;
 
 export default Modal;

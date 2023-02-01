@@ -1,11 +1,8 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import MypageEdit from "./MypageEdit";
-import MypageList from "./ModalList";
-import MypageQuit from "./MypageQuit";
-import MypageSave from "./ModalSave";
+// user 정보 가져오기
+import { useSelector } from "react-redux";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -17,121 +14,49 @@ import Modal from "./Modal";
 import ModalPw from "./ModalPw";
 import ModalQuit from "./ModalQuit";
 import ModalSave from "./ModalSave";
+import ModalPhone from "./ModalPhone";
+import ModalEmail from "./ModalEmail";
 import ModalList from "./ModalList";
 
-
-const Page=tw.div`
-flex
-justify-start 
-ml-3
-text-xl
-text-balck
-`
-
-
-
-const Title = tw.div`
-flex
-justify-start 
-ml-3
-font-semibold
-text-2xl
-text-slate-700
-
-`;
-
-const Bt = tw.div`
-  flex
-  justify-start
-  m-3
-  p-2
-  border-2
-  border-gray-300
-  h-12
-  font-medium
-  text-xl
-  
-`;
-
-const Out = tw.button`
-w-1/2
-px-8
-py-3
-bg-main
-border
-border-main
-rounded-lg
-text-base
-text-white
-text-2xl
-font-normal
-mt-20
-mb-20
-
-`;
-
-
-
 const Mypage = () => {
+  const user = useSelector((state) => state.user);
+  // console.log(user)
   const navigate = useNavigate();
+  const [showModal, setShowModal] = React.useState(true);
+
   return (
     <>
       <div>
         <Page className="flex justify-center mb-20 mr-10">
           <button onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faChevronLeft} className="pr-3"/>
+            <FontAwesomeIcon icon={faChevronLeft} className="pr-3" />
           </button>
           마이페이지
         </Page>
-
         <div className="w-1/2 my-0 mx-auto">
           <div className="flex justify-between mb-3 items-center">
-            <Title>닉네임 님! 환영합니다.</Title>
-            <Modal title="000님의 닉네임 수정" name="닉네임" />
-           </div>
-
-          <div className="flex justify-between mb-3 items-center">
-            <Title>010-1234-5678</Title>
-            <Modal title="닉네임님의 전화번호 수정" name="전화번호" />
+            <Title>{user.ciNickName}</Title>
+            <Modal title="님의 닉네임 수정" name="닉네임" />
           </div>
-
           <div className="flex justify-between mb-3 items-center">
-            <Title>xxxx@naver.com</Title>
-            <Modal title="xxxx@naver.com" name="이메일" />
+            <Title>{user.ciPhone}</Title>
+            <ModalPhone title="님의 전화번호 수정" name="전화번호" />
           </div>
-
+          <div className="flex justify-between mb-3 items-center">
+            <Title>{user.ciEmail}</Title>
+            <ModalEmail title="님의 이메일 수정" name="이메일" />
+          </div>
           <div className="flex justify-end">
-            <ModalPw title="000님의 비밀번호 수정" name="비밀번호" />
+            <ModalPw title="님의 비밀번호 수정" name="비밀번호" />
           </div>
         </div>
       </div>
-      {/* <div className="flex justify-center mt-20">
-        <Bt>
-          <Link to="/Mypage/list">주문내역</Link>
-        </Bt>
-        <Bt>
-          <Link to="/Mypage/quit">주문취소</Link>
-        </Bt>
-        <Bt>
-          <Link to="/Mypage/save">아낀배달비는?</Link>
-        </Bt>
-      </div>
-
-      <Routes>
-        <Route path="edit" element={<MypageEdit />} />
-        <Route path="list" element={<MypageList />} />
-        <Route path="quit" element={<MypageQuit />} />
-        <Route path="save" element={<MypageSave />} />
-      </Routes> */}
-
-      <div className="flex justify-center"> 
+      <div className="flex justify-center">
         <ModalSave name="닉네임" />
-        {/* signup에서 부여한 닉네임 코드랑 연동해야 함. */}
         <div className="flex justify-center">
           <ModalList />
         </div>
       </div>
-
       {/* 회원탈퇴 */}
       <div className="flex justify-center">
         <ModalQuit />
@@ -139,5 +64,21 @@ const Mypage = () => {
     </>
   );
 };
+
+const Page = tw.div`
+flex
+justify-start 
+ml-3
+text-xl
+text-balck
+`;
+const Title = tw.div`
+flex
+justify-start 
+ml-3
+font-semibold
+text-2xl
+text-slate-700
+`;
 
 export default Mypage;

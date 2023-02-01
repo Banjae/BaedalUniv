@@ -1,4 +1,3 @@
-// Signup page
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,54 +7,6 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 import axios from "axios";
-
-const Title = tw.div`
-flex
-justify-start 
-ml-3
-text-xl
-text-main
-`;
-
-const Bt = tw.div`
-  flex
-  justify-start
-  m-3
-  p-2
-  border-2
-  rounded-lg
-  border-gray-300
-  h-12
-  font-medium
-  text-xl
-  bg-white
-`;
-
-const Check = tw.button`
-text-xs
-bg-main
-text-white
-rounded-lg
-px-2
-`;
-
-const Join = tw.button`
-w-1/2
-px-8
-py-3
-bg-main
-border
-border-main
-rounded-lg
-text-base
-text-white
-text-2xl
-font-normal
-mt-20
-mb-20
-`;
-
-
 
 const SIgnup = () => {
   const navigate = useNavigate();
@@ -67,15 +18,37 @@ const SIgnup = () => {
   const [nickName, setNickName] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
   const [birth, setBirth] = useState("");
-  const [ui,setUi]=useState("")
   const [email, setEmail] = useState("");
+  const [uiSeq, setUiSeq] = useState([]);
 
   // 연속버튼을 막는 변수
   const [btFlag, setBtFlag] = useState(false);
 
+  // 대학목록 리스트
+  const [uniList, setUniList] = useState([]);
+
+  const fetchData = async () => {
+    await axios
+      .get("http://192.168.0.56:8888/list/univ")
+      .then((res) => {
+        setUniList(res.data.list);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const changeValue = (e) => {
+    setUiSeq(e.target.value);
+  };
+
   const registFunc = (e) => {
     e.preventDefault();
-    //  1. 빈문자열 일때, 경고창 띄우기
+    //  빈문자열 일때, 경고창 띄우기
     if (!name) {
       alert("이름을 입력하세요");
       return;
@@ -91,18 +64,15 @@ const SIgnup = () => {
       alert("비밀번호는 8자 이상 쓰래이");
       return;
     }
-
     if (!pwCheck) {
       alert(" 비밀번호 확인을 입력하세요");
       return;
     }
-
     // 비밀번호가 같은지 비교처리
     if (pw !== pwCheck) {
       alert("비밀번호는 같아야 합니다.");
       return;
     }
-
     if (!nickName) {
       alert(" 닉네임을 입력하세요");
       return;
@@ -115,7 +85,7 @@ const SIgnup = () => {
       alert(" 생년월일을 입력하세요");
       return;
     }
-    if (!ui) {
+    if (!uiSeq) {
       alert(" 대학을 체크하세요");
       return;
     }
@@ -129,7 +99,6 @@ const SIgnup = () => {
       alert("아이디 중복검사를 해주세요.");
       return;
     }
-
     // 2. 닉네임 검사요청
     if (!nickNameCheck) {
       alert("닉네임 중복검사를 해주세요.");
@@ -143,6 +112,8 @@ const SIgnup = () => {
 
     // 연속 클릭 막기 (회원가입 버튼 여러번 누르면 안되니까)
     setBtFlag(true);
+
+    // 회원가입 완료전까지 서버 못넘어가게 막기
     if (
       name &&
       id &&
@@ -151,7 +122,7 @@ const SIgnup = () => {
       nickName &&
       phoneNum &&
       birth &&
-      ui&&
+      uiSeq &&
       email &&
       idCheck &&
       nickNameCheck &&
@@ -166,9 +137,8 @@ const SIgnup = () => {
         ciEmail: email,
         ciPhone: phoneNum,
         ciBirthday: birth,
-        ciUiSeq: 1,
+        ciUiSeq: uiSeq,
       };
-
       axios
         .post("http://192.168.0.56:8888/member/join", body)
         .then((res) => {
@@ -183,11 +153,8 @@ const SIgnup = () => {
         });
     }
   };
-
-
   // 1. 아이디 중복검사
   const [idCheck, setIdCheck] = useState(false);
-
   const idCheckFn = (e) => {
     e.preventDefault();
     // 아이디 입력되었는지 체크
@@ -195,7 +162,6 @@ const SIgnup = () => {
       alert("아이디를 입력해주세요");
       return;
     }
-
     // 아이디 존재 여부 파악
     const body = {
       ciId: id,
@@ -222,10 +188,8 @@ const SIgnup = () => {
         alert(error.response.data.message);
       });
   };
-
   // 2. 닉네임 중복검사
   const [nickNameCheck, setNickNameCheck] = useState(false);
-
   const nickNameCheckFn = (e) => {
     e.preventDefault();
     // 닉네임 입력되었는지 체크
@@ -233,7 +197,6 @@ const SIgnup = () => {
       alert("닉네임을 입력해주세요");
       return;
     }
-
     // 닉네임 존재 여부 파악
     const body = {
       ciNickName: nickName,
@@ -260,10 +223,8 @@ const SIgnup = () => {
         alert(error.response.data.message);
       });
   };
-
   // 3. 이메일 중복검사
   const [emailCheck, setEmailCheck] = useState(false);
-
   const emailCheckFn = (e) => {
     e.preventDefault();
     // 이메일 입력되었는지 체크
@@ -271,7 +232,6 @@ const SIgnup = () => {
       alert("이메일을 입력해주세요");
       return;
     }
-
     // 이메일 존재 여부 파악
     const body = {
       ciEmail: email,
@@ -298,9 +258,9 @@ const SIgnup = () => {
         alert(error.response.data.message);
       });
   };
-
+  // 전화번호 정규식표현
   const autoHypen = (target) => {
-    target = target
+   target = target
       .replace(/[^0-9]/g, "")
       .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
     setPhoneNum(target);
@@ -308,19 +268,21 @@ const SIgnup = () => {
 
   return (
     <>
-      <Title className="flex justify-center mb-10 mr-10" style={{color:"black"}}>
-        <button onClick={() => navigate(-1)} >
-          <FontAwesomeIcon icon={faChevronLeft} className="pr-3"/>
+      <Title
+        className="flex justify-center mb-10 mr-10 "
+        style={{ color: "black" }}
+      >
+        <button onClick={() => navigate(-1)}>
+          <FontAwesomeIcon icon={faChevronLeft} className="pr-3" />
         </button>
         회원가입
       </Title>
-
       <div className="flex flex-col items-center">
         <div>
           <Title>이름</Title>
           <Bt>
             <input
-             className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1"
               type="text"
               placeholder="이름을 입력해주세요"
               required
@@ -331,7 +293,7 @@ const SIgnup = () => {
           <Title>아이디</Title>
           <Bt>
             <input
-             className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1"
               type="text"
               placeholder="아이디를 입력해주세요"
               required
@@ -339,13 +301,12 @@ const SIgnup = () => {
               onChange={(e) => setId(e.target.value)}
               minLength={3}
             />
-            {/* 1. 아이디 중복검사 이벤트 */}
             <Check onClick={(e) => idCheckFn(e)}> 중복체크</Check>
           </Bt>
           <Title>비밀번호</Title>
           <Bt>
             <input
-             className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1"
               type="password"
               required
               value={pw}
@@ -358,7 +319,7 @@ const SIgnup = () => {
           <Title>비밀번호 확인</Title>
           <Bt>
             <input
-             className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1"
               type="password"
               required
               value={pwCheck}
@@ -371,7 +332,7 @@ const SIgnup = () => {
           <Title>닉네임</Title>
           <Bt>
             <input
-             className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1"
               type="text"
               placeholder="닉네임을 입력해주세요"
               required
@@ -385,7 +346,7 @@ const SIgnup = () => {
           <Title>휴대폰 번호</Title>
           <Bt>
             <input
-             className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1"
               type="tell"
               required
               value={phoneNum}
@@ -398,7 +359,7 @@ const SIgnup = () => {
           <Title>생년월일</Title>
           <Bt>
             <input
-             className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1"
               type="text"
               required
               value={birth}
@@ -406,23 +367,23 @@ const SIgnup = () => {
               placeholder="생년월일을 입력해주세요"
             />
           </Bt>
-          {/* 서비스 이용장소 */}
-          <Title for="service-select" >서비스 이용장소</Title>
-          <Bt  style={{fontSize:"16px", color:"gray"}}>
-            <select name="" id="service-select">
-              <option value="">-- 이용하실 대학을 선택해주세요 --</option>
-              <option value="">00 대학</option>
-              <option value="">00 대학</option>
-              <option value="">00 대학</option>
-              <option value="">00 대학</option>
-              <option value="">00 대학</option>
-              <option value="">00 대학</option>
+          <Title htmlFor="service-select">서비스 이용장소</Title>
+          <Bt style={{ fontSize: "16px", color: "gray" }}>
+            <select name="" id="service-select" onChange={changeValue}>
+              <option> -- 이용하실 대학을 선택해주세요 -- </option>
+              {uniList.map((item, idx) => {
+                return (
+                  <option key={idx} value={item.uiSeq}>
+                    {item.uiName}
+                  </option>
+                );
+              })}
             </select>
           </Bt>
           <Title>이메일</Title>
           <Bt>
             <input
-             className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1"
               type="email"
               required
               value={email}
@@ -444,5 +405,48 @@ const SIgnup = () => {
     </>
   );
 };
+
+const Title = tw.div`
+flex
+justify-start 
+ml-3
+text-xl
+text-main
+`;
+const Bt = tw.div`
+  flex
+  justify-start
+  m-3
+  p-2
+  border-2
+  rounded-lg
+  border-gray-300
+  h-12
+  font-medium
+  text-xl
+  bg-white
+`;
+const Check = tw.button`
+text-xs
+bg-main
+text-white
+rounded-lg
+px-2
+`;
+const Join = tw.button`
+w-[22%]
+px-8
+py-3
+bg-main
+border
+border-main
+rounded-lg
+text-base
+text-white
+text-2xl
+font-normal
+mt-20
+mb-20
+`;
 
 export default SIgnup;
