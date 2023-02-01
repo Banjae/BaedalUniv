@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,16 +9,7 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 
 const ShopMenu = ({ menuList }) => {
-  // console.log(menuList);
-
-  // const cateName = menuList.map((ele) => {
-  //   const menu = ele.menuList;
-  //   menu.map((ele) => {
-  //     console.log(ele.name);
-  //   });
-  // });
-
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -28,16 +19,21 @@ const ShopMenu = ({ menuList }) => {
           return (
             <div key={idx}>
               <MenuTitle onClick={() => {}}>
-                <p className="block">{ele.cateName}</p>
-                {open === true ? (
+                <p>{ele.cateName}</p>
+
+                {/* {true ? (
                   <FontAwesomeIcon icon={faAngleDown} />
                 ) : (
                   <FontAwesomeIcon icon={faAngleUp} />
-                )}
+                )} */}
               </MenuTitle>
               <MenuDetail>
-                {menu.map((e, idx) => {
-                  return <div key={idx}>{e.name}</div>;
+                {menu.map((ele, idx) => {
+                  return (
+                    <div div key={idx}>
+                      <div>{ele.name}</div>
+                    </div>
+                  );
                 })}
               </MenuDetail>
             </div>
@@ -49,7 +45,6 @@ const ShopMenu = ({ menuList }) => {
 };
 
 const MenuContainer = tw.div`
-
 `;
 
 const MenuTitle = tw.div`

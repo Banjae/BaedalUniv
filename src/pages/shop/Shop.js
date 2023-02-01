@@ -1,5 +1,5 @@
 // shop Detail page
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import ShopInfo from "./ShopInfo";
 import ShopMenu from "./ShopMenu";
@@ -113,29 +113,29 @@ const Detail = () => {
             </div>
           </div>
 
-          <ShopBt>
-            <button
+          <ShopAbout>
+            <ShopAboutBt
               onClick={() => {
                 setClick(0);
               }}
             >
               메뉴
-            </button>
-            <button
+            </ShopAboutBt>
+            <ShopAboutBt
               onClick={() => {
                 setClick(1);
               }}
             >
               리뷰
-            </button>
-            <button
+            </ShopAboutBt>
+            <ShopAboutBt
               onClick={() => {
                 setClick(2);
               }}
             >
               정보
-            </button>
-          </ShopBt>
+            </ShopAboutBt>
+          </ShopAbout>
           <div className="mt-4 flex justify-center">
             <div className={click === 0 ? "block" : "hidden"}>
               <ShopMenu menuList={menuList} />
@@ -194,13 +194,19 @@ const ShopContainer = tw.div`
   gap-5
 `;
 
-const ShopBt = tw.div`
+const ShopAbout = tw.div`
   flex
   justify-around
   items-center
   h-10  
   mt-3
   bg-white
+`;
+
+const ShopAboutBt = tw.button`
+  border-b-2
+  w-full
+  h-full
 `;
 
 export default Detail;
