@@ -3,65 +3,11 @@ import React, { useState } from "react";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
-const Title = tw.div`
-flex
-justify-start 
-ml-3
-font-semibold
-text-2xl
-text-slate-700
-`;
-
-const Out = tw.button`
-
-w-1/2
-px-8
-py-3
-bg-main
-border
-border-main
-rounded-lg
-text-base
-text-white
-text-2xl
-font-normal
-mt-20
-mb-20
-
-`;
-
-const Change=tw.div`
-flex
-justify-start
-m-3
-p-2
-border-2
-h-12
-text-lg
-cursor-pointer
-rounded-lg
-bg-main
-text-white
-`
-
-
-
-
-const Bt = tw.div`
-  flex
-  justify-start
-  m-3
-  p-2
-  border-2
-  border-gray-300
-  h-12
-  font-medium
-  text-xl
-  cursor-pointer
-  rounded-lg
-`;
+// user 정보 가져오기
+import { useSelector } from "react-redux";
 
 const ModalSave = ({ name }) => {
+  const user = useSelector((state) => state.user);
   const [showModal, setShowModal] = React.useState(false);
   const [nickName, setNickName] = useState("");
 
@@ -85,7 +31,8 @@ const ModalSave = ({ name }) => {
                   >
                     <span
                       className="bg-transparent 
-                         h-6 w-6 text-2xl  
+                      absolute right-5 top-5
+                        h-6 w-6 text-2xl  
                         z-10 opacity-1"
                     >
                       ×
@@ -99,7 +46,7 @@ const ModalSave = ({ name }) => {
                     value={nickName}
                     onChange={(e) => setNickName(e.target.value)}
                   >
-                    <span className="text-xl font-extrabold">{name}</span> 님이
+                    <span className="text-xl font-extrabold">{user.ciNickName}</span> 님이
                     지금까지
                     <br />
                   </div>
@@ -119,7 +66,7 @@ const ModalSave = ({ name }) => {
                     </div>
                     <div>
                       해당 금액은{" "}
-                      <span className="text-xl font-extrabold">{name}</span>{" "}
+                      <span className="text-xl font-extrabold">{user.ciNickName}</span>{" "}
                       회원님이
                       <br />
                       배달비 0원
@@ -138,5 +85,19 @@ const ModalSave = ({ name }) => {
     </>
   );
 };
+
+const Change=tw.div`
+flex
+justify-start
+m-3
+p-2
+border-2
+h-12
+text-lg
+cursor-pointer
+rounded-lg
+bg-main
+text-white
+`
 
 export default ModalSave;
