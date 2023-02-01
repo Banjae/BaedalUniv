@@ -16,6 +16,7 @@ import Fixmenu from "./components/FixMenu";
 import NotFound from "./pages/NotFound";
 import OrderLogin from "./pages/order/OrderLogin";
 import Payment from "./pages/order/Payment";
+import ShopDetail from "./pages/order/ShopDetail";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -37,6 +38,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/OrderLogin" element={<OrderLogin />} />
           <Route path="/Payment" element={<Payment />} />
+          <Route path="/ShopDetail" element={<ShopDetail />} />
         </Routes>
       </Container>
       <Footer />
