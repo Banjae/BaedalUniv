@@ -48,6 +48,9 @@ const Login = () => {
         alert(err.response.data.message);
       });
   };
+
+
+
   return (
     <>
       <Title
@@ -92,11 +95,13 @@ const Login = () => {
         <div>
           다양한 혜택을 위해
           <SignupBt>
-            <Link to="/signup">회원가입</Link>
+            <Link to="/signup" className="px-2">회원가입</Link>
           </SignupBt>
           하기!
         </div>
       </div>
+
+
     </>
   );
 };

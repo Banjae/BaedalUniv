@@ -36,7 +36,7 @@ const Mypage = () => {
         <div className="w-1/2 my-0 mx-auto">
           <div className="flex justify-between mb-3 items-center">
             <Title>{user.ciNickName}</Title>
-            <Modal title="님의 닉네임 수정" name="닉네임" />
+            <Modal  title="님의 닉네임 수정" name="닉네임" />
           </div>
           <div className="flex justify-between mb-3 items-center">
             <Title>{user.ciPhone}</Title>
