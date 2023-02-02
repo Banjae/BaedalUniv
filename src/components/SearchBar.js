@@ -49,7 +49,7 @@ const SearchBar = () => {
     const matchName = (ele) => {
       if (ele.uiName === name) return true;
     };
-    const univNum = uniList.find(matchName);
+    // const univNum = uniList.find(matchName);
     searchList.current.classList.add("hidden");
     navigate(`/Shopmain/${name}`);
   };
@@ -87,13 +87,6 @@ const SearchBar = () => {
           );
         })}
       </SearchList>
-      {/* {keyword === uiName ? (
-        <div>
-          <ShopSchedule uiSeq={uiSeq} />
-        </div>
-      ) : (
-        <div>검색해주세오</div>
-      )} */}
     </>
   );
 };

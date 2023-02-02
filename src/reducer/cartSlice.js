@@ -1,35 +1,54 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const cartSlice = createSlice({
-  name: "products",
-  initialState: {
-    name: "",
-    price: "",
-    optionCateName: "",
-    optionName: "",
-    optionPrice: "",
-    discountPrice: "",
-    totalPrice: "",
-  },
+const initialState = {
+  ciSeq: "",
+  stdSeq: "",
+  fmiSeq: "",
+  fdoSeqList: [],
+  count: "",
+  ciName: "",
+  bmocSeq: "",
+  siName: "",
+  closeTime: "",
+  deliveryTime: "",
+  menuName: "",
+  optionAll: "",
+  price: "",
+  totalPrice: "",
+};
+
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: initialState,
   reducers: {
-    inCart: (state, action) => {
-      state.name = action.payload.name;
-      state.price = action.payload.price;
-      state.optionCateName = action.payload.optionCateName;
-      state.optionName = action.payload.optionName;
-      state.optionPrice = action.payload.optionPrice;
-      state.discountPrice = action.payload.discountPrice;
-      state.totalPrice = action.payload.totalPrice;
+    cartAdd: (state, action) => {
+      state.ciSeq = action.payload.ciSeq;
+      state.stdSeq = action.payload.stdSeq;
+      state.fmiSeq = action.payload.fmiSeq;
+      state.fdoSeqList = action.payload.fdoSeqList;
+      state.count = action.payload.count;
     },
-    clearCart: (state, action) => {
-      state.name = "";
-      state.price = "";
-      state.optionName = "";
-      state.optionPrice = "";
-      state.totalPrice = "";
+    cartDelet: (state, action) => {
+      state.ciSeq = "";
+      state.stdSeq = "";
+      state.fmiSeq = "";
+      state.fdoSeqList = [];
+      state.count = "";
+    },
+    cartLookup: (state, action) => {
+      state.ciName = action.payload.ciName;
+      state.bmocSeq = action.payload.bmocSeq;
+      state.siName = action.payload.siName;
+      state.closeTime = action.payload.closeTime;
+      state.deliveryTime = action.payload.deliveryTime;
+      state.menuName = action.payload.menuName;
+      state.optionAll = action.payload.optionAll;
+      state.price = action.payload.price;
+      state.count = action.payload.count;
+      state.totalPrice = action.payload.totalPrice;
     },
   },
 });
 
-export const { inCart, clearCart } = cartSlice.actions;
+export const { cartAdd, cartDelet, cartLookup } = cartSlice.actions;
 export default cartSlice;

@@ -8,16 +8,13 @@ import tw from "tailwind-styled-components";
 import { useEffect, useState } from "react";
 // import payco from "../../assets/Payco-4.png";
 import axios from "axios";
-
-const Order = (props) => {
+const Order = () => {
   const [list, setList] = useState([]);
   const [time, setTime] = useState([]);
   const navigate = useNavigate();
-
   const fetchData = async () => {
     try {
       const params = {};
-
       const response = await axios.get(
         "http://192.168.0.56:8888/list/pickuparea",
         {
@@ -30,18 +27,15 @@ const Order = (props) => {
           params,
         }
       );
-
       setList(response.data.list);
       setTime(response2.data.list);
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
-
   const onChangeHanlder = (e) => {
     setList(e.currentTarget.value);
   };
@@ -53,7 +47,6 @@ const Order = (props) => {
       <button onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
-
       <div className="order mb-10">
         <p className="text-center mb-5 font-semibold text-2xl">주문하기</p>
         <span className="block text-center mb-5">
@@ -65,7 +58,6 @@ const Order = (props) => {
           </LoginBt>
         </div>
       </div>
-
       <div className="flex flex-col justify-center items-center">
         <div>
           <div className="order-info">
@@ -73,13 +65,11 @@ const Order = (props) => {
             <Inputbox type="text" placeholder="주문자명을 입력해주세요" />
             <Inputbox type="text" placeholder="핸드폰번호를 입력해주세요" />
           </div>
-
           <div className="receipt mb-4">
             <Title className="mb-4">수령시간 / 장소</Title>
             <div className="receipt-time ml-5">
               <div className=" flex flex-col">
                 <span className="mb-2">수령시각</span>
-
                 <select
                   className="rounded-lg border-2 border-gray-300"
                   onChange={onChangeHanlder2}
@@ -111,7 +101,6 @@ const Order = (props) => {
                     </option>
                   ))}
                 </select>
-
                 {/* <option>학사기숙사(A동)</option>
                   <option>학사기숙사(B동)</option>
                   <option>학사기숙사(C동)</option>
@@ -119,7 +108,6 @@ const Order = (props) => {
               </div>
             </div>
           </div>
-
           <div className="payment-method mb-4">
             <Title className="mb-4">결제수단</Title>
             <div className="ml-5">
@@ -137,7 +125,6 @@ const Order = (props) => {
               </div>
             </div>
           </div>
-
           <div className="pay-info mb-4">
             <Title className="mb-4">결제정보</Title>
             <div className="menu-payment ml-5">
@@ -173,7 +160,6 @@ const Order = (props) => {
     </>
   );
 };
-
 const LoginBt = tw.button`
 border-2
 border-gray-300
@@ -183,7 +169,6 @@ h-16
 font-semibold
 text-xl
 `;
-
 const Title = tw.span`
 font-semibold
 text-2xl
