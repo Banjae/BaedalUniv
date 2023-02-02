@@ -23,7 +23,7 @@ const Fixmenu = () => {
             </Link>
           </FixLi>
           <FixLi>
-            <Link to="/AllShop" className="flex flex-col">
+            <Link to="/Shopmain" className="flex flex-col">
               <FontAwesomeIcon icon={faUtensils} />
               <span>상점</span>
             </Link>

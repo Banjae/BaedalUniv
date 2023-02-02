@@ -74,37 +74,40 @@ const Cart = () => {
   // };
 
   useEffect(() => {}, []);
-  return (
-    <div>
-      {/* {selectedBread.length && (
-        <div className="Cart">
-          <div>
-            <span className="homeRoot"></span>
-            <span className="homeRoot">@</span>
-            <span className="shoppingRoot">SHOPPING BAG</span>
-          </div>
 
-          <div className="shoppingBag">
-            <h1 className="title">SHOPPING BAG</h1>
-            <h2 className="title productTitle">쇼핑백 상품</h2>
-            <div className="orderContainer">
-              <OrderInfomation
-                changeAllBox={changeAllBox}
-                checkList={checkList}
-              />
-              {selectedBread.map((selectedBread) => (
-                <OrderProducts
-                  selectedBread={selectedBread}
-                  key={selectedBread.id}
-                  changeSingleBox={changeSingleBox}
-                  data={selectedBread}
-                  checkList={checkList}
-                />
-              ))} */}
-      {/* </div> */}
-      {/* </div> */}
-    </div>
-  );
+  // return (
+  //   <div>
+  //     {selectedBread.length && (
+  //       <div className="Cart">
+  //         <div>
+  //           <span className="homeRoot"></span>
+  //           <span className="homeRoot">@</span>
+  //           <span className="shoppingRoot">SHOPPING BAG</span>
+  //         </div>
+
+  //         <div className="shoppingBag">
+  //           <h1 className="title">SHOPPING BAG</h1>
+  //           <h2 className="title productTitle">쇼핑백 상품</h2>
+  //           <div className="orderContainer">
+  //             <OrderInfomation
+  //               changeAllBox={changeAllBox}
+  //               checkList={checkList}
+  //             />
+  //             {selectedBread.map((selectedBread) => (
+  //               <OrderProducts
+  //                 selectedBread={selectedBread}
+  //                 key={selectedBread.id}
+  //                 changeSingleBox={changeSingleBox}
+  //                 data={selectedBread}
+  //                 checkList={checkList}
+  //               />
+  //             ))}
+  //           </div>
+  //         </div>
+  //       </div>
+  //     )}
+  //     ;
+  //   </div>
+  // );
 };
-
 export default Cart;

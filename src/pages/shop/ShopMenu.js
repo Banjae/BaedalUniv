@@ -9,10 +9,14 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 import instance from "../../api/axios";
 import request from "../../api/requset";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import ShopDetail from "../order/ShopDetail";
 
 const ShopMenu = () => {
   const [menuList, setMenuList] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [menuSeq, setMenuSeq] = useState("");
+
   function comprice(p) {
     return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -38,6 +42,11 @@ const ShopMenu = () => {
     fetchData();
   }, [siSeq]);
 
+  const popUp = (menuSeq) => {
+    setShowModal(!showModal);
+    setMenuSeq(menuSeq);
+  };
+
   return (
     <>
       <SMcontainer>
@@ -47,7 +56,6 @@ const ShopMenu = () => {
             <SMenu key={idx}>
               <SMenuTitle onClick={() => {}}>
                 <p>{ele.cateName}</p>
-
                 {/* {true ? (
                 <FontAwesomeIcon icon={faAngleDown} />
                 ) : (
@@ -57,7 +65,14 @@ const ShopMenu = () => {
               <SMenuDetail>
                 {menu.map((ele, idx) => {
                   return (
-                    <div className="flex justify-between" div key={idx}>
+                    <div
+                      className="flex justify-between"
+                      div
+                      key={idx}
+                      onClick={(e) => {
+                        popUp(ele.menuSeq);
+                      }}
+                    >
                       <div className="flex flex-col justify-center">
                         <MenuDetailTitle>{ele.name}</MenuDetailTitle>
                         <span>
@@ -66,6 +81,13 @@ const ShopMenu = () => {
                         </span>
                       </div>
                       <MenuDetialPic src={ele.fiUri} alt={ele.name} />
+                      {showModal && menuSeq === ele.menuSeq && (
+                        <ShopDetail
+                          menuSeq={ele.menuSeq}
+                          showModal={showModal}
+                          setShowModal={setShowModal}
+                        />
+                      )}
                     </div>
                   );
                 })}

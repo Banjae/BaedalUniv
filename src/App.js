@@ -45,7 +45,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/OrderLogin" element={<OrderLogin />} />
           <Route path="/Payment" element={<Payment />} />
-          <Route path="/ShopDetail" element={<ShopDetail />} />
+          <Route path="/ShopDetail/:menuSeq" element={<ShopDetail />} />
         </Routes>
       </Container>
       <Footer />

@@ -1,13 +1,13 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-// tailwind-styled-component
-import tw from "tailwind-styled-components";
 import instance from "../api/axios";
 import request from "../api/requset";
 import Loading from "./Loading";
 import ShopList from "./ShopList";
 import ShopSale from "./ShopSale";
+
+// tailwind-styled-component
+import tw from "tailwind-styled-components";
 
 const ShopSchedule = ({ uiSeq }) => {
   const [shopArr, setShopArr] = useState([]);
