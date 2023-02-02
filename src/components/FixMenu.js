@@ -69,10 +69,17 @@ const Fixmenu = () => {
             )}
           </FixLi>
           <FixLi>
-            <Link to="/Mypage" className="flex flex-col">
-              <FontAwesomeIcon icon={faCartShopping} />
-              <span>장바구니</span>
-            </Link>
+            {user.ciNickName === "" ? (
+              <Link to="/Login" className="flex flex-col">
+                <FontAwesomeIcon icon={faCartShopping} />
+                <span>장바구니</span>
+              </Link>
+            ) : (
+              <Link to="/cart" className="flex flex-col">
+                <FontAwesomeIcon icon={faCartShopping} />
+                <span>장바구니</span>
+              </Link>
+            )}
           </FixLi>
           <FixLi>
             {user.ciNickName === "" ? (

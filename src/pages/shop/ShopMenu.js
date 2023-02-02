@@ -12,7 +12,7 @@ import request from "../../api/requset";
 import { useNavigate, useParams } from "react-router";
 import ShopDetail from "../order/ShopDetail";
 
-const ShopMenu = () => {
+const ShopMenu = ({ stdSeq }) => {
   const [menuList, setMenuList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [menuSeq, setMenuSeq] = useState("");
@@ -31,6 +31,7 @@ const ShopMenu = () => {
     await instance
       .get(request.shop, { params })
       .then((res) => {
+        // console.log(res.data);
         setMenuList(res.data.list);
       })
       .catch((err) => {
@@ -80,12 +81,16 @@ const ShopMenu = () => {
                           <Afsale>{comprice(ele.discountPrice)}원</Afsale>
                         </span>
                       </div>
-                      <MenuDetialPic src={ele.fiUri} alt={ele.name} />
+                      <MenuDetialPic
+                        src={`http://192.168.0.56:8888/download/food/${ele.fiUri}`}
+                        alt={ele.name}
+                      />
                       {showModal && menuSeq === ele.menuSeq && (
                         <ShopDetail
                           menuSeq={ele.menuSeq}
                           showModal={showModal}
                           setShowModal={setShowModal}
+                          stdSeq={stdSeq}
                         />
                       )}
                     </div>
@@ -138,7 +143,6 @@ const MenuDetailTitle = tw.p`
 `;
 
 const MenuDetialPic = tw.img`
-  bg-main
   h-[150px]
   w-[200px]
   m-1

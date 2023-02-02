@@ -47,8 +47,17 @@ const cartSlice = createSlice({
       state.count = action.payload.count;
       state.totalPrice = action.payload.totalPrice;
     },
+    cartTableDelet: (state, action) => {
+      state.bmocSeq = "";
+      state.menuName = "";
+      state.optionAll = "";
+      state.price = "";
+      state.count = "";
+      state.totalPrice = "";
+    },
   },
 });
 
-export const { cartAdd, cartDelet, cartLookup } = cartSlice.actions;
+export const { cartAdd, cartDelet, cartLookup, cartTableDelet } =
+  cartSlice.actions;
 export default cartSlice;

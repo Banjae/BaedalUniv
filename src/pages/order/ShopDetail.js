@@ -9,17 +9,22 @@ import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { cartAdd } from "../../reducer/cartSlice";
+import { cartLookup } from "../../reducer/cartSlice";
+
 import { useNavigate } from "react-router";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
-const ShopDetail = ({ menuSeq, setShowModal, showModal }) => {
+const ShopDetail = ({ menuSeq, setShowModal, showModal, stdSeq }) => {
   const [option, setOption] = useState("");
   const [optionList, setOptionList] = useState([]);
   const [count, setCount] = useState(1);
   const [checkList, setCheckList] = useState([]);
   const [optionPriceCheck, setOprionPriceCheck] = useState({});
+  const [fdoSeqList, setFdoSeqList] = useState([]);
+
+  const user = useSelector((state) => state.user);
 
   const params = {
     menuSeq: menuSeq,
@@ -55,6 +60,14 @@ const ShopDetail = ({ menuSeq, setShowModal, showModal }) => {
     };
   }, []);
 
+  const body = {
+    ciSeq: user.ciSeq,
+    stdSeq: stdSeq,
+    fmiSeq: menuSeq,
+    fdoSeqList: fdoSeqList,
+    count: count,
+  };
+
   const onIncrease = () => {
     setCount((prevCount) => prevCount + 1);
   };
@@ -68,6 +81,7 @@ const ShopDetail = ({ menuSeq, setShowModal, showModal }) => {
     if (checked) {
       setCheckList([...checkList, id]);
       setOprionPriceCheck({ ...optionPriceCheck, [id]: value });
+      setFdoSeqList([...fdoSeqList, e.target.id]);
     } else {
       setCheckList(checkList.filter((el) => el !== id));
       setOprionPriceCheck({ ...optionPriceCheck, [id]: 0 });
@@ -83,8 +97,17 @@ const ShopDetail = ({ menuSeq, setShowModal, showModal }) => {
   };
 
   const goToCart = () => {
-    dispatch(cartAdd());
-    navigate("/");
+    axios
+      .post("http://192.168.0.56:8888/order/basket", body)
+      .then((res) => {
+        console.log(res.data.data);
+        dispatch(cartLookup(res.data.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    dispatch(cartAdd(body));
+    setShowModal(!showModal);
   };
   const goToOrder = () => {
     dispatch();

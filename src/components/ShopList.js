@@ -64,13 +64,17 @@ const ShopList = ({ utiSeq }) => {
         className="mySwiper"
       >
         {shopList.map((ele) => {
+          console.log(ele);
           return ele.storeStatus === 1 ? (
             <SwiperSlide
               className="ListSwiper"
               onClick={(e) => goToShop(ele)}
               key={ele.storeSeq}
             >
-              <img src={brand} alt="img" />
+              <img
+                src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
+                alt="img"
+              />
               <span>{ele.storeName}</span>
               <div className="flex justify-center">
                 <span className="text-yellow-200">별점</span>
@@ -87,7 +91,10 @@ const ShopList = ({ utiSeq }) => {
               <NotWorking>
                 <p>영업준비중</p>
               </NotWorking>
-              <img src={brand} alt="img" />
+              <img
+                src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
+                alt="img"
+              />
               <span>{ele.storeName}</span>
               <div className="flex justify-center">
                 <span className="text-yellow-200">별점</span>
@@ -105,7 +112,7 @@ const ShopList = ({ utiSeq }) => {
 
 const SLcontainer = tw.div`
   mt-10
-`
+`;
 
 const NotWorking = tw.div` 
   flex

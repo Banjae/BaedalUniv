@@ -7,22 +7,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faSquareMinus } from "@fortawesome/free-regular-svg-icons";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { cartTableDelet } from "../reducer/cartSlice";
 
 const OrderTable = () => {
-  const [count, setCount] = useState(1);
-  const [cart, setCart] = useState("2");
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-  const minusBt = () => {
-    count <= 1 ? alert("최소 1개는 주문해라잉") : setCount(count - 1);
-  };
+  console.log(cart);
 
-  const plusBt = () => {
-    setCount(count + 1);
-  };
+  // const minusBt = () => {
+  //   cart.count <= 1 ? alert("최소 1개는 주문해라잉") : () => cart.count - 1;
+  // };
+
+  // const plusBt = () => {
+  //   cart.count + 1;
+  // };
 
   const deleteAllBt = () => {
     alert("주문표에 담긴 메뉴를 모두 삭제하시겠습니까?");
-    setCart("");
+    dispatch(cartTableDelet());
   };
 
   return (
@@ -34,24 +38,32 @@ const OrderTable = () => {
             <FontAwesomeIcon icon={faTrashCan} />
           </button>
         </TableTitle>
-        {cart === "" ? (
+        {cart.bmocSeq === "" ? (
           <TableDetail>
             <p className="text-center">주문표에 담긴 메뉴가 없습니다.</p>
           </TableDetail>
         ) : (
           <TableDetail>
-            <div>주문내용</div>
+            <div>
+              <p>{cart.menuName}</p>
+            </div>
             <div className="flex justify-between mt-2">
               <div>
                 <button>X</button>
-                <span>가격</span>
+                <span>{cart.price}원</span>
               </div>
               <div>
-                <button onClick={minusBt} className="text-main mr-1">
+                <button
+                  //  onClick={minusBt}
+                  className="text-main mr-1"
+                >
                   <FontAwesomeIcon icon={faSquareMinus} />
                 </button>
-                <span className="m-1">{count}</span>
-                <button onClick={plusBt} className="text-main ml-1">
+                <span className="m-1">{cart.count}</span>
+                <button
+                  //  onClick={plusBt}
+                  className="text-main ml-1"
+                >
                   <FontAwesomeIcon icon={faSquarePlus} />
                 </button>
               </div>
@@ -60,9 +72,9 @@ const OrderTable = () => {
         )}
         <TablePrice>
           <p>배달대는 배달비가 0원</p>
-          <p>합계: 원</p>
+          <p>합계: {cart.price}원</p>
         </TablePrice>
-        {cart === "" ? (
+        {cart.bmocSeq === "" ? (
           <TableNot>
             <p>주문하기</p>
           </TableNot>
