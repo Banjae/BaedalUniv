@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
-  let cart = useSelector((state) => state);
+  
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="mb-10">장바구니</div>

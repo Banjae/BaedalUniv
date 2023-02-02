@@ -14,6 +14,9 @@ import tw from "tailwind-styled-components";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state);
+
+  console.log(cart);
 
   const dispatch = useDispatch();
 

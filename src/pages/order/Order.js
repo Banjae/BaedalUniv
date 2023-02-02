@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 // import payco from "../../assets/Payco-4.png";
 import axios from "axios";
 
-const Order = (props) => {
+const Order = () => {
   const [list, setList] = useState([]);
   const [time, setTime] = useState([]);
   const navigate = useNavigate();
