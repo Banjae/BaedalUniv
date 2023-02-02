@@ -10,8 +10,11 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+import { useSelector } from "react-redux";
 
 const Fixmenu = () => {
+  const user = useSelector((state) => state.user);
+
   return (
     <>
       <Fix>
@@ -35,10 +38,17 @@ const Fixmenu = () => {
             </Link>
           </FixLi>
           <FixLi>
-            <Link to="/Mypage" className="flex flex-col">
-              <FontAwesomeIcon icon={faUser} />
-              <span>마이페이지</span>
-            </Link>
+            {user.ciNickName === "" ? (
+              <Link to="/Login" className="flex flex-col">
+                <FontAwesomeIcon icon={faUser} />
+                <span>마이페이지</span>
+              </Link>
+            ) : (
+              <Link to="/Mypage" className="flex flex-col">
+                <FontAwesomeIcon icon={faUser} />
+                <span>마이페이지</span>
+              </Link>
+            )}
           </FixLi>
         </FixUl>
       </Fix>

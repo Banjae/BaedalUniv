@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 
 import { Provider } from "react-redux";
 
-import store from "./reducers/store";
+import store from "./reducer/store";
 import { persistStore } from "redux-persist";
 
 import "./index.css";

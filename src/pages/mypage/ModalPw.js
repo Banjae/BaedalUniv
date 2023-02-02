@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
 import axios from "axios";
 
-
 const ModalPw = ({ title, name }) => {
   const user = useSelector((state) => state.user);
 
@@ -17,18 +16,24 @@ const ModalPw = ({ title, name }) => {
   const [newPw, setNewPw] = useState("");
   const [pwCheck, setPwCheck] = useState("");
 
-
   // 1. 비밀번호 변경요청
   const passUpdateFn = (e) => {
     e.preventDefault();
     if (!pw) {
       alert("비밀번호를 입력하세요.");
       return;
+    } else if (pw.length < 7) {
+      alert("비밀번호는 8자 이상 쓰래이");
+      return;
     }
     if (!newPw) {
       alert("변경할 비밀번호를 입력하세요.");
       return;
+    } else if (newPw.length < 7) {
+      alert("비밀번호는 8자 이상 쓰래이");
+      return;
     }
+
     if (!pwCheck) {
       alert("비밀번호 확인을 입력하세요.");
       return;
@@ -38,14 +43,14 @@ const ModalPw = ({ title, name }) => {
       alert("비밀번호는 같아야 합니다.");
       return;
     }
+    const num = user.ciSeq;
     const body = {
       ciPwd: pw,
       ciUpdatePwd: newPw,
       ciCheckUpdatePwd: pwCheck,
     };
-
     axios
-      .post("http://192.168.0.56:8888/member/update/pwd", body)
+      .post("http://192.168.0.56:8888/member/update/pwd?ciSeq=" + num, body)
       .then((response) => {
         if (response.data) {
           if (response.data) {
@@ -79,7 +84,7 @@ const ModalPw = ({ title, name }) => {
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold mb-10">
                     {user.ciName}
-                    {title}
+                    <span style={{ fontSize: "25px" }}> {title}</span>
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"

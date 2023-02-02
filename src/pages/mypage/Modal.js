@@ -8,10 +8,11 @@ import { useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
 
 import axios from "axios";
+import { useEffect } from "react";
 
 const Modal = ({ title, name }) => {
   const user = useSelector((state) => state.user);
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [nickName, setNickName] = useState("");
   const [nickNameCheck, setNickNameCheck] = useState(false);
 
@@ -28,6 +29,7 @@ const Modal = ({ title, name }) => {
     const body = {
       ciNickName: nickName,
     };
+
     axios
       .post("http://192.168.0.56:8888/member/check/nickName", body)
       .then((response) => {
@@ -50,6 +52,9 @@ const Modal = ({ title, name }) => {
         alert(error.response.data.message);
       });
   };
+  // useEffect(() => {
+  //   return () => {};
+  // }, []);
 
   // 2. 닉네임 변경요청
   const nameUpdateFn = (e) => {
@@ -62,12 +67,17 @@ const Modal = ({ title, name }) => {
       return alert("닉네임 중복검사를 해주세요.");
     }
 
+    const num = user.ciSeq;
+
     const body = {
-      cinickName: nickName,
+      ciNickName: nickName,
     };
 
     axios
-      .post("http://192.168.0.56:8888/member/update/nickname", body)
+      .post(
+        "http://192.168.0.56:8888/member/update/nickName?ciSeq=" + num,
+        body
+      )
       .then((response) => {
         // 서버에서 정상적 처리 완료
         if (response.data.status) {
@@ -100,7 +110,7 @@ const Modal = ({ title, name }) => {
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold mb-10">
                     {user.ciName}
-                    {title}
+                    <span style={{ fontSize: "25px" }}> {title}</span>
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"

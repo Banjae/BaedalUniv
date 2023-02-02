@@ -56,11 +56,12 @@ const Modal = ({ title, name }) => {
       alert("이메일을 입력하세요.");
       return;
     }
+    const num = user.ciSeq;
     let body = {
       ciEmail: email,
     };
     axios
-      .post("http://192.168.0.56:8888/member/update/email", body)
+      .post("http://192.168.0.56:8888/member/update/email?ciSeq=" + num, body)
       .then((response) => {
         if (response.data.success) {
           alert(response.data.message);
@@ -93,7 +94,7 @@ const Modal = ({ title, name }) => {
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold mb-10">
                     {user.ciName}
-                    {title}
+                    <span style={{ fontSize: "25px" }}> {title}</span>
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"

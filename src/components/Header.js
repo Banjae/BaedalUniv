@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 
-import { clearUser } from "../reducers/userSlice";
+import { clearUser } from "../reducer/userSlice";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,11 +21,12 @@ const Header = () => {
   const navigate = useNavigate();
   const logOutFn = () => {
     dispatch(clearUser());
-    window.sessionStorage.setItem("userInfo");
+    // window.sessionStorage.setItem("userInfo");
     navigate("/login");
   };
 
   return (
+
     <header>
       <HeadContainer>
         <HeadTitle>
@@ -45,10 +46,10 @@ const Header = () => {
             </SignBt>
           </ul>
         ) : (
-          <ul className="flex gap-5 items-center w-48">
+          <ul className="flex gap-5 items-center w-64">
             <LogBt>
               <button className="btn btn-outline-light me-2">
-                {user.ciNickName}님
+                {user.ciNickName} 님
               </button>
             </LogBt>
             <SignBt onClick={() => logOutFn()}>로그아웃</SignBt>

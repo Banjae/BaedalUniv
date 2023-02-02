@@ -4,7 +4,7 @@ import axios from "axios";
 
 // user 정보 업데이트
 import { useDispatch } from "react-redux";
-import { loginUser } from "../reducers/userSlice";
+import { loginUser } from "../reducer/userSlice";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,6 +48,9 @@ const Login = () => {
         alert(err.response.data.message);
       });
   };
+
+
+
   return (
     <>
       <Title
@@ -92,11 +95,13 @@ const Login = () => {
         <div>
           다양한 혜택을 위해
           <SignupBt>
-            <Link to="/signup">회원가입</Link>
+            <Link to="/signup" className="px-2">회원가입</Link>
           </SignupBt>
           하기!
         </div>
       </div>
+
+
     </>
   );
 };

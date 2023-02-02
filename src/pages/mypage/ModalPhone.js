@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 // user 정보 가져오기
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -51,19 +51,22 @@ const Modal = ({ title, name }) => {
   const phoneUpdateFn = (e) => {
     e.preventDefault();
     if (!phone) {
-  alert("전화번호를 입력하세요.")
-      return
+      alert("전화번호를 입력하세요.");
+      return;
     }
     // 전화번호 검사 요청
     if (!phoneCheck) {
-  alert("전화번호 중복검사를 해주세요.")
-      return
+      alert("전화번호 중복검사를 해주세요.");
+      return;
     }
+
+    const num = user.ciSeq;
+
     const body = {
       ciPhone: phone,
     };
     axios
-      .post("http://192.168.0.56:8888/member/update/phone", body)
+      .post("http://192.168.0.56:8888/member/update/phone?ciSeq=" + num, body)
       .then((response) => {
         if (response.data) {
           if (response.data) {
@@ -78,7 +81,7 @@ const Modal = ({ title, name }) => {
         alert(error.response.data.message);
       });
   };
-// 전화번호 정규식 표현
+  // 전화번호 정규식 표현
   const autoHypen = (target) => {
     target = target
       .replace(/[^0-9]/g, "")
@@ -104,7 +107,7 @@ const Modal = ({ title, name }) => {
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold mb-10">
                     {user.ciName}
-                    {title}
+                    <span style={{ fontSize: "25px" }}> {title}</span>
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
