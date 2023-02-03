@@ -9,8 +9,12 @@ import { ImStarFull } from "react-icons/im";
 import { useState } from "react";
 
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router";
 
 const Review = () => {
+  const location = useLocation();
+  const bmocSeq = location.state;
+  const navigate = useNavigate();
   // 별점 기본값 설정
   const [clicked, setClicked] = useState([false, false, false, false, false]);
 
@@ -35,7 +39,7 @@ const Review = () => {
     e.preventDefault();
 
     const body = {
-      order_seq: 42,
+      order_seq: bmocSeq,
       ri_contents: contents,
       ri_score: star,
     };
@@ -55,10 +59,12 @@ const Review = () => {
             alert(response.data.message);
           }
         }
+        navigate("/Mypage");
       })
       .catch((error) => {
         console.log(error.response);
         alert(error.response.data.message);
+        navigate("/Mypage");
       });
   };
 

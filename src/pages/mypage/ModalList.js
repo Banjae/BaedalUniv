@@ -3,7 +3,7 @@ import food from "../../assets/brand.jpg";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-import { Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import instance from "../../api/axios";
 import request from "../../api/requset";
@@ -11,8 +11,9 @@ import request from "../../api/requset";
 const ModalList = () => {
   const [myReview, setMyReview] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
   const user = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
 
   const params = {
     ciSeq: user.ciSeq,
@@ -22,6 +23,7 @@ const ModalList = () => {
     await instance
       .get(request.history, { params })
       .then((res) => {
+        console.log(res.data.data);
         setMyReview(res.data.data);
       })
       .catch((err) => {
@@ -31,6 +33,10 @@ const ModalList = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const goToReview = (bmocSeq) => {
+    navigate("/review", { state: bmocSeq });
+  };
 
   return (
     <>
@@ -109,9 +115,12 @@ const ModalList = () => {
                                 </p>
                               </div>
                               <div className="flex justify-between">
-                                <Link to="/Review" className={TAILWINDBT}>
+                                <button
+                                  onClick={(e) => goToReview(ele.bmocSeq)}
+                                  className={TAILWINDBT}
+                                >
                                   리뷰쓰기
-                                </Link>
+                                </button>
                                 <button className={TAILWINDBT}>가게보기</button>
                                 <button className={TAILWINDBT}>주문상세</button>
                               </div>

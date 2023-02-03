@@ -8,82 +8,88 @@ import tw from "tailwind-styled-components";
 import { useEffect, useState } from "react";
 // import payco from "../../assets/Payco-4.png";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const Order = () => {
-  const [list, setList] = useState([]);
+  const [location, setLocation] = useState([]);
   const [time, setTime] = useState([]);
+  const [selected, setSelected] = useState();
+  const [last, setLast] = useState([]);
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  const params = {
+    uiSeq: user.ciUiSeq,
+  };
+  const param = {
+    ciSeq: user.ciSeq,
+  };
   const fetchData = async () => {
     try {
-      const params = {};
-      const response = await axios.get(
-        "http://192.168.0.56:8888/list/pickuparea",
-        {
-          params,
-        }
-      );
-      const response2 = await axios.get(
+      const res = await axios.get("http://192.168.0.56:8888/list/pickuparea", {
+        params,
+      });
+      console.log(res);
+      setLocation(res.data.list);
+      const res2 = await axios.get(
         "http://192.168.0.56:8888/list/deliverytime",
-        {
-          params,
-        }
+        { params }
       );
-      setList(response.data.list);
-      setTime(response2.data.list);
-    } catch (error) {
-      console.log(error);
+      setTime(res2.data.list);
+
+      // const res3 = await axios.get("http://192.168.0.56:8888/order/history");
+      // console.log(res2.data.list);
+    } catch (err) {
+      console.log(err);
     }
+  };
+
+  const handleSelect = (e) => {
+    setSelected(e.target.value);
+  };
+
+  let body = {
+    ciSeq: user.ciSeq,
+    puaSeq: parseInt(selected),
+  };
+
+  const payBt = (e) => {
+    axios
+      .post("http://192.168.0.56:8888/basket", body)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   useEffect(() => {
     fetchData();
   }, []);
-  const onChangeHanlder = (e) => {
-    setList(e.currentTarget.value);
-  };
-  const onChangeHanlder2 = (e) => {
-    setTime(e.currentTarget.value);
-  };
+
   return (
     <>
       <button onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
-      <div className="order mb-10">
-        <p className="text-center mb-5 font-semibold text-2xl">주문하기</p>
-        <span className="block text-center mb-5">
-          앗! 비로그인 주문시 적립,할인 등이 불가해요
-        </span>
-        <div className="flex justify-center">
-          <LoginBt>
-            <Link to="/Login">로그인 & 회원가입</Link>
-          </LoginBt>
-        </div>
-      </div>
       <div className="flex flex-col justify-center items-center">
         <div>
           <div className="order-info">
             <Title>주문자정보</Title>
-            <Inputbox type="text" placeholder="주문자명을 입력해주세요" />
-            <Inputbox type="text" placeholder="핸드폰번호를 입력해주세요" />
+            <OrderInfobox name="주문자명">{user.ciName}</OrderInfobox>
+            <OrderInfobox name="핸드폰번호">{user.ciPhone}</OrderInfobox>
           </div>
+
           <div className="receipt mb-4">
             <Title className="mb-4">수령시간 / 장소</Title>
             <div className="receipt-time ml-5">
               <div className=" flex flex-col">
                 <span className="mb-2">수령시각</span>
-                <select
-                  className="rounded-lg border-2 border-gray-300"
-                  onChange={onChangeHanlder2}
-                  value={list}
-                >
-                  {time.map((time) => (
-                    <option key={time.utiSeq} value={time}>
-                      {time.utiCloseTime} 주문마감 / {time.utiDeliveryTime} 수령
+                <select className="rounded-lg border-2 border-gray-300">
+                  {time.map((item, index) => (
+                    <option key={index} value={item.puaSeq}>
+                      {item.utiCloseTime} 주문마감 / {item.utiCloseTime} 수령
                     </option>
                   ))}
-                  {/* <option>주문취소</option>
-                  <option>오늘 16:50 주문마감 / 18:10~18:30 수령</option>
-                  <option>오늘 16:50 주문마감 / 18:10~18:30 수령</option>
-                  <option>오늘 16:50 주문마감 / 18:10~18:30 수령</option> */}
                 </select>
               </div>
             </div>
@@ -92,22 +98,18 @@ const Order = () => {
                 <span className="mb-2">수령장소</span>
                 <select
                   className="rounded-lg border-2 border-gray-300"
-                  onChange={onChangeHanlder}
-                  value={list}
+                  onChange={handleSelect}
                 >
-                  {list.map((list) => (
-                    <option key={list.puaSeq} value={list}>
-                      {list.puaName}
+                  {location.map((item, index) => (
+                    <option key={index} value={item.puaSeq}>
+                      {item.puaName}
                     </option>
                   ))}
                 </select>
-                {/* <option>학사기숙사(A동)</option>
-                  <option>학사기숙사(B동)</option>
-                  <option>학사기숙사(C동)</option>
-                  <option>학사기숙사(D동)</option> */}
               </div>
             </div>
           </div>
+
           <div className="payment-method mb-4">
             <Title className="mb-4">결제수단</Title>
             <div className="ml-5">
@@ -125,10 +127,11 @@ const Order = () => {
               </div>
             </div>
           </div>
+
           <div className="pay-info mb-4">
             <Title className="mb-4">결제정보</Title>
             <div className="menu-payment ml-5">
-              <span>상호명</span>
+              <span></span>
               <div>
                 <div className="flex justify-between">
                   <span>역전돈까스</span>
@@ -140,7 +143,7 @@ const Order = () => {
             <div className="delivery-fee ml-5">
               <div className="flex justify-between">
                 <span>배달비</span>
-                <span>3,800</span>
+                <span>무료</span>
               </div>
               <div className="flex justify-between">
                 <span>총 할인금액</span>
@@ -153,13 +156,17 @@ const Order = () => {
             </div>
           </div>
         </div>
-        <button className="payment-box flex justify-center items-center bg-main text-white w-52 h-10 mt-10">
-          <span>17,300원 결제하기</span>
+        <button
+          className="payment-box flex justify-center items-center bg-main text-white w-52 h-10 mt-10"
+          onClick={payBt}
+        >
+          원 결제하기
         </button>
       </div>
     </>
   );
 };
+
 const LoginBt = tw.button`
 border-2
 border-gray-300
@@ -176,6 +183,18 @@ text-slate-700
 mb-12
 `;
 const Inputbox = tw.input`
+flex
+justify-start
+m-3
+p-2
+rounded-lg
+border-2
+border-gray-300
+h-12
+font-medium
+text-xl
+`;
+const OrderInfobox = tw.div`
 flex
 justify-start
 m-3

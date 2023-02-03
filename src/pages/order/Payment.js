@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Payment = () => {
+  const [pay, setPay] = useState([]);
+  const user = useSelector((state) => state.user);
+  const params = {
+    ciSeq: user.ciSeq,
+  };
+  // console.log(params);
+  const payData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8888/order/history", {
+        params,
+      });
+      console.log(res.data);
+      setPay(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    payData();
+  }, []);
+
   const todayTime = () => {
     let now = new Date();
     let todayYear = now.getFullYear();
@@ -10,7 +33,6 @@ const Payment = () => {
     let datOfWeek = week[now.getDay()];
     let hours = now.getHours();
     let minutes = now.getMinutes();
-
     return (
       todayYear +
       "년 " +
@@ -24,7 +46,6 @@ const Payment = () => {
       minutes
     );
   };
-
   return (
     <>
       <div className="flex flex-col justify-center items-center">
