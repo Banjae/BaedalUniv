@@ -7,6 +7,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+
 // AOS 적용
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -18,46 +19,54 @@ const About = () => {
 
   const frontMemberList = [
     {
-      name: "반재원",
+      name: "반재원 (팀장)",
       content: "Home / Shop",
+      image: "jaewon",
       link: "https://github.com/Banjae",
-    },
-    {
-      name: "옥지은",
-      content: "Login / Signup",
-      link: "https://github.com/dev-jiji",
     },
     {
       name: "조준영",
       content: "Order / Cart",
+      image: "jun",
       link: "https://github.com/choj96",
+    },
+    {
+      name: "옥지은",
+      content: "Login / Signup",
+      image: "jieun",
+      link: "https://github.com/dev-jiji",
     },
   ];
 
   const backMemberList = [
     {
-      name: "이영은",
-      content: "대장",
+      name: "이영은 (팀장)",
+      content: "회원정보API",
+      image: "기뉴(new)",
       link: "https://github.com/",
     },
     {
       name: "문주영",
-      content: "부대장",
+      content: "가게정보API",
+      image: "리쿰(new)",
       link: "https://github.com/",
     },
     {
       name: "우민경",
-      content: "쫄병",
+      content: "이미지API",
+      image: "굴드(new)",
       link: "https://github.com/",
     },
     {
       name: "이민석",
-      content: "쫄병",
+      content: "관리자API",
+      image: "바타(new)",
       link: "https://github.com/",
     },
     {
       name: "이호진",
-      content: "쫄병",
+      content: "메뉴API",
+      image: "지스(new)",
       link: "https://github.com/",
     },
   ];
@@ -73,12 +82,23 @@ const About = () => {
         <div className="text-center text-4xl m-3">FE Members</div>
         <ProfileUl>
           {frontMemberList.map((ele, idx) => {
+            console.log(ele.image);
             return (
-              <ProfileLi data-aos="zoom-in" data-aos-duration="3000" key={idx}>
+              <ProfileLi
+                data-aos="zoom-in-up"
+                data-aos-duration="3000"
+                key={idx}
+              >
                 <Profile>
                   <Name>{ele.name}</Name>
                   <PorfileCenter>
-                    <ProfilePic></ProfilePic>
+                    <ProfilePic>
+                      {/* <img src=`require(${ele.image})` alt="" /> */}
+                      <Img
+                        src={require(`../assets/${ele.image}.jpg`)}
+                        alt="사진"
+                      />
+                    </ProfilePic>
                     <ProfileP>
                       담당파트
                       <br />
@@ -94,7 +114,7 @@ const About = () => {
           })}
         </ProfileUl>
 
-        <div className="text-center text-2xl">BE Members</div>
+        <div className="text-center text-4xl m-3">BE Members</div>
         <ProfileUl>
           {backMemberList.map((ele, idx) => {
             return (
@@ -102,7 +122,12 @@ const About = () => {
                 <Profile>
                   <Name>{ele.name}</Name>
                   <PorfileCenter>
-                    <ProfilePic></ProfilePic>
+                    <ProfilePic>
+                      <Img
+                        src={require(`../assets/${ele.image}.png`)}
+                        alt="사진"
+                      />
+                    </ProfilePic>
                     <ProfileP>
                       담당파트
                       <br />
@@ -175,6 +200,14 @@ const ProfilePic = tw.div`
   rounded-lg
   bg-main
   m-1
+`;
+
+const Img = tw.img`
+  w-[150px]
+  h-[150px]
+  mx-6
+  my-6
+  rounded-lg
 `;
 
 export default About;

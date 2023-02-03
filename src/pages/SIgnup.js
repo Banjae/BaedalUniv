@@ -370,7 +370,12 @@ const SIgnup = () => {
           </Bt>
           <Title htmlFor="service-select">서비스 이용장소</Title>
           <Bt style={{ fontSize: "16px", color: "gray" }}>
-            <select name="" id="service-select" onChange={changeValue}>
+            <select
+              name=""
+              id="service-select"
+              onChange={changeValue}
+              className="focus:outline-none"
+            >
               <option> -- 이용하실 대학을 선택해주세요 -- </option>
               {uniList.map((item, idx) => {
                 return (
