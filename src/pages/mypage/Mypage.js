@@ -26,11 +26,11 @@ const Mypage = () => {
 
   return (
     <>
+          <button onClick={() => navigate(-1)}>
+            <FontAwesomeIcon icon={faChevronLeft} className="mb-10" />
+          </button>
       <div>
         <Page className="flex justify-center mb-20 mr-10">
-          <button onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faChevronLeft} className="pr-3" />
-          </button>
           마이페이지
         </Page>
         <div className="w-1/2 my-0 mx-auto">

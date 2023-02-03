@@ -102,7 +102,7 @@ const ModalPw = ({ title, name }) => {
                 {/*body*/}
                 <Bt>
                   <input
-                    className="placeholder:text-base pl-2 mb-1"
+                    className="placeholder:text-base pl-2 mb-1   focus:outline-none"
                     type="password"
                     required
                     value={pw}
@@ -114,7 +114,7 @@ const ModalPw = ({ title, name }) => {
                 </Bt>
                 <Bt>
                   <input
-                    className="placeholder:text-base pl-2 mb-1"
+                    className="placeholder:text-base pl-2 mb-1   focus:outline-none"
                     type="password"
                     required
                     value={newPw}
@@ -126,7 +126,7 @@ const ModalPw = ({ title, name }) => {
                 </Bt>
                 <Bt>
                   <input
-                    className="placeholder:text-base pl-2 mb-1"
+                    className="placeholder:text-base pl-2 mb-1   focus:outline-none"
                     type="password"
                     required
                     value={pwCheck}

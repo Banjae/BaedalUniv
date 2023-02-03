@@ -113,7 +113,7 @@ const Modal = ({ title, name }) => {
                 <Title style={{ margin: "40px" }}>{user.ciEmail}</Title>
                 <Bt>
                   <input
-                    className="placeholder:text-base pl-2 mb-1"
+                    className="placeholder:text-base pl-2 mb-1 focus:outline-none"
                     type="email"
                     placeholder={`변경할 ${name}을 입력해주세요`}
                     required

@@ -53,13 +53,13 @@ const Login = () => {
 
   return (
     <>
+        <button onClick={() => navigate(-1)}>
+          <FontAwesomeIcon icon={faChevronLeft}className="mb-10"/>
+        </button>
       <Title
         className="flex justify-center mb-10 mr-10"
         style={{ color: "black" }}
       >
-        <button onClick={() => navigate(-1)}>
-          <FontAwesomeIcon icon={faChevronLeft} className="pr-3" />
-        </button>
         로그인
       </Title>
       <div className="flex flex-col items-center">
