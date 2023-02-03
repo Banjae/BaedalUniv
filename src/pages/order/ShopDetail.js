@@ -100,13 +100,14 @@ const ShopDetail = ({ menuSeq, setShowModal, showModal, stdSeq }) => {
     axios
       .post("http://192.168.0.56:8888/order/basket", body)
       .then((res) => {
+        console.log(res.data.message);
         console.log(res.data.data);
-        dispatch(cartLookup(res.data.data));
+
       })
       .catch((err) => {
         console.log(err);
       });
-    dispatch(cartAdd(body));
+    // dispatch(cartAdd(body));
     setShowModal(!showModal);
   };
   const goToOrder = () => {

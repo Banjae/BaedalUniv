@@ -19,9 +19,6 @@ import tw from "tailwind-styled-components";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
-// 임시 이미지
-import food from "../../assets/food.jpg";
-
 const Detail = () => {
   const location = useLocation();
   const utiSeq = location.state;

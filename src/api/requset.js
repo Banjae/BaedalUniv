@@ -7,6 +7,10 @@ const request = {
   // shop
   shop: "/store/menu/list",
   shopinfo: "/store/info",
+  //
+  basket: "/basket",
+  basektDelete: "/basket/delete",
+  basektDeleteAll: "/basket/deleteAll",
 };
 
 export default request;

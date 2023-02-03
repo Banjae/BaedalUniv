@@ -18,9 +18,13 @@ const Fixmenu = () => {
   const user = useSelector((state) => state.user);
 
   const [uniList, setUniList] = useState([]);
+  const [orderList, setOredrList] = useState([]);
 
   const navigate = useNavigate();
 
+  const params = {
+    ciSeq: user.ciSeq,
+  };
   const fetchData = async () => {
     await instance
       .get(request.univ)
@@ -30,11 +34,19 @@ const Fixmenu = () => {
       .catch((err) => {
         console.log(err);
       });
+    await instance
+      .get(request.basket, { params })
+      .then((res) => {
+        setOredrList(res.data.data.menuList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [orderList]);
 
   const clickFunc = () => {
     const matchUni = (ele) => {
@@ -76,6 +88,9 @@ const Fixmenu = () => {
               </Link>
             ) : (
               <Link to="/cart" className="flex flex-col">
+                {orderList.length === 0 ? null : (
+                  <CartCount>{orderList.length}</CartCount>
+                )}
                 <FontAwesomeIcon icon={faCartShopping} />
                 <span>장바구니</span>
               </Link>
@@ -118,6 +133,21 @@ const FixUl = tw.ul`
 const FixLi = tw.li`
   text-xl
   text-main
+`;
+
+const CartCount = tw.span`
+  absolute
+  right-[37%]
+  bottom-[64%]
+  h-[22px]
+  w-[22px]
+  bg-white
+  border
+  border-main
+  text-center
+  text-sm
+  rounded-full
+  z-30
 `;
 
 export default Fixmenu;

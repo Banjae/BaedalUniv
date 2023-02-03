@@ -1,80 +1,114 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { faSquareMinus } from "@fortawesome/free-regular-svg-icons";
-import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { cartTableDelet } from "../reducer/cartSlice";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+import { useSelector } from "react-redux";
+
+import instance from "../api/axios";
+import request from "../api/requset";
 
 const OrderTable = () => {
-  const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-  console.log(cart);
+  const [orderList, setOredrList] = useState([]);
+  const [total, setTotal] = useState(0);
 
-  // const minusBt = () => {
-  //   cart.count <= 1 ? alert("최소 1개는 주문해라잉") : () => cart.count - 1;
-  // };
+  const params = {
+    ciSeq: user.ciSeq,
+  };
 
-  // const plusBt = () => {
-  //   cart.count + 1;
-  // };
+  const fetchData = async () => {
+    await instance
+      .get(request.basket, { params })
+      .then((res) => {
+        setOredrList(res.data.data.menuList);
+        setTotal(res.data.data.totalPrice);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const deleteAllBt = () => {
+  useEffect(() => {
+    fetchData();
+  }, [orderList]);
+
+  function comprice(p) {
+    return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const basektDeleteAll = () => {
     alert("주문표에 담긴 메뉴를 모두 삭제하시겠습니까?");
-    dispatch(cartTableDelet());
+    instance
+      .delete(request.basektDeleteAll, { params })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const basektDelete = (bmocSeq) => {
+    const params = {
+      bmocSeq: bmocSeq,
+    };
+    instance
+      .delete(request.basektDelete, { params })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <MotherTable>
       <Table>
         <TableTitle>
-          <p>주문표</p>
-          <button onClick={deleteAllBt}>
+          <p>주문표 ( {orderList.length} )</p>
+          <button onClick={basektDeleteAll}>
             <FontAwesomeIcon icon={faTrashCan} />
           </button>
         </TableTitle>
-        {cart.bmocSeq === "" ? (
+        {total === 0 ? (
           <TableDetail>
             <p className="text-center">주문표에 담긴 메뉴가 없습니다.</p>
           </TableDetail>
         ) : (
           <TableDetail>
-            <div>
-              <p>{cart.menuName}</p>
-            </div>
-            <div className="flex justify-between mt-2">
-              <div>
-                <button>X</button>
-                <span>{cart.price}원</span>
+            {orderList.map((ele) => (
+              <div key={ele.bmocSeq}>
+                <div>
+                  <p className="text-lg">{ele.menuName}</p>
+                </div>
+                <div>
+                  <p>{ele.optionAll}</p>
+                </div>
+
+                <div className="flex justify-between mt-2">
+                  <div>
+                    <button onClick={(e) => basektDelete(ele.bmocSeq)}>
+                      <FontAwesomeIcon icon={faXmark} />
+                    </button>
+                  </div>
+                  <span>{comprice(ele.price)}원</span>
+                </div>
               </div>
-              <div>
-                <button
-                  //  onClick={minusBt}
-                  className="text-main mr-1"
-                >
-                  <FontAwesomeIcon icon={faSquareMinus} />
-                </button>
-                <span className="m-1">{cart.count}</span>
-                <button
-                  //  onClick={plusBt}
-                  className="text-main ml-1"
-                >
-                  <FontAwesomeIcon icon={faSquarePlus} />
-                </button>
-              </div>
-            </div>
+            ))}
           </TableDetail>
         )}
         <TablePrice>
-          <p>배달대는 배달비가 0원</p>
-          <p>합계: {cart.price}원</p>
+          <p>배달대는 배달비가 무료</p>
+          <strong>합계 : {comprice(total)}원</strong>
         </TablePrice>
-        {cart.bmocSeq === "" ? (
+        {total === 0 ? (
           <TableNot>
             <p>주문하기</p>
           </TableNot>

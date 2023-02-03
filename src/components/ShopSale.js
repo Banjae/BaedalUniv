@@ -34,7 +34,6 @@ const ShopSale = ({ utiSeq }) => {
     await instance
       .get(request.dcstore, { params })
       .then((res) => {
-        console.log(res.data);
         setShopSale(res.data.list);
         setLoading(false);
       })
