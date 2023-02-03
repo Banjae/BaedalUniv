@@ -18,8 +18,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
-// 임시 이미지
-import food from "../assets/food.jpg";
 import Loading from "./Loading";
 
 const ShopSale = ({ utiSeq }) => {
@@ -75,7 +73,7 @@ const ShopSale = ({ utiSeq }) => {
                 </div>
                 <img
                   src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
-                  alt="사진"
+                  alt="img"
                 />
                 <div className="flex flex-col items-start m-2">
                   <span className="font-semibold">{ele.storeName}</span>
@@ -98,13 +96,13 @@ const ShopSale = ({ utiSeq }) => {
               <NotWorking>
                 <p>영업준비중</p>
               </NotWorking>
-              {/* <div className="off" /> */}
+
               <div className="sale">
                 <span className="my-0 mx-auto">{ele.discount}%</span>
               </div>
               <img
                 src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
-                alt="사진"
+                alt="img"
               />
               <div className="flex flex-col items-start m-2">
                 <span className="font-semibold">{ele.storeName}</span>
@@ -120,7 +118,7 @@ const ShopSale = ({ utiSeq }) => {
           );
         })}
       </Swiper>
-      {/* {loading && <Loading />} */}
+      {loading && <Loading />}
     </SScontainer>
   );
 };

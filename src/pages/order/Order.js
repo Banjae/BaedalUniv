@@ -1,14 +1,19 @@
 // shop Order
+import axios from "axios";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+
 // FontAwesome Icon 적용
 import tw from "tailwind-styled-components";
 import { useEffect, useState } from "react";
-// import payco from "../../assets/Payco-4.png";
-import axios from "axios";
-import { useSelector } from "react-redux";
+
+import payco from "../../assets/payco.jpeg";
+import kakao from "../../assets/kakaoPay.jpeg";
+
 const Order = () => {
   const [location, setLocation] = useState([]);
   const [time, setTime] = useState([]);
@@ -122,13 +127,15 @@ const Order = () => {
                 <input type="radio" name="payment" />
                 <span className="ml-3">카드 결제</span>
               </div>
-              <div className="">
+              <div className="flex my-1">
                 <input type="radio" name="payment" />
-                <span className="ml-3">긱머니 결제</span>
+                <img src={kakao} className="ml-3 w-16 h-7 rounded-lg" />
+                {/* <span className="ml-3">카카오페이 결제</span> */}
               </div>
-              <div className="flex">
+              <div className="flex my-1">
                 <input type="radio" name="payment" />
-                <span className="ml-3">페이코 결제</span>
+                <img src={payco} className="ml-3 w-16 h-7 rounded-lg" />
+                {/* <span className="ml-3"> 페이코 결제</span> */}
               </div>
             </div>
           </div>

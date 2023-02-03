@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import food from "../../assets/brand.jpg";
-
-// tailwind-styled-component
-import tw from "tailwind-styled-components";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import instance from "../../api/axios";
 import request from "../../api/requset";
+
+// tailwind-styled-component
+import tw from "tailwind-styled-components";
 
 const ModalList = () => {
   const [myReview, setMyReview] = useState([]);
@@ -63,21 +62,21 @@ const ModalList = () => {
               {/*content*/}
               <div
                 className="border-0
-               rounded-lg 
-               shadow-lg 
-               relative
+                rounded-lg 
+                shadow-lg 
+                relative
                 flex flex-col 
                 w-full
-             bg-white
-              outline-none
-                   focus:outline-none"
+                bg-white
+                outline-none
+                focus:outline-none"
               >
-                {/*header*/}
                 <div
                   className="flex items-start justify-between 
                   p-5 border-b 
                   border-solid
-                  border-slate-200 rounded-t"
+                  border-slate-200 
+                  rounded-t"
                 >
                   <h3 className="mt-10  ml-28 text-3xl font-semibold mb-4 border-b-4 border-main">
                     나의 주문내역
@@ -106,11 +105,6 @@ const ModalList = () => {
                             <div key={idx}>
                               <div className="my-3">
                                 <p className="font-bold text-xl">
-                                  {/* <img
-                                        src={food}
-                                        className="w-14 h-14"
-                                        alt="가게사진"
-                                      /> */}
                                   {ele.siName}
                                 </p>
                               </div>

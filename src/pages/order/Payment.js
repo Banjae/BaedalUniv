@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
+// FontAwesome Icon 적용
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
 
 const Payment = () => {
   const [pay, setPay] = useState([]);
@@ -49,10 +54,11 @@ const Payment = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
-        <p className="block text-center mb-5 font-semibold text-2xl">
-          결제내역
-        </p>
-        <div className="flex justify-center items-center bg-main text-white w-52 h-10">
+        <div className="block text-center mb-5 font-semibold text-2xl">
+          <span className="mr-3">결제내역</span>
+          <FontAwesomeIcon icon={faCreditCard} />
+        </div>
+        <div className="flex justify-center items-center bg-main rounded-lg text-white w-52 h-10">
           한솥도시락
         </div>
       </div>
@@ -89,6 +95,13 @@ const Payment = () => {
             <p>00대학교 00건물</p>
           </div>
         </div>
+        <Link to="/mypage">
+          <div className="flex justify-center item-center">
+            <button className="bg-main text-white text-xl w-1/4 h-14 rounded-lg mt-2">
+              마이페이지로 가기
+            </button>
+          </div>
+        </Link>
       </div>
     </>
   );

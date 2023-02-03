@@ -29,6 +29,7 @@ const Detail = () => {
   const [imgUri, setImgUri] = useState();
   const [infoArr, setInfoArr] = useState([]);
   const [toTable, setToTable] = useState(0);
+  const [starValue, setStarValue] = useState(0);
 
   const params = {
     siSeq: siSeq,
@@ -101,7 +102,7 @@ const Detail = () => {
                   <span className="overflow-hidden text-ellipsis">
                     <strong className="mr-2">사장님알림</strong>
                     {infoArr.ownerWord === ""
-                      ? "사장님 알림이 없어요!"
+                      ? "사장님 알림이 없어요"
                       : infoArr.ownerWord}
                   </span>
                   <button
@@ -120,7 +121,9 @@ const Detail = () => {
 
           <ShopAbout ref={goToAbout}>
             <ShopAboutBt
-              className={click === 0 ? "border-main" : "border-white"}
+              className={
+                click === 0 ? "border-main text-main font-bold" : "border-white"
+              }
               onClick={() => {
                 setClick(0);
                 goToAbout.current.scrollIntoView({ behavior: "smooth" });
@@ -130,7 +133,9 @@ const Detail = () => {
             </ShopAboutBt>
 
             <ShopAboutBt
-              className={click === 1 ? "border-main" : "border-white"}
+              className={
+                click === 1 ? "border-main text-main font-bold" : "border-white"
+              }
               onClick={() => {
                 setClick(1);
                 goToAbout.current.scrollIntoView({ behavior: "smooth" });
@@ -140,7 +145,9 @@ const Detail = () => {
             </ShopAboutBt>
 
             <ShopAboutBt
-              className={click === 2 ? "border-main" : "border-white"}
+              className={
+                click === 2 ? "border-main text-main font-bold" : "border-white"
+              }
               onClick={() => {
                 setClick(2);
                 goToAbout.current.scrollIntoView({ behavior: "smooth" });
@@ -152,7 +159,11 @@ const Detail = () => {
 
           <ShopMRI>
             <div className={click === 0 ? "block" : "hidden"}>
-              <ShopMenu stdSeq={stdSeq} setToTable={setToTable} toTable={toTable}/>
+              <ShopMenu
+                stdSeq={stdSeq}
+                setToTable={setToTable}
+                toTable={toTable}
+              />
             </div>
             <div className={click === 1 ? "block" : "hidden"}>
               <ShopReview />

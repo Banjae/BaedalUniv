@@ -54,6 +54,7 @@ const Login = () => {
       <button onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faChevronLeft} className="mb-10" />
       </button>
+
       <Title
         className="flex justify-center mb-10 mr-10"
         style={{ color: "black" }}
