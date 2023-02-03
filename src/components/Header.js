@@ -79,27 +79,27 @@ const LogBt = tw.div`
 flex 
 justify-center 
 items-center 
-rounded-full 
+rounded-lg
 shadow-md 
 border
 border-gray-300
-text-sm
+text-md
 p-3
-h-8
+h-10
 `;
 const SignBt = tw.button`
 flex 
 justify-center 
 items-center 
-rounded-full 
+rounded-lg 
 shadow-md 
 bg-main 
 border
 border-main
 text-white
-text-sm 
+text-md
 p-3
-h-8
+h-10
 `;
 
 export default Header;

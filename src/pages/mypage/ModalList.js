@@ -1,12 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import food from "../../assets/brand.jpg";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import instance from "../../api/axios";
+import request from "../../api/requset";
 
 const ModalList = () => {
+  const [myReview, setMyReview] = useState([]);
   const [showModal, setShowModal] = useState(false);
+
+  const user = useSelector((state) => state.user);
+
+  const params = {
+    ciSeq: user.ciSeq,
+  };
+
+  const fetchData = async () =>
+    await instance
+      .get(request.history, { params })
+      .then((res) => {
+        setMyReview(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -45,13 +69,12 @@ const ModalList = () => {
                 {/*header*/}
                 <div
                   className="flex items-start justify-between 
-                
-                p-5 border-b 
-                border-solid
-                 border-slate-200 rounded-t"
+                  p-5 border-b 
+                  border-solid
+                  border-slate-200 rounded-t"
                 >
                   <h3 className="mt-10  ml-28 text-3xl font-semibold mb-4 border-b-4 border-main">
-                    배달 · 포장/방문
+                    나의 주문내역
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -67,35 +90,37 @@ const ModalList = () => {
                   </button>
                 </div>
 
-                {/*body*/}
                 <div className="w-96 m-10">
-                  <div>
-                    <div className="pl-2 mb-2">
-                      <img src={food} className="w-14 h-14" alt="가게사진" />
-                      가게 이름
-                    </div>
-                    <div
-                      className="flex justify-between 
-                    "
-                    >
-                      <Link to="/Review" className={TAILWINDBT}>
-                        리뷰쓰기
-                      </Link>
-                      <button className={TAILWINDBT}>가게보기</button>
-                      <button className={TAILWINDBT}>주문상세</button>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="pl-2 mb-2">
-                      <img src={food} className="w-14 h-14" alt="가게사진" />
-                      가게 이름
-                    </div>
-                    <div className="flex justify-between">
-                      <button className={TAILWINDBT}>리뷰쓰기</button>
-                      <button className={TAILWINDBT}>가게보기</button>
-                      <button className={TAILWINDBT}>주문상세</button>
-                    </div>
-                  </div>
+                  {myReview.map((ele) => {
+                    const reviewList = ele.menuList;
+                    return (
+                      <div key={ele.biNumber}>
+                        {reviewList.map((ele, idx) => {
+                          return (
+                            <div key={idx}>
+                              <div className="my-3">
+                                <p className="font-bold text-xl">
+                                  {/* <img
+                                        src={food}
+                                        className="w-14 h-14"
+                                        alt="가게사진"
+                                      /> */}
+                                  {ele.siName}
+                                </p>
+                              </div>
+                              <div className="flex justify-between">
+                                <Link to="/Review" className={TAILWINDBT}>
+                                  리뷰쓰기
+                                </Link>
+                                <button className={TAILWINDBT}>가게보기</button>
+                                <button className={TAILWINDBT}>주문상세</button>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

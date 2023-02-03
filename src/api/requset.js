@@ -12,6 +12,8 @@ const request = {
   basket: "/basket",
   basektDelete: "/basket/delete",
   basektDeleteAll: "/basket/deleteAll",
+  //
+  history: "/order/history",
 };
 
 export default request;

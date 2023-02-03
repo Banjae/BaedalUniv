@@ -26,6 +26,7 @@ const OrderTable = () => {
     await instance
       .get(request.basket, { params })
       .then((res) => {
+        console.log(res.data);
         setOredrList(res.data.data.menuList);
         setTotal(res.data.data.totalPrice);
       })
@@ -153,7 +154,8 @@ const TableTitle = tw.div`
 `;
 
 const TableDetail = tw.div`
-  max-h-[250px] 
+  max-h-[300px]
+  overflow-scroll 
   bg-white
   p-3
 `;

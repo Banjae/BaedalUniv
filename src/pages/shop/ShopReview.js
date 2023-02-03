@@ -22,7 +22,6 @@ const ShopReview = () => {
     await instance
       .get(request.review, { params })
       .then((res) => {
-        console.log(res.data);
         setReviewList(res.data.list);
       })
       .catch((err) => {
@@ -41,10 +40,9 @@ const ShopReview = () => {
             리뷰 <strong>{reviewList.length}</strong>개
           </p>
         </div>
-        {reviewList.map((ele) => {
-          console.log(ele);
+        {reviewList.map((ele, idx) => {
           return (
-            <ReviewBox>
+            <ReviewBox key={idx}>
               <div></div>
               <div>
                 <div>

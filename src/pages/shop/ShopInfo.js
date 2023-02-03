@@ -71,7 +71,6 @@ const ShopInfo = ({ utiSeq }) => {
         <SItime>
           <p>주문마감 / 도착시간</p>
           {pickUpTimeList.map((ele) => {
-            console.log(ele);
             return (
               <div key={ele.utiSeq}>
                 {ele.thisTime === true ? (
@@ -138,7 +137,7 @@ const SIbox = tw.div`
 
 const Sid = tw.div`
   flex
-`
+`;
 
 const SidName = tw.div`
   w-[11%]

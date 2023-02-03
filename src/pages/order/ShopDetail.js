@@ -93,7 +93,7 @@ const ShopDetail = ({ menuSeq, setShowModal, showModal, stdSeq }) => {
     axios
       .post("http://192.168.0.56:8888/order/basket", body)
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res.data);
         dispatch(cartLookup(res.data.data));
       })
       .catch((err) => {

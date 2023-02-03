@@ -9,7 +9,7 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 import instance from "../../api/axios";
 import request from "../../api/requset";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import ShopDetail from "../order/ShopDetail";
 
 const ShopMenu = ({ stdSeq }) => {
@@ -31,7 +31,6 @@ const ShopMenu = ({ stdSeq }) => {
     await instance
       .get(request.shop, { params })
       .then((res) => {
-        // console.log(res.data);
         setMenuList(res.data.list);
       })
       .catch((err) => {
@@ -67,7 +66,7 @@ const ShopMenu = ({ stdSeq }) => {
                 {menu.map((ele, idx) => {
                   return (
                     <div
-                      className="flex justify-between"
+                      className="flex justify-between mx-2"
                       div
                       key={idx}
                       onClick={(e) => {
@@ -139,10 +138,13 @@ const SMenuDetail = tw.div`
 `;
 
 const MenuDetailTitle = tw.p`
-  text-xl
+  text-2xl
 `;
 
 const MenuDetialPic = tw.img`
+  border
+  bg-cover
+  rounded-lg
   h-[150px]
   w-[200px]
   m-1
@@ -158,6 +160,7 @@ const Bfsale = tw.span`
 const Afsale = tw.span`
   font-bold
   pl-1
+  text-lg
 `;
 
 export default ShopMenu;

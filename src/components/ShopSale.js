@@ -71,7 +71,7 @@ const ShopSale = ({ utiSeq }) => {
             >
               <>
                 <div className="sale">
-                  <span className="my-0 mx-auto">{ele.discount}%</span>
+                  <strong className="my-0 mx-auto">{ele.discount}%</strong>
                 </div>
                 <img
                   src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
