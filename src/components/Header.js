@@ -21,6 +21,7 @@ const Header = () => {
   const navigate = useNavigate();
   const logOutFn = () => {
     dispatch(clearUser());
+    dispatch(clearUser());
     // window.sessionStorage.setItem("userInfo");
     navigate("/login");
   };

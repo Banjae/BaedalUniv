@@ -23,11 +23,13 @@ import tw from "tailwind-styled-components";
 import food from "../../assets/food.jpg";
 
 const Detail = () => {
-  const loaction = useLocation();
-  const utiSeq = loaction.state;
+  const location = useLocation();
+  const utiSeq = location.state;
   const { siSeq } = useParams();
   const goToAbout = useRef();
   const [click, setClick] = useState(0);
+  const [stdSeq, setStdSeq] = useState();
+  const [imgUri, setImgUri] = useState();
   const [infoArr, setInfoArr] = useState([]);
 
   const params = {
@@ -39,7 +41,9 @@ const Detail = () => {
     await instance
       .get(request.shopinfo, { params })
       .then((res) => {
+        setImgUri(res.data.data.simgUriCover);
         setInfoArr(res.data.data);
+        setStdSeq(res.data.data.stdSeq);
       })
       .catch((err) => {
         console.log(err);
@@ -55,7 +59,11 @@ const Detail = () => {
       <ShopContainer>
         <div className="w-[80%] md:w-[90%]">
           <div className="flex justify-between gap-5">
-            <img src={food} alt="img" className="w-[30%]" />
+            <img
+              src={`http://192.168.0.56:8888/download/store/${imgUri}`}
+              alt="img"
+              className="w-[30%]"
+            />
             <div className="flex-col text-center bg-white w-full py-2">
               <p className="text-2xl tracking-wide">{infoArr.siName}</p>
               <div className="flex justify-center items-center py-5">
@@ -144,7 +152,7 @@ const Detail = () => {
 
           <ShopMRI>
             <div className={click === 0 ? "block" : "hidden"}>
-              <ShopMenu />
+              <ShopMenu stdSeq={stdSeq} />
             </div>
             <div className={click === 1 ? "block" : "hidden"}>
               <ShopReview />

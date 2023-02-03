@@ -34,6 +34,7 @@ const ShopSale = ({ utiSeq }) => {
     await instance
       .get(request.dcstore, { params })
       .then((res) => {
+        console.log(res.data);
         setShopSale(res.data.list);
         setLoading(false);
       })
@@ -73,7 +74,10 @@ const ShopSale = ({ utiSeq }) => {
                 <div className="sale">
                   <span className="my-0 mx-auto">{ele.discount}%</span>
                 </div>
-                <img src={food} alt="사진" />
+                <img
+                  src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
+                  alt="사진"
+                />
                 <div className="flex flex-col items-start m-2">
                   <span className="font-semibold">{ele.storeName}</span>
                   <div className="text-sm">
@@ -99,7 +103,10 @@ const ShopSale = ({ utiSeq }) => {
               <div className="sale">
                 <span className="my-0 mx-auto">{ele.discount}%</span>
               </div>
-              <img src={food} alt="사진" />
+              <img
+                src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
+                alt="사진"
+              />
               <div className="flex flex-col items-start m-2">
                 <span className="font-semibold">{ele.storeName}</span>
                 <div className="text-sm">

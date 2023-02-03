@@ -12,6 +12,7 @@ import tw from "tailwind-styled-components";
 const ShopSchedule = ({ uiSeq }) => {
   const [shopArr, setShopArr] = useState([]);
   const [utiSeq, setUtiSeq] = useState();
+  const [click, setClick] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const params = {
@@ -35,15 +36,16 @@ const ShopSchedule = ({ uiSeq }) => {
     fetchData();
   }, [uiSeq]);
 
-  const clickFunc = (ele) => {
+  const clickFunc = (ele, idx) => {
     setUtiSeq(ele.utiSeq);
+    setClick(idx);
   };
 
-  let now = new Date();
-  const hour = now.getHours();
-  const minutes = now.getMinutes();
-  const nowTime = `${hour}:${minutes}`;
-  console.log(nowTime);
+  // let now = new Date();
+  // const hour = now.getHours();
+  // const minutes = now.getMinutes();
+  // const nowTime = `${hour}:${minutes}`;
+  // console.log(nowTime);
 
   // const setTime = if(nowTime < ) {
 
@@ -60,10 +62,14 @@ const ShopSchedule = ({ uiSeq }) => {
       <SStitle>음식주문 / 도착 시간표</SStitle>
       <div>
         <div className="flex justify-between">
-          {shopArr.map((ele) => {
-            console.log(ele.utiCloseTime < nowTime);
+          {shopArr.map((ele, idx) => {
+            // console.log(ele.utiCloseTime < nowTime);
             return (
-              <ScheBoxOn key={ele.utiSeq} onClick={() => clickFunc(ele)}>
+              <ScheBoxOn
+                key={ele.utiSeq}
+                onClick={() => clickFunc(ele, idx)}
+                className={click === idx ? "border-main" : "border-white"}
+              >
                 <span>{ele.utiName}</span>
                 <span>주문마감 {ele.utiCloseTime}</span>
                 <span>배달 도착 {ele.utiDeliveryTime}</span>
@@ -93,8 +99,7 @@ const ScheBoxOn = tw.div`
   justify-center
   rounded-lg
   bg-white
-  border-2 
-  border-white 
+  border-2  
   w-1/5
   h-[150px]
   text-xl
