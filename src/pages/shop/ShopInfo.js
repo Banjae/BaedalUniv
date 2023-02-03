@@ -48,33 +48,45 @@ const ShopInfo = ({ utiSeq }) => {
         </OwnerWord>
         <SIbox>
           <strong>업체정보</strong>
-          <div>
-            <span>전화번호</span>
+          <Sid>
+            <SidName>전화번호</SidName>
             <SIdetail>{infoArr.phoneNumber}</SIdetail>
-          </div>
+          </Sid>
         </SIbox>
         <SIbox>
           <strong>사업자정보</strong>
-          <div>
-            <span>대표자</span>
+          <Sid>
+            <SidName>대표자</SidName>
             <SIdetail>{infoArr.ownerName}</SIdetail>
-          </div>
-          <div>
-            <span>상호명</span>
+          </Sid>
+          <Sid>
+            <SidName>상호명</SidName>
             <SIdetail>{infoArr.sdiName}</SIdetail>
-          </div>
-          <div>
-            <span>사업자등록번호</span>
+          </Sid>
+          <Sid>
+            <SidName>사업자등록번호</SidName>
             <SIdetail>{infoArr.businessNumber}</SIdetail>
-          </div>
+          </Sid>
         </SIbox>
         <SItime>
           <p>주문마감 / 도착시간</p>
           {pickUpTimeList.map((ele) => {
+            console.log(ele);
             return (
               <div key={ele.utiSeq}>
-                <p>{ele.closeTime}</p>
-                <p>{ele.pickupTime}</p>
+                {ele.thisTime === true ? (
+                  <ThisTime>
+                    <span>{ele.closeTime}</span>
+                    <span> - </span>
+                    <span>{ele.pickupTime}</span>
+                  </ThisTime>
+                ) : (
+                  <>
+                    <span>{ele.closeTime}</span>
+                    <span> - </span>
+                    <span>{ele.pickupTime}</span>
+                  </>
+                )}
               </div>
             );
           })}
@@ -120,12 +132,20 @@ const SIbox = tw.div`
   w-full
   border-t-2
   border-gray-300
-  p-2
+  p-3
   m-1
 `;
 
+const Sid = tw.div`
+  flex
+`
+
+const SidName = tw.div`
+  w-[11%]
+`;
+
 const SIdetail = tw.span`
-  ml-[70px]
+  ml-4
 `;
 
 const SItime = tw.div`
@@ -138,6 +158,11 @@ const SItime = tw.div`
   w-[60%]
   m-2
   p-2
+`;
+
+const ThisTime = tw.p`
+  text-lg
+  font-semibold
 `;
 
 export default ShopInfo;

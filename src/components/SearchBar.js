@@ -72,21 +72,22 @@ const SearchBar = () => {
             onChange={(e) => onChange(e)}
           />
         </form>
+
+        <SearchList ref={searchList}>
+          {filterTitle.map((ele, index) => {
+            return (
+              <SearchItem
+                key={index}
+                onClick={clickFunc}
+                name={ele.uiName}
+                className={search === "" ? "hidden" : "block"}
+              >
+                {ele.uiName}
+              </SearchItem>
+            );
+          })}
+        </SearchList>
       </div>
-      <SearchList ref={searchList}>
-        {filterTitle.map((ele, index) => {
-          return (
-            <SearchItem
-              key={index}
-              onClick={clickFunc}
-              name={ele.uiName}
-              className={search === "" ? "hidden" : "block"}
-            >
-              {ele.uiName}
-            </SearchItem>
-          );
-        })}
-      </SearchList>
     </>
   );
 };
@@ -117,6 +118,8 @@ const SerchImg = tw.div`
 `;
 
 const SearchList = tw.div`
+  absolute
+  left-[25%]
   flex
   flex-col
   bg-white 
@@ -124,13 +127,12 @@ const SearchList = tw.div`
   my-0 
   mx-auto
   rounded-lg 
+  z-10
 `;
 
 const SearchItem = tw.button`
   text-center
-  hover:border-main 
-  hover:ring-2 
-  hover:ring-main
+  hover:bg-gray-200
   rounded-lg
   `;
 

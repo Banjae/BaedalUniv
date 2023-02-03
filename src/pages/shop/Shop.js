@@ -59,7 +59,7 @@ const Detail = () => {
             <img
               src={`http://192.168.0.56:8888/download/store/${imgUri}`}
               alt="img"
-              className="w-[30%]"
+              className="w-[40%]"
             />
             <div className="flex-col text-center bg-white w-full py-2">
               <p className="text-2xl tracking-wide">{infoArr.siName}</p>
@@ -98,8 +98,10 @@ const Detail = () => {
               <div className="flex justify-center">
                 <div className="flex justify-center w-[70%] md:[90%] h-10 bg-gray-200 rounded-lg p-2 ">
                   <span className="overflow-hidden text-ellipsis">
-                    <strong>사장님알림</strong>
-                    {infoArr.ownerWord === "" ? "없어" : infoArr.ownerWord}
+                    <strong className="mr-2">사장님알림</strong>
+                    {infoArr.ownerWord === ""
+                      ? "사장님 알림이 없어요!"
+                      : infoArr.ownerWord}
                   </span>
                   <button
                     className="w-6 h-6 ml-3 font-2xl"
@@ -203,7 +205,7 @@ const ShopMRI = tw.div`
 const ShopPriceBox = tw.div`
   my-1
   mx-auto
-  w-[50%]
+  w-[30%]
 `;
 
 const ShopPrice = tw.div`

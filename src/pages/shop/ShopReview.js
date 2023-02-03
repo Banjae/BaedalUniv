@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import instance from "../../api/axios";
+import request from "../../api/requset";
+
+// FontAwesome Icon 적용
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-import instance from "../../api/axios";
-import request from "../../api/requset";
 
 const ShopReview = () => {
   const [reviewList, setReviewList] = useState([]);
@@ -32,22 +36,33 @@ const ShopReview = () => {
   return (
     <>
       <SRcontainer>
+        <div className="p-2 ">
+          <p>
+            리뷰 <strong>{reviewList.length}</strong>개
+          </p>
+        </div>
         {reviewList.map((ele) => {
           console.log(ele);
           return (
-            <div>
+            <ReviewBox>
+              <div></div>
               <div>
-                <p>리뷰{reviewList.length}개</p>
+                <div>
+                  <ReviewName>{ele.ciNickName} 님</ReviewName>
+                  <ReviewDate>{ele.reviewRegDt}</ReviewDate>
+                </div>
+                <div className="text-yellow-500">
+                  <FontAwesomeIcon icon={faStar} />
+                  <span>{ele.reviewScore}</span>
+                </div>
+                <ReviewMenu>
+                  {ele.menu} / {ele.menuOption}
+                </ReviewMenu>
+                <ReviewContent>{ele.reviewContent}</ReviewContent>
               </div>
-              <div>
-                <span></span>
-                <span></span>
-                <p></p>
-              </div>
-            </div>
+            </ReviewBox>
           );
         })}
-        shop 안의 리뷰 페이지입니다.
       </SRcontainer>
     </>
   );
@@ -58,6 +73,30 @@ const SRcontainer = tw.div`
   h-full
   w-full
   mt-2
+`;
+
+const ReviewBox = tw.div`
+  p-3
+  border-t
+  border-gray-300
+`;
+
+const ReviewName = tw.span`
+  text-[20px]
+`;
+
+const ReviewDate = tw.span`
+  ml-2
+  text-gray-400
+`;
+
+const ReviewMenu = tw.span`
+  text-yellow-700
+  text-sm
+`;
+
+const ReviewContent = tw.p`
+  txet-2xl
 `;
 
 export default ShopReview;
