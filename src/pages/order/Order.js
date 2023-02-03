@@ -57,9 +57,14 @@ const Order = () => {
       .post("http://192.168.0.56:8888/basket", body)
       .then((res) => {
         console.log(res.data);
+        if (window.confirm("결제하시겠습니까?")) {
+          alert("주문이 완료되었습니다. 결제내역으로 이동합니다.");
+          navigate("/payment");
+        }
       })
       .catch((err) => {
         console.log(err);
+        alert("결제에 실패했습니다. 다시 시도해주세요");
       });
   };
   useEffect(() => {

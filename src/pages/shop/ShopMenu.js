@@ -12,7 +12,7 @@ import request from "../../api/requset";
 import { useParams } from "react-router";
 import ShopDetail from "../order/ShopDetail";
 
-const ShopMenu = ({ stdSeq }) => {
+const ShopMenu = ({ stdSeq, setToTable, toTable }) => {
   const [menuList, setMenuList] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [menuSeq, setMenuSeq] = useState("");
@@ -90,6 +90,8 @@ const ShopMenu = ({ stdSeq }) => {
                           showModal={showModal}
                           setShowModal={setShowModal}
                           stdSeq={stdSeq}
+                          toTable={toTable}
+                          setToTable={setToTable}
                         />
                       )}
                     </div>

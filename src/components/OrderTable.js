@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import instance from "../api/axios";
 import request from "../api/requset";
 
-const OrderTable = () => {
+const OrderTable = ({ toTable, setToTable }) => {
   const user = useSelector((state) => state.user);
 
   const [orderList, setOredrList] = useState([]);
@@ -21,6 +21,8 @@ const OrderTable = () => {
   const params = {
     ciSeq: user.ciSeq,
   };
+
+  console.log(toTable);
 
   const fetchData = async () => {
     await instance
@@ -41,7 +43,7 @@ const OrderTable = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [toTable]);
 
   function comprice(p) {
     return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -53,6 +55,7 @@ const OrderTable = () => {
       .delete(request.basektDeleteAll, { params })
       .then((res) => {
         console.log(res);
+        setToTable(!toTable);
       })
       .catch((err) => {
         console.log(err);
@@ -67,6 +70,7 @@ const OrderTable = () => {
       .delete(request.basektDelete, { params })
       .then((res) => {
         console.log(res);
+        setToTable(!toTable);
       })
       .catch((err) => {
         console.log(err);

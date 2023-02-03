@@ -12,13 +12,21 @@ import { cartLookup } from "../../reducer/cartSlice";
 import { useNavigate } from "react-router";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-const ShopDetail = ({ menuSeq, setShowModal, showModal, stdSeq }) => {
+const ShopDetail = ({
+  menuSeq,
+  setShowModal,
+  showModal,
+  stdSeq,
+  setToTable,
+  toTable,
+}) => {
   const [option, setOption] = useState("");
   const [optionList, setOptionList] = useState([]);
   const [count, setCount] = useState(1);
   const [checkList, setCheckList] = useState([]);
   const [optionPriceCheck, setOprionPriceCheck] = useState({});
   const [fdoSeqList, setFdoSeqList] = useState([]);
+
   const user = useSelector((state) => state.user);
   const params = {
     menuSeq: menuSeq,
@@ -95,12 +103,14 @@ const ShopDetail = ({ menuSeq, setShowModal, showModal, stdSeq }) => {
       .then((res) => {
         console.log(res.data);
         dispatch(cartLookup(res.data.data));
+        setToTable(!toTable);
       })
       .catch((err) => {
         console.log(err);
       });
     dispatch(cartAdd(body));
     setShowModal(!showModal);
+    setToTable(toTable + 1);
   };
   const goToOrder = () => {
     dispatch();
@@ -111,7 +121,7 @@ const ShopDetail = ({ menuSeq, setShowModal, showModal, stdSeq }) => {
       <SDbackground onClick={(e) => e.stopPropagation()}>
         <SDmodal>
           <Xbt onClick={popOff}>
-            <FontAwesomeIcon className="text-white mr-5 " icon={faXmark} />
+            <FontAwesomeIcon className="text-black mr-5 " icon={faXmark} />
           </Xbt>
           <div className="flex flex-col justify-center items-center bg-main h-20">
             <div className="flex justify-center items-center text-white font-medium">

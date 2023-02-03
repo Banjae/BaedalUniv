@@ -28,6 +28,7 @@ const Detail = () => {
   const [stdSeq, setStdSeq] = useState();
   const [imgUri, setImgUri] = useState();
   const [infoArr, setInfoArr] = useState([]);
+  const [toTable, setToTable] = useState(0);
 
   const params = {
     siSeq: siSeq,
@@ -151,7 +152,7 @@ const Detail = () => {
 
           <ShopMRI>
             <div className={click === 0 ? "block" : "hidden"}>
-              <ShopMenu stdSeq={stdSeq} />
+              <ShopMenu stdSeq={stdSeq} setToTable={setToTable} toTable={toTable}/>
             </div>
             <div className={click === 1 ? "block" : "hidden"}>
               <ShopReview />
@@ -161,7 +162,7 @@ const Detail = () => {
             </div>
           </ShopMRI>
         </div>
-        <OrderTable />
+        <OrderTable setToTable={setToTable} toTable={toTable} />
       </ShopContainer>
     </>
   );
