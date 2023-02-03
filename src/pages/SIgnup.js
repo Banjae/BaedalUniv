@@ -365,6 +365,7 @@ const SIgnup = () => {
               value={birth}
               onChange={(e) => setBirth(e.target.value)}
               placeholder="생년월일을 입력해주세요"
+              maxLength={8}
             />
           </Bt>
           <Title htmlFor="service-select">서비스 이용장소</Title>

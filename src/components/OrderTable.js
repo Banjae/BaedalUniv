@@ -153,6 +153,7 @@ const TableTitle = tw.div`
 `;
 
 const TableDetail = tw.div`
+  max-h-[250px] 
   bg-white
   p-3
 `;

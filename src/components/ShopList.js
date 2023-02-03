@@ -74,7 +74,9 @@ const ShopList = ({ utiSeq }) => {
                 src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
                 alt="img"
               />
-              <span>{ele.storeName}</span>
+              <div className="w-full text-center text-xl font-bold">
+                <span>{ele.storeName}</span>
+              </div>
               <div className="flex justify-center">
                 <span className="text-yellow-200">별점</span>
                 <span>평점</span>
@@ -94,7 +96,9 @@ const ShopList = ({ utiSeq }) => {
                 src={`http://192.168.0.56:8888/download/store/${ele.simgUriLogo}`}
                 alt="img"
               />
-              <span>{ele.storeName}</span>
+              <div className="w-full text-center">
+                <span>{ele.storeName}</span>
+              </div>
               <div className="flex justify-center">
                 <span className="text-yellow-200">별점</span>
                 <span>평점</span>

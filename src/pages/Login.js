@@ -49,13 +49,11 @@ const Login = () => {
       });
   };
 
-
-
   return (
     <>
-        <button onClick={() => navigate(-1)}>
-          <FontAwesomeIcon icon={faChevronLeft}className="mb-10"/>
-        </button>
+      <button onClick={() => navigate(-1)}>
+        <FontAwesomeIcon icon={faChevronLeft} className="mb-10" />
+      </button>
       <Title
         className="flex justify-center mb-10 mr-10"
         style={{ color: "black" }}
@@ -66,7 +64,10 @@ const Login = () => {
         <div className="mb-5">
           <Title>아이디</Title>
           <InputBt
-            className="placeholder:text-base pl-2 mb-5 border-main focus:outline-none"
+            className="placeholder:text-base pl-2 mb-5 border-gray-300  focus:outline-none 
+            focus:border-main 
+            focus:ring-1 
+            focus:ring-main"
             type="text"
             value={id}
             onChange={(event) => setId(event.target.value)}
@@ -76,7 +77,10 @@ const Login = () => {
         <div>
           <Title>비밀번호</Title>
           <InputBt
-            className="placeholder:text-base pl-2 mb-1  border-main focus:outline-none "
+            className="placeholder:text-base pl-2 mb-1  border-gray-300  focus:outline-none 
+            focus:border-main 
+            focus:ring-1 
+            focus:ring-main "
             type="password"
             value={pw}
             onChange={(event) => setPw(event.target.value)}
@@ -95,13 +99,13 @@ const Login = () => {
         <div>
           다양한 혜택을 위해
           <SignupBt>
-            <Link to="/signup" className="px-2">회원가입</Link>
+            <Link to="/signup" className="px-2">
+              회원가입
+            </Link>
           </SignupBt>
           하기!
         </div>
       </div>
-
-
     </>
   );
 };
