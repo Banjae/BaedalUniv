@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import request from "../api/requset";
 import instance from "../api/axios";
+import Loading from "./Loading";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,8 +18,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-
-import Loading from "./Loading";
 
 const ShopSale = ({ utiSeq }) => {
   const [shopSale, setShopSale] = useState([]);
