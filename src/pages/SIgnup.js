@@ -260,7 +260,7 @@ const SIgnup = () => {
   };
   // 전화번호 정규식표현
   const autoHypen = (target) => {
-   target = target
+    target = target
       .replace(/[^0-9]/g, "")
       .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
     setPhoneNum(target);
@@ -268,13 +268,13 @@ const SIgnup = () => {
 
   return (
     <>
+      <button onClick={() => navigate(-1)}>
+        <FontAwesomeIcon icon={faChevronLeft} className="mb-10" />
+      </button>
       <Title
         className="flex justify-center mb-10 mr-10 "
         style={{ color: "black" }}
       >
-        <button onClick={() => navigate(-1)}>
-          <FontAwesomeIcon icon={faChevronLeft} className="pr-3" />
-        </button>
         회원가입
       </Title>
       <div className="flex flex-col items-center">
@@ -282,7 +282,7 @@ const SIgnup = () => {
           <Title>이름</Title>
           <Bt>
             <input
-              className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="text"
               placeholder="이름을 입력해주세요"
               required
@@ -293,7 +293,7 @@ const SIgnup = () => {
           <Title>아이디</Title>
           <Bt>
             <input
-              className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="text"
               placeholder="아이디를 입력해주세요"
               required
@@ -306,7 +306,7 @@ const SIgnup = () => {
           <Title>비밀번호</Title>
           <Bt>
             <input
-              className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="password"
               required
               value={pw}
@@ -319,7 +319,7 @@ const SIgnup = () => {
           <Title>비밀번호 확인</Title>
           <Bt>
             <input
-              className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="password"
               required
               value={pwCheck}
@@ -332,7 +332,7 @@ const SIgnup = () => {
           <Title>닉네임</Title>
           <Bt>
             <input
-              className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="text"
               placeholder="닉네임을 입력해주세요"
               required
@@ -346,7 +346,7 @@ const SIgnup = () => {
           <Title>휴대폰 번호</Title>
           <Bt>
             <input
-              className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="tell"
               required
               value={phoneNum}
@@ -359,7 +359,7 @@ const SIgnup = () => {
           <Title>생년월일</Title>
           <Bt>
             <input
-              className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="text"
               required
               value={birth}
@@ -383,7 +383,7 @@ const SIgnup = () => {
           <Title>이메일</Title>
           <Bt>
             <input
-              className="placeholder:text-base pl-2 mb-1"
+              className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="email"
               required
               value={email}
