@@ -7,6 +7,7 @@ const request = {
   // shop
   shop: "/store/menu/list",
   shopinfo: "/store/info",
+  review: "/review/list",
   //
   basket: "/basket",
   basektDelete: "/basket/delete",

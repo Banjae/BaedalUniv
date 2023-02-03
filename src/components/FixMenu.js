@@ -46,7 +46,7 @@ const Fixmenu = () => {
 
   useEffect(() => {
     fetchData();
-  }, [orderList]);
+  }, []);
 
   const clickFunc = () => {
     const matchUni = (ele) => {

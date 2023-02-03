@@ -102,7 +102,6 @@ const ShopDetail = ({ menuSeq, setShowModal, showModal, stdSeq }) => {
       .then((res) => {
         console.log(res.data.message);
         console.log(res.data.data);
-
       })
       .catch((err) => {
         console.log(err);

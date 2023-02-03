@@ -36,7 +36,11 @@ const OrderTable = () => {
 
   useEffect(() => {
     fetchData();
-  }, [orderList]);
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   function comprice(p) {
     return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
