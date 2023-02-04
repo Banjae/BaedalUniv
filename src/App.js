@@ -18,8 +18,6 @@ import NotFound from "./pages/NotFound";
 import OrderLogin from "./pages/order/OrderLogin";
 import Payment from "./pages/order/Payment";
 import ShopDetail from "./pages/order/ShopDetail";
-import SearchBar from "./components/SearchBar";
-import AllShop from "./pages/shop/AllShopList";
 import ShopMain from "./pages/ShopMain";
 
 // tailwind-styled-component
@@ -33,7 +31,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Shopmain/:keyword" element={<ShopMain />} />
-          <Route path="/Allshop" element={<AllShop />} />
           <Route path="/Shop/:siSeq" element={<Shop />} />
           <Route path="/About" element={<About />} />
           <Route path="/Login" element={<Login />} />

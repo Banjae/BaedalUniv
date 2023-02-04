@@ -1,17 +1,21 @@
-import axios from "axios";
 import React from "react";
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
-import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { cartAdd } from "../../reducer/cartSlice";
 import { cartLookup } from "../../reducer/cartSlice";
 import { useNavigate } from "react-router";
+
+// Fontawsome icon 적용
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
+
 const ShopDetail = ({
   menuSeq,
   setShowModal,

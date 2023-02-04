@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// tailwind-styled-component
-import tw from "tailwind-styled-components";
+import { useSelector } from "react-redux";
+import instance from "../api/axios";
+import request from "../api/requset";
+
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import { useSelector } from "react-redux";
-
-import instance from "../api/axios";
-import request from "../api/requset";
+// tailwind-styled-component
+import tw from "tailwind-styled-components";
 
 const OrderTable = ({ toTable, setToTable }) => {
   const user = useSelector((state) => state.user);

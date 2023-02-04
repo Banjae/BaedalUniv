@@ -93,7 +93,6 @@ const About = () => {
                   <Name>{ele.name}</Name>
                   <PorfileCenter>
                     <ProfilePic>
-                      {/* <img src=`require(${ele.image})` alt="" /> */}
                       <Img
                         src={require(`../assets/${ele.image}.jpg`)}
                         alt="사진"
@@ -200,14 +199,15 @@ const ProfilePic = tw.div`
   rounded-lg
   bg-main
   m-1
+  flex
+  items-center
 `;
 
 const Img = tw.img`
-  w-[150px]
-  h-[150px]
-  mx-6
-  my-6
+  w-[90%]
+  h-[90%]
   rounded-lg
+  mx-auto
 `;
 
 export default About;

@@ -80,10 +80,14 @@ const ShopMenu = ({ stdSeq, setToTable, toTable }) => {
                           <Afsale>{comprice(ele.discountPrice)}원</Afsale>
                         </span>
                       </div>
-                      <MenuDetialPic
-                        src={`http://192.168.0.56:8888/download/food/${ele.fiUri}`}
-                        alt={ele.name}
-                      />
+                      {ele.fiUri === "" ? (
+                        <NoPic>이미지 준비중</NoPic>
+                      ) : (
+                        <MenuDetialPic
+                          src={`http://192.168.0.56:8888/download/food/${ele.fiUri}`}
+                          alt={ele.name}
+                        />
+                      )}
                       {showModal && menuSeq === ele.menuSeq && (
                         <ShopDetail
                           menuSeq={ele.menuSeq}
@@ -141,6 +145,18 @@ const SMenuDetail = tw.div`
 
 const MenuDetailTitle = tw.p`
   text-2xl
+`;
+
+const NoPic = tw.div`
+  flex
+  justify-center
+  items-center
+  border
+  rounded-lg
+  h-[150px]
+  w-[200px]
+  bg-black
+  opacity-70
 `;
 
 const MenuDetialPic = tw.img`
