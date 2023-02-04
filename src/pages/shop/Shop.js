@@ -4,7 +4,6 @@ import { useLocation, useParams } from "react-router-dom";
 import ShopInfo from "./ShopInfo";
 import ShopMenu from "./ShopMenu";
 import ShopReview from "./ShopReview";
-import Arrow from "../../assets/ic_list_d_arrow.png";
 import OrderTable from "../../components/OrderTable";
 import instance from "../../api/axios";
 import request from "../../api/requset";
@@ -16,12 +15,15 @@ import DetailStarRating from "./DetailStarRating";
 import tw from "tailwind-styled-components";
 
 // FontAwesome Icon 적용
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 
 const Detail = () => {
   const location = useLocation();
-  const utiSeq = location.state;
+  console.log(location.state);
+  const utiSeq = location.state.utiSeq;
+  const scoreAvg = location.state.scoreAvg;
   const { siSeq } = useParams();
   const goToAbout = useRef();
   const [click, setClick] = useState(0);
@@ -29,7 +31,6 @@ const Detail = () => {
   const [imgUri, setImgUri] = useState();
   const [infoArr, setInfoArr] = useState([]);
   const [toTable, setToTable] = useState(0);
-  const [starValue, setStarValue] = useState(0);
 
   const params = {
     siSeq: siSeq,
@@ -40,9 +41,9 @@ const Detail = () => {
     await instance
       .get(request.shopinfo, { params })
       .then((res) => {
-        setImgUri(res.data.data.simgUriCover);
         setInfoArr(res.data.data);
         setStdSeq(res.data.data.stdSeq);
+        setImgUri(res.data.data.simgUriCover);
       })
       .catch((err) => {
         console.log(err);
@@ -67,8 +68,8 @@ const Detail = () => {
               <p className="text-2xl tracking-wide">{infoArr.siName}</p>
               <div className="flex justify-center items-center py-5">
                 <div className="flex items-center">
-                  <DetailStarRating starRatio={4.6} />
-                  <p className="text-2xl pl-2">4.6</p>
+                  <DetailStarRating starRatio={scoreAvg} />
+                  <p className="text-2xl pl-2">{scoreAvg}</p>
                 </div>
               </div>
               <ShopPriceBox>
@@ -100,19 +101,20 @@ const Detail = () => {
               <div className="flex justify-center">
                 <div className="flex justify-center w-[70%] md:[90%] h-10 bg-gray-200 rounded-lg p-2 ">
                   <span className="overflow-hidden text-ellipsis">
-                    <strong className="mr-2">사장님알림</strong>
+                    <FontAwesomeIcon icon={faMicrophone} />
+                    <strong className="mx-1">사장님알림</strong>
                     {infoArr.ownerWord === ""
                       ? "사장님 알림이 없어요"
                       : infoArr.ownerWord}
                   </span>
                   <button
-                    className="w-6 h-6 ml-3 font-2xl"
+                    className="w-6 h-6 ml-3 font-2xl text-gray-500"
                     onClick={() => {
                       setClick(2);
                       goToAbout.current.scrollIntoView({ behavior: "smooth" });
                     }}
                   >
-                    <img src={Arrow} alt="" />
+                    <FontAwesomeIcon icon={faChevronRight} />
                   </button>
                 </div>
               </div>

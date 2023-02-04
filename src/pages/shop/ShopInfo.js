@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import instance from "../../api/axios";
 import request from "../../api/requset";
 
+// FontAwesome Icon 적용
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
+
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
@@ -37,7 +41,10 @@ const ShopInfo = ({ utiSeq }) => {
     <>
       <SIcontainer>
         <OwnerWord>
-          <strong>사장님한마디🥳</strong>
+          <span>
+            <FontAwesomeIcon icon={faMicrophone} />
+            <strong className="mx-1">사장님한마디</strong>
+          </span>
           <OwnerWordText>
             <p>
               {infoArr.ownerWord === ""

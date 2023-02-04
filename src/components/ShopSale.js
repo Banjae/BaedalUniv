@@ -47,7 +47,10 @@ const ShopSale = ({ utiSeq }) => {
 
   const goToShop = (e) => {
     const storeNum = e.storeSeq;
-    navigate(`/shop/${storeNum}`, { state: utiSeq });
+    const scoreAvg = e.scoreAvg;
+    navigate(`/shop/${storeNum}`, {
+      state: { utiSeq: utiSeq, scoreAvg: scoreAvg },
+    });
   };
 
   return (
@@ -80,8 +83,8 @@ const ShopSale = ({ utiSeq }) => {
                     <span className="text-yellow-500">
                       <FontAwesomeIcon icon={faStar} />
                     </span>
-                    <span>평점</span>
-                    <span>(리뷰수)</span>
+                    <span className="font-bold mx-1">{ele.scoreAvg}</span>
+                    <span>({ele.reviewCount})</span>
                   </div>
                 </div>
               </>
@@ -89,7 +92,6 @@ const ShopSale = ({ utiSeq }) => {
           ) : (
             <SwiperSlide
               className="SaleSwiper pointer-events-none"
-              onClick={(e) => goToShop(ele)}
               key={ele.storeSeq}
             >
               <NotWorking>
@@ -109,8 +111,8 @@ const ShopSale = ({ utiSeq }) => {
                   <span className="text-yellow-500">
                     <FontAwesomeIcon icon={faStar} />
                   </span>
-                  <span>평점</span>
-                  <span>(리뷰수)</span>
+                  <span className="font-bold mx-1">{ele.scoreAvg}</span>
+                  <span>({ele.reviewCount})</span>
                 </div>
               </div>
             </SwiperSlide>

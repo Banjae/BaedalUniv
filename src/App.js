@@ -20,6 +20,8 @@ import Payment from "./pages/order/Payment";
 import ShopDetail from "./pages/order/ShopDetail";
 import ShopMain from "./pages/ShopMain";
 
+import Test from "./pages/shopMain/test";
+
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
@@ -43,6 +45,7 @@ function App() {
           <Route path="/OrderLogin" element={<OrderLogin />} />
           <Route path="/Payment" element={<Payment />} />
           <Route path="/ShopDetail/:menuSeq" element={<ShopDetail />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </Container>
       <Footer />

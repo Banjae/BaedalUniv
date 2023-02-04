@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import instance from "../api/axios";
 import request from "../api/requset";
 import { useNavigate } from "react-router";
+import Loading from "./Loading";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,12 +12,12 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "../styles/shopList.css";
 
+// FontAwesome Icon 적용
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-
-// 임시 img
-import brand from "../assets/brand.jpg";
-import Loading from "./Loading";
 
 const ShopList = ({ utiSeq }) => {
   const [shopList, setShopList] = useState([]);
@@ -46,16 +47,34 @@ const ShopList = ({ utiSeq }) => {
 
   const goToShop = (e) => {
     const storeNum = e.storeSeq;
-    navigate(`/shop/${storeNum}`, { state: utiSeq });
+    const scoreAvg = e.scoreAvg;
+    navigate(`/shop/${storeNum}`, {
+      state: { utiSeq: utiSeq, scoreAvg: scoreAvg },
+    });
+  };
+
+  const listReview = () => {
+    const reListReview = [...shopList];
+    reListReview.sort(function (a, b) {
+      return b.reviewCount - a.reviewCount;
+    });
+    setShopList(reListReview);
+  };
+
+  const listAvg = () => {
+    const reListAvg = [...shopList];
+    reListAvg.sort(function (a, b) {
+      return b.scoreAvg - a.scoreAvg;
+    });
+    setShopList(reListAvg);
   };
 
   return (
     <SLcontainer>
-      {/* <div className="flex justify-around">
-        <button>리뷰 많은 순</button>
-        <button>별점 많은 순</button>
-        <button>할인율 높은 순</button>
-      </div> */}
+      <div className="flex justify-around">
+        <ListBt onClick={listReview}>리뷰 많은 순</ListBt>
+        <ListBt onClick={listAvg}>별점 높은 순</ListBt>
+      </div>
       <SLtitle>상점</SLtitle>
       <Swiper
         slidesPerView={4}
@@ -78,15 +97,16 @@ const ShopList = ({ utiSeq }) => {
                 <span>{ele.storeName}</span>
               </div>
               <div className="flex justify-center">
-                <span className="text-yellow-200">별점</span>
-                <span>평점</span>
-                <span>리뷰수</span>
+                <span className="text-yellow-500">
+                  <FontAwesomeIcon icon={faStar} />
+                </span>
+                <span className="font-bold mx-1">{ele.scoreAvg}</span>
+                <span>({ele.reviewCount})</span>
               </div>
             </SwiperSlide>
           ) : (
             <SwiperSlide
               className="ListSwiper pointer-events-none"
-              onClick={(e) => goToShop(ele)}
               key={ele.storeSeq}
             >
               <NotWorking>
@@ -100,9 +120,11 @@ const ShopList = ({ utiSeq }) => {
                 <span>{ele.storeName}</span>
               </div>
               <div className="flex justify-center">
-                <span className="text-yellow-200">별점</span>
-                <span>평점</span>
-                <span>리뷰수</span>
+                <span className="text-yellow-500">
+                  <FontAwesomeIcon icon={faStar} />
+                </span>
+                <span className="font-bold mx-1">{ele.scoreAvg}</span>
+                <span>({ele.reviewCount})</span>
               </div>
             </SwiperSlide>
           );
@@ -141,4 +163,15 @@ const SLtitle = tw.p`
 const ShopImg = tw.img`
   rounded-[50px]
 `;
+
+const ListBt = tw.button`
+  bg-main 
+  text-white 
+  text-md 
+  w-1/6 
+  h-10 
+  rounded-lg 
+  my-1
+`;
+
 export default ShopList;
