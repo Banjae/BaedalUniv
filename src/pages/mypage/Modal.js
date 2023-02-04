@@ -129,7 +129,9 @@ const Modal = ({ title, name }) => {
                 <Title style={{ margin: "40px" }}>{user.ciNickName}</Title>
                 <Bt>
                   <input
-                    className="placeholder:text-base pl-2 mb-1  focus:outline-none"
+                    className="placeholder:text-base pl-2 mb-1  
+                    focus:outline-none
+                    "
                     type="text"
                     placeholder={`변경할 ${name}을 입력해주세요`}
                     required
@@ -204,6 +206,8 @@ const Bt = tw.div`
   cursor-pointer
   rounded-lg
 `;
+
+
 
 const Check = tw.button`
 text-xs

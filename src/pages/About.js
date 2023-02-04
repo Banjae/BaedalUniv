@@ -79,7 +79,7 @@ const About = () => {
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
       <div>
-        <div className="text-center text-4xl m-3">FE Members</div>
+        <div className="text-center text-4xl font-semibold m-3">FE Members</div>
         <ProfileUl>
           {frontMemberList.map((ele, idx) => {
             console.log(ele.image);
@@ -113,7 +113,7 @@ const About = () => {
           })}
         </ProfileUl>
 
-        <div className="text-center text-4xl m-3">BE Members</div>
+        <div className="text-center text-4xl font-semibold m-3">BE Members</div>
         <ProfileUl>
           {backMemberList.map((ele, idx) => {
             return (
@@ -163,7 +163,7 @@ const Profile = tw.div`
   flex-col
   items-center
   justify-center
-  bg-slate-300
+  bg-[#FFDEAD]
   shadow-lg
   rounded-lg
   p-4
@@ -176,6 +176,9 @@ const Profile = tw.div`
 const Name = tw.div`
   text-3xl
   mb-5
+  font-semibold
+  drop-shadow-2xl
+  text-stone-700
 `;
 
 const PorfileCenter = tw.div`
@@ -190,7 +193,7 @@ const ProfileP = tw.p`
   flex
   items-center
   justify-start
-  text-xl
+  text-2xl
 `;
 
 const ProfilePic = tw.div`

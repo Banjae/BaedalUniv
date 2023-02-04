@@ -69,8 +69,9 @@ const Page = tw.div`
 flex
 justify-start 
 ml-3
-text-xl
-text-balck
+text-3xl
+font-semibold
+text-stone-600
 `;
 const Title = tw.div`
 flex
