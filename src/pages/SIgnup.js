@@ -271,12 +271,9 @@ const SIgnup = () => {
       <button onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faChevronLeft} className="mb-10" />
       </button>
-      <Title
-        className="flex justify-center mb-10 mr-10 "
-        style={{ color: "black" }}
-      >
+      <BigTitle>
         회원가입
-      </Title>
+      </BigTitle>
       <div className="flex flex-col items-center">
         <div>
           <Title>이름</Title>
@@ -284,7 +281,7 @@ const SIgnup = () => {
             <input
               className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="text"
-              placeholder="이름을 입력해주세요"
+              placeholder="실명이 아닐경우 이벤트 참여제한"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -295,7 +292,7 @@ const SIgnup = () => {
             <input
               className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="text"
-              placeholder="아이디를 입력해주세요"
+              placeholder="영어 /  숫자 (3자이상)"
               required
               value={id}
               onChange={(e) => setId(e.target.value)}
@@ -313,7 +310,7 @@ const SIgnup = () => {
               maxLength={16}
               minLength={8}
               onChange={(e) => setPw(e.target.value)}
-              placeholder="비밀번호를 입력해주세요"
+              placeholder="영어 + 숫자 (8자~16자)"
             />
           </Bt>
           <Title>비밀번호 확인</Title>
@@ -326,7 +323,7 @@ const SIgnup = () => {
               maxLength={16}
               minLength={8}
               onChange={(e) => setPwCheck(e.target.value)}
-              placeholder="비밀번호를 확인해주세요"
+              placeholder="비밀번호 재입력"
             />
           </Bt>
           <Title>닉네임</Title>
@@ -334,7 +331,7 @@ const SIgnup = () => {
             <input
               className="placeholder:text-base pl-2 mb-1  focus:outline-none"
               type="text"
-              placeholder="닉네임을 입력해주세요"
+              placeholder="한글 (2자~10자)"
               required
               value={nickName}
               onChange={(e) => setNickName(e.target.value)}
@@ -353,7 +350,7 @@ const SIgnup = () => {
               onChange={(e) => autoHypen(e.target.value)}
               maxLength={13}
               // onInput={autoHypen}
-              placeholder="휴대폰 번호를 입력해주세요"
+              placeholder="휴대폰 번호 입력"
             />
           </Bt>
           <Title>생년월일</Title>
@@ -364,7 +361,7 @@ const SIgnup = () => {
               required
               value={birth}
               onChange={(e) => setBirth(e.target.value)}
-              placeholder="생년월일을 입력해주세요"
+              placeholder="생년월일 입력"
               maxLength={8}
             />
           </Bt>
@@ -376,7 +373,7 @@ const SIgnup = () => {
               onChange={changeValue}
               className="focus:outline-none"
             >
-              <option> -- 이용하실 대학을 선택해주세요 -- </option>
+              <option> -- 이용하실 대학 필수선택 --</option>
               {uniList.map((item, idx) => {
                 return (
                   <option key={idx} value={item.uiSeq}>
@@ -394,7 +391,7 @@ const SIgnup = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="이메일을 입력해주세요"
+              placeholder="이메일 입력"
             />
             <Check onClick={(e) => emailCheckFn(e)}> 중복체크</Check>
           </Bt>
@@ -412,12 +409,24 @@ const SIgnup = () => {
   );
 };
 
+
+const BigTitle=tw.div`
+flex 
+justify-center 
+mb-10 
+pr-3
+text-3xl
+font-semibold
+text-stone-600
+`
+
 const Title = tw.div`
 flex
 justify-start 
 ml-3
 text-xl
 text-main
+font-medium
 `;
 const Bt = tw.div`
   flex
@@ -431,6 +440,7 @@ const Bt = tw.div`
   font-medium
   text-xl
   bg-white
+  drop-shadow-md
 `;
 const Check = tw.button`
 text-xs
@@ -438,9 +448,10 @@ bg-main
 text-white
 rounded-lg
 px-2
+drop-shadow-md
 `;
 const Join = tw.button`
-w-[22%]
+w-[375px]
 px-8
 py-3
 bg-main

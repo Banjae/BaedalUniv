@@ -54,17 +54,12 @@ const Login = () => {
       <button onClick={() => navigate(-1)}>
         <FontAwesomeIcon icon={faChevronLeft} className="mb-10" />
       </button>
-      <Title
-        className="flex justify-center mb-10 mr-10"
-        style={{ color: "black" }}
-      >
-        로그인
-      </Title>
+      <BigTitle>로그인</BigTitle>
       <div className="flex flex-col items-center">
         <div className="mb-5">
           <Title>아이디</Title>
           <InputBt
-            className="placeholder:text-base pl-2 mb-5 border-gray-300  focus:outline-none 
+            className="placeholder:text-base pl-4 pb-3 mb-5 border-gray-300  focus:outline-none 
             focus:border-main 
             focus:ring-1 
             focus:ring-main"
@@ -77,7 +72,7 @@ const Login = () => {
         <div>
           <Title>비밀번호</Title>
           <InputBt
-            className="placeholder:text-base pl-2 mb-1  border-gray-300  focus:outline-none 
+            className="placeholder:text-base pl-4  pb-3  mb-1  border-gray-300  focus:outline-none 
             focus:border-main 
             focus:ring-1 
             focus:ring-main "
@@ -96,7 +91,7 @@ const Login = () => {
           />
           로그인
         </LoginBt>
-        <div>
+        <div style={{fontSize:"20px"}}>
           다양한 혜택을 위해
           <SignupBt>
             <Link to="/signup" className="px-2">
@@ -110,12 +105,23 @@ const Login = () => {
   );
 };
 
+const BigTitle = tw.div`
+flex 
+justify-center 
+mb-10 
+pr-3
+text-3xl
+font-semibold
+text-stone-600
+`;
+
 const Title = tw.div`
 flex
 justify-start 
 ml-3
 text-xl
 text-main
+font-medium
 `;
 const InputBt = tw.input`
 flex
@@ -129,10 +135,11 @@ h-12
 w-96
 font-medium
 text-xl
+drop-shadow-md
 `;
 const LoginBt = tw.button`
-w-[22%]
-px-8
+w-[375px]
+pr-6
 py-3
 bg-main
 border
