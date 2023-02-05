@@ -95,6 +95,7 @@ const ReviewMenu = tw.span`
 
 const ReviewContent = tw.p`
   txet-2xl
+  whitespace-pre-line
 `;
 
 export default ShopReview;

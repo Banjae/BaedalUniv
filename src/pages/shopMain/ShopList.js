@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import instance from "../api/axios";
-import request from "../api/requset";
+import instance from "../../api/axios";
+import request from "../../api/requset";
 import { useNavigate } from "react-router";
-import Loading from "./Loading";
+import Loading from "../../components/Loading";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
-import "../styles/shopList.css";
+import "../../styles/shopList.css";
 
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

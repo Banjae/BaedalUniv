@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import Loading from "../../components/Loading";
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
@@ -30,7 +30,7 @@ const Test = () => {
   };
 
   console.log(test);
-
+  const text = "반 \n 재원";
   useEffect(() => {}, [shopList]);
 
   return (
@@ -44,11 +44,12 @@ const Test = () => {
           </div>
         );
       })}
-
       <div className="flex justify-around">
         <ListBt onClick={listReview}>리뷰 많은 순</ListBt>
         <ListBt onClick={listAvg}>별점 많은 순</ListBt>
       </div>
+      <p className="whitespace-pre-line">{text}</p>
+      <p className="text-3xl text-white">ㄱㅅ</p>
     </div>
   );
 };

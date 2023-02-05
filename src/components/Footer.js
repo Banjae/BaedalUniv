@@ -9,36 +9,6 @@ import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 
 const Footer = () => {
-  const FootContainer = tw.div`
-  flex
-  flex-col
-  items-center
-  bg-main
-  text-white
-  p-10
-  `;
-
-  const FootTitle = tw.div`
-  text-3xl 
-  font-baedal 
-  text-main
-  text-white
-  m-3
-  `;
-
-  const FootUl = tw.ul`
-  text-center
-  text-xs
-  tracking-widest
-  m-7
-  `;
-
-  const FootSpan = tw.span`
-  text-xs
-  text-slate-200
-  font-thin
-  `;
-
   return (
     <footer>
       <FootContainer>
@@ -54,16 +24,40 @@ const Footer = () => {
           <li>
             <a href="tel:053-572-1005">전화 : 053.572.1005</a>
           </li>
-          <li>이메일 : </li>
-          <li>고객만족센터 :</li>
+          <li>이메일 : BaedalUniv@github.com</li>
+          <li>고객만족센터 : 123.4567.8910</li>
         </FootUl>
         <span className="text-xs tracking-wider">
-          {" "}
           COPYRIGHT ㈜BaedalUniv ALL RIGHTS RESERVED.
         </span>
+        <div className="h-10"></div>
       </FootContainer>
     </footer>
   );
 };
+
+const FootContainer = tw.div`
+flex
+flex-col
+items-center
+bg-main
+text-white
+p-10
+`;
+
+const FootTitle = tw.div`
+text-3xl 
+font-baedal 
+text-main
+text-white
+m-3
+`;
+
+const FootUl = tw.ul`
+text-center
+text-xs
+tracking-widest
+m-7
+`;
 
 export default Footer;

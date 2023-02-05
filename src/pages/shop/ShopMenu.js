@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-
-// FontAwesome Icon 적용
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router";
+import instance from "../../api/axios";
+import request from "../../api/requset";
+import ShopDetail from "../order/ShopDetail";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-import instance from "../../api/axios";
-import request from "../../api/requset";
-import { useParams } from "react-router";
-import ShopDetail from "../order/ShopDetail";
+
+import noImg from "../../assets/noimg.png";
 
 const ShopMenu = ({ stdSeq, setToTable, toTable }) => {
   const [menuList, setMenuList] = useState([]);
@@ -56,11 +53,6 @@ const ShopMenu = ({ stdSeq, setToTable, toTable }) => {
             <SMenu key={idx}>
               <SMenuTitle onClick={() => {}}>
                 <p>{ele.cateName}</p>
-                {/* {true ? (
-                <FontAwesomeIcon icon={faAngleDown} />
-                ) : (
-                  <FontAwesomeIcon icon={faAngleUp} />
-                )} */}
               </SMenuTitle>
               <SMenuDetail>
                 {menu.map((ele, idx) => {
@@ -81,7 +73,7 @@ const ShopMenu = ({ stdSeq, setToTable, toTable }) => {
                         </span>
                       </div>
                       {ele.fiUri === "" ? (
-                        <NoPic>이미지 준비중</NoPic>
+                        <NoPic src={noImg} alt={ele.name} />
                       ) : (
                         <MenuDetialPic
                           src={`http://192.168.0.56:8888/download/food/${ele.fiUri}`}
@@ -147,16 +139,13 @@ const MenuDetailTitle = tw.p`
   text-2xl
 `;
 
-const NoPic = tw.div`
-  flex
-  justify-center
-  items-center
+const NoPic = tw.img`
   border
+  bg-cover
   rounded-lg
   h-[150px]
   w-[200px]
-  bg-black
-  opacity-70
+  m-1
 `;
 
 const MenuDetialPic = tw.img`

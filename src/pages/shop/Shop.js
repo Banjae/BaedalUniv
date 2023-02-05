@@ -7,6 +7,7 @@ import ShopReview from "./ShopReview";
 import OrderTable from "../../components/OrderTable";
 import instance from "../../api/axios";
 import request from "../../api/requset";
+import Loading from "../../components/Loading";
 
 import { RxDividerVertical } from "react-icons/rx";
 import DetailStarRating from "./DetailStarRating";
@@ -31,6 +32,7 @@ const Detail = () => {
   const [imgUri, setImgUri] = useState();
   const [infoArr, setInfoArr] = useState([]);
   const [toTable, setToTable] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const params = {
     siSeq: siSeq,
@@ -44,6 +46,7 @@ const Detail = () => {
         setInfoArr(res.data.data);
         setStdSeq(res.data.data.stdSeq);
         setImgUri(res.data.data.simgUriCover);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -100,7 +103,7 @@ const Detail = () => {
 
               <div className="flex justify-center">
                 <div className="flex justify-center w-[70%] md:[90%] h-10 bg-gray-200 rounded-lg p-2 ">
-                  <span className="overflow-hidden text-ellipsis">
+                  <span className="overflow-hidden text-ellipsis whitespace-pre-line">
                     <FontAwesomeIcon icon={faMicrophone} />
                     <strong className="mx-1">사장님알림</strong>
                     {infoArr.ownerWord === ""
@@ -177,6 +180,7 @@ const Detail = () => {
         </div>
         <OrderTable setToTable={setToTable} toTable={toTable} />
       </ShopContainer>
+      {loading && <Loading />}
     </>
   );
 };
@@ -200,13 +204,6 @@ const ShopAbout = tw.div`
 
 const ShopAboutBt = tw.button`
   border-b-2
-  w-full
-  h-full
-`;
-
-const OffShopAboutBt = tw.button`
-  border-b-2
-  border-white
   w-full
   h-full
 `;

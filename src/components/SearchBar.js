@@ -12,11 +12,6 @@ import tw from "tailwind-styled-components";
 
 const SearchBar = () => {
   const [uniList, setUniList] = useState([]);
-  const [search, setSearch] = useState("");
-
-  const searchList = useRef();
-
-  const navigate = useNavigate();
 
   const fetchData = async () => {
     await instance
@@ -33,6 +28,10 @@ const SearchBar = () => {
     fetchData();
   }, []);
 
+  const [search, setSearch] = useState("");
+
+  const searchList = useRef();
+
   const onChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
@@ -43,13 +42,14 @@ const SearchBar = () => {
     return p.uiName.toLocaleLowerCase().includes(search.toLocaleLowerCase());
   });
 
+  const navigate = useNavigate();
+
   const clickFunc = (e) => {
     const { name } = e.target;
     setSearch(name);
     const matchName = (ele) => {
       if (ele.uiName === name) return true;
     };
-    // const univNum = uniList.find(matchName);
     searchList.current.classList.add("hidden");
     navigate(`/Shopmain/${name}`);
   };

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import instance from "../api/axios";
-import request from "../api/requset";
-import ShopSchedule from "../components/ShopSchedule";
+import instance from "../../api/axios";
+import request from "../../api/requset";
+import ShopSchedule from "./ShopSchedule";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
 const ShopMain = () => {
   const [uiSeq, setUiSeq] = useState("");
+
   const { keyword } = useParams();
 
   const params = {

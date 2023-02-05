@@ -1,10 +1,12 @@
 //  About members page
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 // FontAwesome Icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
@@ -16,7 +18,6 @@ const About = () => {
   useEffect(() => {
     AOS.init();
   });
-
   const frontMemberList = [
     {
       name: "반재원 (팀장)",
@@ -37,7 +38,6 @@ const About = () => {
       link: "https://github.com/dev-jiji",
     },
   ];
-
   const backMemberList = [
     {
       name: "이영은 (팀장)",
@@ -70,9 +70,7 @@ const About = () => {
       link: "https://github.com/",
     },
   ];
-
   const navigate = useNavigate();
-
   return (
     <>
       <button onClick={() => navigate(-1)}>
@@ -104,15 +102,14 @@ const About = () => {
                       {ele.content}
                     </ProfileP>
                   </PorfileCenter>
-                  <Link to={ele.link} target="blank">
+                  <a href={ele.link} target="blank">
                     <FontAwesomeIcon icon={faGithub} />
-                  </Link>
+                  </a>
                 </Profile>
               </ProfileLi>
             );
           })}
         </ProfileUl>
-
         <div className="text-center text-4xl font-semibold m-3">BE Members</div>
         <ProfileUl>
           {backMemberList.map((ele, idx) => {
@@ -133,9 +130,9 @@ const About = () => {
                       {ele.content}
                     </ProfileP>
                   </PorfileCenter>
-                  <Link to={ele.link} target="blank">
+                  <a href={ele.link} target="blank">
                     <FontAwesomeIcon icon={faGithub} />
-                  </Link>
+                  </a>
                 </Profile>
               </ProfileLi>
             );
@@ -145,19 +142,16 @@ const About = () => {
     </>
   );
 };
-
 const ProfileUl = tw.ul`
   flex
   flex-col
   h-auto
   w-full
   `;
-
 const ProfileLi = tw.li`
   flex
   justify-center
 `;
-
 const Profile = tw.div`
   flex
   flex-col
@@ -172,7 +166,6 @@ const Profile = tw.div`
   md:w-[40%]
   text-[50px]
   `;
-
 const Name = tw.div`
   text-3xl
   mb-5
@@ -180,7 +173,6 @@ const Name = tw.div`
   drop-shadow-2xl
   text-stone-700
 `;
-
 const PorfileCenter = tw.div`
   flex
   justify-around
@@ -188,14 +180,12 @@ const PorfileCenter = tw.div`
   h-[80%]
   mb-5
 `;
-
 const ProfileP = tw.p`
   flex
   items-center
   justify-start
   text-2xl
 `;
-
 const ProfilePic = tw.div`
   w-[200px]
   h-[200px]
@@ -205,12 +195,10 @@ const ProfilePic = tw.div`
   flex
   items-center
 `;
-
 const Img = tw.img`
   w-[90%]
   h-[90%]
   rounded-lg
   mx-auto
 `;
-
 export default About;

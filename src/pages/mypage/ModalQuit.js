@@ -2,14 +2,16 @@
 
 import React from "react";
 import axios from "axios";
+import { clearUser } from "../../reducer/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-import { useSelector } from "react-redux";
 
 const ModalQuit = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = React.useState(false);
 
   // 회원 탈퇴
@@ -22,6 +24,7 @@ const ModalQuit = () => {
       .then((response) => {
         if (response.data.message) {
           alert("회원 탈퇴하였습니다.");
+          dispatch(clearUser());
           navigate("/login");
         } else {
           // 회원정보 삭제 실패

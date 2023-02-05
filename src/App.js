@@ -12,13 +12,13 @@ import Mypage from "./pages/mypage/Mypage";
 import Review from "./pages/mypage/Review";
 import Order from "./pages/order/Order";
 import Cart from "./pages/Cart";
-import Footer from "./components/Footer";
 import Fixmenu from "./components/FixMenu";
 import NotFound from "./pages/NotFound";
 import OrderLogin from "./pages/order/OrderLogin";
-import Payment from "./pages/order/Payment";
 import ShopDetail from "./pages/order/ShopDetail";
-import ShopMain from "./pages/ShopMain";
+import ShopMain from "./pages/shopMain/ShopMain";
+import Payment from "./pages/order/Payment";
+import Footer from "./components/Footer";
 
 import Test from "./pages/shopMain/test";
 

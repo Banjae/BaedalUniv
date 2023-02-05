@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-
 import { clearUser } from "../reducer/userSlice";
 
 // FontAwesome Icon 적용
@@ -21,8 +20,6 @@ const Header = () => {
   const navigate = useNavigate();
   const logOutFn = () => {
     dispatch(clearUser());
-    dispatch(clearUser());
-    // window.sessionStorage.setItem("userInfo");
     navigate("/login");
   };
 

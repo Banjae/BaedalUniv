@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import instance from "../api/axios";
-import request from "../api/requset";
-import Loading from "./Loading";
+import instance from "../../api/axios";
+import request from "../../api/requset";
+import Loading from "../../components/Loading";
 import ShopList from "./ShopList";
 import ShopSale from "./ShopSale";
 
@@ -41,29 +41,12 @@ const ShopSchedule = ({ uiSeq }) => {
     setClick(idx);
   };
 
-  // let now = new Date();
-  // const hour = now.getHours();
-  // const minutes = now.getMinutes();
-  // const nowTime = `${hour}:${minutes}`;
-  // console.log(nowTime);
-
-  // const setTime = if(nowTime < ) {
-
-  // } else if {
-
-  // } else if {
-
-  // } else {
-
-  // }
-
   return (
     <>
       <SStitle>음식주문 / 도착 시간표</SStitle>
       <div>
         <div className="flex justify-between">
           {shopArr.map((ele, idx) => {
-            // console.log(ele.utiCloseTime < nowTime);
             return (
               <ScheBoxOn
                 key={ele.utiSeq}
@@ -75,13 +58,6 @@ const ShopSchedule = ({ uiSeq }) => {
                 <span>배달 도착 {ele.utiDeliveryTime}</span>
               </ScheBoxOn>
             );
-            // : (
-            //     <ScheBoxOff key={ele.utiSeq} onClick={() => clickFunc(ele)}>
-            //       <span>{ele.utiName}</span>
-            //       <span>주문마감 {ele.utiCloseTime}</span>
-            //       <span>배달 도착 {ele.utiDeliveryTime}</span>
-            //     </ScheBoxOff>
-            // );
           })}
         </div>
         <ShopSale utiSeq={utiSeq} />
