@@ -61,21 +61,28 @@ const Cart = () => {
           <div className="flex justify-between items-center">
             <div className="flex justify-between items-center">
               <div
-                className="border rounded px-1 flex justify-between mb-2"
+                className="border rounded px-1 flex justify-between mb-2 w-80"
                 key={index}
               >
-                <p key={index}>마감{item.closeTime}</p>
-                <p key={index}>오늘{item.deliveryTime}</p>
+                <p key={index} className="font-semibold ">
+                  마감 :{item.closeTime}
+                </p>
+                <p key={index} className="font-semibold ">
+                  오늘 :{item.deliveryTime}
+                </p>
               </div>
             </div>
           </div>
           <div className="flex border p-3 rounded w-80 relative">
-            <div className="flex flex-col ml-5 justify-between">
+            <div className="flex flex-col ml-5 justify-between ">
               <div>
-                <p key={index} className="mt-1">
+                <p
+                  key={index}
+                  className="mt-1 font-semibold text-slate-700 text-xl"
+                >
                   {item.menuName}
                 </p>
-                <p key={index} className="mt-1">
+                <p key={index} className="mt-1 ml-2 text-slate-500 text-sm">
                   옵션 :{item.optionAll}
                 </p>
               </div>
@@ -83,8 +90,12 @@ const Cart = () => {
                 key={index}
                 className="flex justify-between items-center mt-1"
               >
-                <p>{priceToString(item.price)} 원</p>
-                <p>수량: {item.count}</p>
+                <p className="font-semibold text-slate-700 text-xl">
+                  {priceToString(item.price)} 원
+                </p>
+                <p className="font-semibold text-slate-700 text-xl">
+                  수량: {item.count}
+                </p>
               </div>
             </div>
             <button
@@ -103,7 +114,7 @@ const Cart = () => {
           to="/Order"
           className="flex justify-center items-center bg-main rounded-lg text-white w-52 h-10 mt-10"
         >
-          <button onClick={goToOrder}>
+          <button onClick={goToOrder} className="font-semibold">
             {priceToString(totalPrice.totalPrice)} 원 주문하기
           </button>
         </Link>
@@ -117,16 +128,5 @@ text-2xl
 text-slate-700
 mb-5
 mt-5
-`;
-const OrderInfobox = tw.div`
-flex
-m-3
-p-2
-rounded-lg
-border-2
-border-gray-300
-h-12
-font-medium
-text-xl
 `;
 export default Cart;
