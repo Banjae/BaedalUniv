@@ -1,46 +1,132 @@
-// my Cart page
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import tw from "tailwind-styled-components";
 const Cart = () => {
-  let cart = useSelector((state) => state);
+  const [cartList, setCartList] = useState([]);
+  const [totalPrice, setTotalPrice] = useState([]);
+  const navigate = useNavigate();
+  let user = useSelector((state) => state.user);
+  const params = { ciSeq: user.ciSeq };
+  const cartBox = async () => {
+    try {
+      const res = await axios.get("http://192.168.0.56:8888/basket", {
+        params,
+      });
+      setTotalPrice(res.data.data);
+      setCartList(res.data.data.menuList);
+      console.log(cartList.map((item) => item.bmocSeq));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  // console.log(cartList);
+  const deleteOne = (bmocSeq) => {
+    const params = { bmocSeq: bmocSeq };
+    axios
+      .delete("http://192.168.0.56:8888/basket/delete", { params })
+      .then((res) => alert("삭제하였습니다."))
+      .catch((err) => {
+        console.log(err);
+        alert("삭제에 실패했습니다. 다시 시도해주세요");
+      });
+  };
+  const deleteAll = (e) => {
+    axios
+      .delete("http://192.168.0.56:8888/basket/deleteAll", { params })
+      .then((res) => alert("모두 삭제하시겠습니까?"))
+      .catch((err) => {
+        console.log(err);
+        alert("삭제에 실패했습니다. 다시 시도해주세요");
+      });
+  };
+  const goToOrder = (e) => {
+    navigate("/order");
+  };
+  useEffect(() => {
+    cartBox();
+  }, []);
+  function priceToString(price) {
+    if (price === undefined || price === null) return;
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="mb-10">장바구니</div>
-      <div className="flex justify-between items-center">
-        <div className="flex justify-between items-center">
-          <div className="border rounded px-1"> 17:00 </div>
-          <div>대가한우대창곱도리&찜닭</div>
-        </div>
+      <Title className="mb-10">장바구니</Title>
+      {cartList.map((item, index) => (
         <div>
-          <p>오늘 18:20도착</p>
-        </div>
-      </div>
-      <div className="flex border p-3 rounded w-3/12 relative">
-        <div className="w-24 h-24 bg-main rounded"></div>
-        <div className="flex flex-col ml-5 justify-between">
-          <div>
-            <p>한우대창 곱도리탕 소 순살</p>
-            <p>옵션-맵기 단계 선택 [신라면정도 보통맛]</p>
+          <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center">
+              <div
+                className="border rounded px-1 flex justify-between mb-2"
+                key={index}
+              >
+                <p key={index}>마감{item.closeTime}</p>
+                <p key={index}>오늘{item.deliveryTime}</p>
+              </div>
+            </div>
           </div>
-          <div>22,500원</div>
+          <div className="flex border p-3 rounded w-80 relative">
+            <div className="flex flex-col ml-5 justify-between">
+              <div>
+                <p key={index} className="mt-1">
+                  {item.menuName}
+                </p>
+                <p key={index} className="mt-1">
+                  옵션 :{item.optionAll}
+                </p>
+              </div>
+              <div
+                key={index}
+                className="flex justify-between items-center mt-1"
+              >
+                <p>{priceToString(item.price)} 원</p>
+                <p>수량: {item.count}</p>
+              </div>
+            </div>
+            <button
+              className="absolute top-0 right-0 pr-3"
+              onClick={(e) => {
+                deleteOne(item.bmocSeq);
+              }}
+            >
+              <FontAwesomeIcon className="text-black" icon={faXmark} />
+            </button>
+          </div>
         </div>
-        <button className="absolute top-0 right-0 pr-3">x</button>
-      </div>
-
+      ))}
       <div className="flex justify-center items-center">
-        <div className="flex justify-center items-center bg-white text-white w-52 h-10 mt-10 text-black border rounded">
-          합계 원
-        </div>
         <Link
           to="/Order"
-          className="flex justify-center items-center bg-main text-white w-52 h-10 mt-10"
+          className="flex justify-center items-center bg-main rounded-lg text-white w-52 h-10 mt-10"
         >
-          주문하기(개)
+          <button onClick={goToOrder}>
+            {priceToString(totalPrice.totalPrice)} 원 주문하기
+          </button>
         </Link>
       </div>
     </div>
   );
 };
-
+const Title = tw.div`
+font-semibold
+text-2xl
+text-slate-700
+mb-5
+mt-5
+`;
+const OrderInfobox = tw.div`
+flex
+m-3
+p-2
+rounded-lg
+border-2
+border-gray-300
+h-12
+font-medium
+text-xl
+`;
 export default Cart;

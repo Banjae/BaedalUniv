@@ -22,6 +22,7 @@ const ShopReview = () => {
     await instance
       .get(request.review, { params })
       .then((res) => {
+        console.log(res.data.list)
         setReviewList(res.data.list);
       })
       .catch((err) => {
