@@ -22,7 +22,6 @@ const ModalList = () => {
     await instance
       .get(request.history, { params })
       .then((res) => {
-        console.log(res.data.data);
         setMyReview(res.data.data);
       })
       .catch((err) => {

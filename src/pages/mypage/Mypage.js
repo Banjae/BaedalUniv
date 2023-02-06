@@ -20,23 +20,19 @@ import ModalList from "./ModalList";
 
 const Mypage = () => {
   const user = useSelector((state) => state.user);
-  // console.log(user)
   const navigate = useNavigate();
-  const [showModal, setShowModal] = React.useState(true);
 
   return (
     <>
-          <button onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faChevronLeft} className="mb-10" />
-          </button>
+      <button onClick={() => navigate(-1)}>
+        <FontAwesomeIcon icon={faChevronLeft} className="mb-10" />
+      </button>
       <div>
-        <Page className="flex justify-center mb-20 mr-10">
-          마이페이지
-        </Page>
+        <Page className="flex justify-center mb-20 mr-10">마이페이지</Page>
         <div className="w-1/2 my-0 mx-auto">
           <div className="flex justify-between mb-3 items-center">
             <Title>{user.ciNickName}</Title>
-            <Modal  title="님의 닉네임 수정" name="닉네임" />
+            <Modal title="님의 닉네임 수정" name="닉네임" />
           </div>
           <div className="flex justify-between mb-3 items-center">
             <Title>{user.ciPhone}</Title>

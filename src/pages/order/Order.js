@@ -17,36 +17,46 @@ import kakao from "../../assets/kakaoPay.jpeg";
 const Order = () => {
   const [location, setLocation] = useState([]);
   const [time, setTime] = useState([]);
-  const [selected, setSelected] = useState();
-  const [last, setLast] = useState([]);
+  const [selected, setSelected] = useState(1);
+  const [payData, setPayData] = useState([]);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-
+  const [selectedPlace, setSelectedPlace] = useState();
   const params = {
     uiSeq: user.ciUiSeq,
   };
-  const param = {
-    ciSeq: user.ciSeq,
-  };
   const fetchData = async () => {
+    const selectPlace = {
+      PuaiUri: selectedPlace,
+    };
     try {
       const res = await axios.get("http://192.168.0.56:8888/list/pickuparea", {
         params,
       });
-      console.log(res);
       setLocation(res.data.list);
       const res2 = await axios.get(
         "http://192.168.0.56:8888/list/deliverytime",
         { params }
       );
       setTime(res2.data.list);
-
-      // const res3 = await axios.get("http://192.168.0.56:8888/order/history");
-      // console.log(res2.data.list);
+      const res3 = await axios.get(
+        `http://192.168.0.56:8888/basket?ciSeq=${user.ciSeq}`
+      );
+      setPayData(res3.data.data);
+      const place = await axios.get(
+        "http://192.168.0.56:8888/download/pickuparea/",
+        { selectPlace }
+      );
+      console.log(res3.data.data);
     } catch (err) {
       console.log(err);
     }
   };
+
+  function priceToString(price) {
+    if (price === undefined || price === null) return;
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   const handleSelect = (e) => {
     setSelected(e.target.value);
@@ -64,7 +74,7 @@ const Order = () => {
         console.log(res.data);
         if (window.confirm("결제하시겠습니까?")) {
           alert("주문이 완료되었습니다. 결제내역으로 이동합니다.");
-          navigate("/payment");
+          navigate("/payment", { state: res.data });
         }
       })
       .catch((err) => {
@@ -130,49 +140,48 @@ const Order = () => {
               <div className="flex my-1">
                 <input type="radio" name="payment" />
                 <img src={kakao} className="ml-3 w-16 h-7 rounded-lg" />
-                {/* <span className="ml-3">카카오페이 결제</span> */}
               </div>
               <div className="flex my-1">
                 <input type="radio" name="payment" />
                 <img src={payco} className="ml-3 w-16 h-7 rounded-lg" />
-                {/* <span className="ml-3"> 페이코 결제</span> */}
               </div>
             </div>
           </div>
-
           <div className="pay-info mb-4">
             <Title className="mb-4">결제정보</Title>
-            <div className="menu-payment ml-5">
-              <span></span>
-              <div>
-                <div className="flex justify-between">
-                  <span>역전돈까스</span>
-                  <span>8,200</span>
+            {payData.menuList?.map((item, index) => (
+              <div key={index}>
+                <div className="menu-payment ml-5">
+                  <div>
+                    <div className="flex justify-between">
+                      <span className="text-xl font-semibold text-slate-700">
+                        {item.siName}
+                      </span>
+                    </div>
+                    <div className="flex justify-between ml-5">
+                      <span>{item.menuName}</span>
+                      <span>{priceToString(item.price)}원</span>
+                    </div>
+                    <span className="ml-5 text-sm text-slate-500">
+                      {item.optionAll}
+                    </span>
+                  </div>
                 </div>
-                <span>일회용나이프 [일회용 칼 줘]</span>
               </div>
-            </div>
+            ))}
             <div className="delivery-fee ml-5">
-              <div className="flex justify-between">
+              <div className="flex justify-between text-xl font-semibold text-slate-700">
                 <span>배달비</span>
                 <span>무료</span>
-              </div>
-              <div className="flex justify-between">
-                <span>총 할인금액</span>
-                <span>- 3,800</span>
-              </div>
-              <div className="flex justify-between">
-                <span>배달비 할인</span>
-                <span>- 3,800</span>
               </div>
             </div>
           </div>
         </div>
         <button
-          className="payment-box flex justify-center items-center bg-main text-white w-52 h-10 mt-10"
+          className="bg-main text-white w-1/3 h-16 ml-1 font-semibold rounded-lg border-solid"
           onClick={payBt}
         >
-          원 결제하기
+          {priceToString(payData.totalPrice)}원 결제하기
         </button>
       </div>
     </>

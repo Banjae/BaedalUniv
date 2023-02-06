@@ -22,13 +22,10 @@ const OrderTable = ({ toTable, setToTable }) => {
     ciSeq: user.ciSeq,
   };
 
-  console.log(toTable);
-
   const fetchData = async () => {
     await instance
       .get(request.basket, { params })
       .then((res) => {
-        console.log(res.data);
         setOredrList(res.data.data.menuList);
         setTotal(res.data.data.totalPrice);
       })
@@ -69,7 +66,6 @@ const OrderTable = ({ toTable, setToTable }) => {
     instance
       .delete(request.basektDelete, { params })
       .then((res) => {
-        console.log(res);
         setToTable(!toTable);
       })
       .catch((err) => {

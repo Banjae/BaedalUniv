@@ -22,7 +22,6 @@ import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 
 const Detail = () => {
   const location = useLocation();
-  console.log(location.state);
   const utiSeq = location.state.utiSeq;
   const scoreAvg = location.state.scoreAvg;
   const { siSeq } = useParams();

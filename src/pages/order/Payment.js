@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link } from "react-router-dom";
-
-// FontAwesome Icon 적용
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCreditCard } from "@fortawesome/free-regular-svg-icons";
+import { Link, useLocation } from "react-router-dom";
 
 const Payment = () => {
   const [pay, setPay] = useState([]);
@@ -13,21 +9,27 @@ const Payment = () => {
   const params = {
     ciSeq: user.ciSeq,
   };
-  // console.log(params);
   const payData = async () => {
     try {
-      const res = await axios.get("http://localhost:8888/order/history", {
+      const res = await axios.get("http://192.168.0.56:8888/order/history", {
         params,
       });
-      console.log(res.data);
       setPay(res.data.data);
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
     payData();
   }, []);
+
+  function priceToString(price) {
+    if (price === undefined || price === null) return;
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const { state } = useLocation();
 
   const todayTime = () => {
     let now = new Date();
@@ -54,55 +56,50 @@ const Payment = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
-        <div className="block text-center mb-5 font-semibold text-2xl">
-          <span className="mr-3">결제내역</span>
-          <FontAwesomeIcon icon={faCreditCard} />
-        </div>
-        <div className="flex justify-center items-center bg-main rounded-lg text-white w-52 h-10">
-          한솥도시락
-        </div>
+        <p className="block text-center mb-5 font-semibold text-2xl">
+          결제내역
+        </p>
+        {state.data.menuList.map((item) => (
+          <div className="flex justify-center items-center bg-main text-white w-80 h-10 font-semibold rounded-lg border-solid">
+            {item.siName}
+          </div>
+        ))}
       </div>
       <div className="mt-10">
         <div className="flex flex-col justify-center items-center">
-          <p className="mb-1">주문일시: 2022년 12월 17일 오전 10:44</p>
-          <p className="mb-5">주문번호: B1232E3223</p>
-          <div className="flex flex-col justify-center items-center mb-10 mt-10">
-            <p className="mb-1">토마토 파스타 1개</p>
-            <p className="mb-1">토핑: 청양고추,새우튀김</p>
-            <p className="mb-1">6,600원</p>
+          <p className="mb-1">
             <div>
-              {todayTime().slice(0, 9)}
-              <span>{todayTime().slice(9, 12)}</span>
-              <span>{todayTime().slice(12, 19)}</span>
+              주문일시:
+              <span className="ml-1">{todayTime().slice(0, 9)}</span>
+              <span className="ml-1">{todayTime().slice(9, 12)}</span>
+              <span className="ml-1">{todayTime().slice(12, 19)}</span>
+            </div>
+          </p>
+          <p className="mb-5">주문번호: {state.data.biNumber}</p>
+          <div className="flex flex-col justify-center items-center mb-10 mt-10">
+            {state.data.menuList.map((item, index) => (
+              <div>
+                <p className="mb-1">메뉴: {item.menuName}</p>
+                <p className="mb-1">옵션: {item.optionAll}</p>
+                <p className="mb-1">가격: {priceToString(item.price)}</p>
+                <p>수량: {item.count}</p>
+                <p className="mb-1">배달비: 무료</p>
+              </div>
+            ))}
+            <div>
+              <p className="mb-1">수령장소:{state.data.puaName} </p>
+              <p>총 결제금액: {priceToString(state.data.totalPrice)}</p>
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center mt-10">
-          <div className="flex flex-row justify-between w-72 mb-3">
-            <p>배달비</p>
-            <p>0원</p>
-          </div>
-          <div className="flex flex-row  justify-between w-72 mb-3">
-            <p>총 결제금액</p>
-            <p>0원</p>
-          </div>
-          <div className="flex flex-row justify-between w-72 mb-3">
-            <p>결제방법 :</p>
-            <p>카카오페이</p>
-          </div>
-          <div className="flex flex-row justify-between w-72 mb-3">
-            <p>수령장소 :</p>
-            <p>00대학교 00건물</p>
-          </div>
-        </div>
-        <Link to="/mypage">
-          <div className="flex justify-center item-center">
-            <button className="bg-main text-white text-xl w-1/4 h-14 rounded-lg mt-2">
-              마이페이지로 가기
-            </button>
-          </div>
-        </Link>
       </div>
+      <Link to="/mypage">
+        <div className="flex justify-center item-center">
+          <button className="bg-main text-white text-xl w-1/4 h-14 rounded-lg mt-2">
+            마이페이지로 가기
+          </button>
+        </div>
+      </Link>
     </>
   );
 };

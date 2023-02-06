@@ -1,19 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+// user 정보 가져오기
+import { useSelector } from "react-redux";
+import instance from "../../api/axios";
+import request from "../../api/requset";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
 
-// user 정보 가져오기
-import { useSelector } from "react-redux";
-
 const ModalSave = ({ name }) => {
-  const user = useSelector((state) => state.user);
-  const [showModal, setShowModal] = React.useState(false);
   const [nickName, setNickName] = useState("");
+  const [showModal, setShowModal] = React.useState(false);
+  const [saveList, setSaveList] = useState(0);
+  const user = useSelector((state) => state.user);
+
+  function comprice(p) {
+    return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const params = {
+    ciSeq: user.ciSeq,
+  };
+
+  const fetchData = async () =>
+    await instance
+      .get(request.history, { params })
+      .then((res) => {
+        setSaveList(res.data.data.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
-      <Change onClick={() => setShowModal(true)} className="w-32 justify-center">아낀 배달비</Change>
+      <Change
+        onClick={() => setShowModal(true)}
+        className="w-32 justify-center"
+      >
+        아낀 배달비
+      </Change>
       {showModal ? (
         <>
           <div className=" flex justify-center items-center  overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -46,8 +76,10 @@ const ModalSave = ({ name }) => {
                     value={nickName}
                     onChange={(e) => setNickName(e.target.value)}
                   >
-                    <span className="text-xl font-extrabold">{user.ciNickName}</span> 님이
-                    지금까지
+                    <span className="text-xl font-extrabold">
+                      {user.ciNickName}
+                    </span>{" "}
+                    님이 지금까지
                     <br />
                   </div>
                   <div className="pl-10">
@@ -56,7 +88,10 @@ const ModalSave = ({ name }) => {
                   </div>
                 </div>
                 <div className="border-b-4  border-orange-600">
-                  총 <span className="text-3xl font-extrabold ">0원</span>
+                  총
+                  <span className="text-3xl font-extrabold ml-2">
+                    {comprice(saveList * 3000)}원
+                  </span>
                 </div>
                 {/*footer*/}
                 <div className="text-center mt-10 p-10  ">
@@ -66,7 +101,9 @@ const ModalSave = ({ name }) => {
                     </div>
                     <div>
                       해당 금액은{" "}
-                      <span className="text-xl font-extrabold">{user.ciNickName}</span>{" "}
+                      <span className="text-xl font-extrabold">
+                        {user.ciNickName}
+                      </span>{" "}
                       회원님이
                       <br />
                       배달비 0원
@@ -86,7 +123,7 @@ const ModalSave = ({ name }) => {
   );
 };
 
-const Change=tw.div`
+const Change = tw.div`
 flex
 justify-start
 m-3
@@ -98,6 +135,6 @@ cursor-pointer
 rounded-lg
 bg-main
 text-white
-`
+`;
 
 export default ModalSave;

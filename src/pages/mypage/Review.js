@@ -43,7 +43,6 @@ const Review = () => {
       ri_contents: contents,
       ri_score: star,
     };
-    console.log("바디야 ", body);
 
     axios
       .post("http://192.168.0.56:8888/review/add", body)

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import instance from "../../api/axios";
 import request from "../../api/requset";
 import { useNavigate } from "react-router";
@@ -71,11 +71,11 @@ const ShopList = ({ utiSeq }) => {
 
   return (
     <SLcontainer>
-      <div className="flex justify-around">
+      <SLtitle>상점</SLtitle>
+      <div className="flex justify-around my-3">
         <ListBt onClick={listReview}>리뷰 많은 순</ListBt>
         <ListBt onClick={listAvg}>별점 높은 순</ListBt>
       </div>
-      <SLtitle>상점</SLtitle>
       <Swiper
         slidesPerView={4}
         spaceBetween={30}

@@ -1,17 +1,15 @@
-import React from "react";
 import axios from "axios";
+import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { cartAdd } from "../../reducer/cartSlice";
-import { cartLookup } from "../../reducer/cartSlice";
-import { useNavigate } from "react-router";
-
-// Fontawsome icon 적용
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { cartAdd } from "../../reducer/cartSlice";
+import { cartLookup } from "../../reducer/cartSlice";
+import { useNavigate } from "react-router";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
@@ -30,7 +28,6 @@ const ShopDetail = ({
   const [checkList, setCheckList] = useState([]);
   const [optionPriceCheck, setOprionPriceCheck] = useState({});
   const [fdoSeqList, setFdoSeqList] = useState([]);
-
   const user = useSelector((state) => state.user);
   const params = {
     menuSeq: menuSeq,
@@ -62,13 +59,6 @@ const ShopDetail = ({
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []);
-  const body = {
-    ciSeq: user.ciSeq,
-    stdSeq: stdSeq,
-    fmiSeq: menuSeq,
-    fdoSeqList: fdoSeqList,
-    count: count,
-  };
   const onIncrease = () => {
     setCount((prevCount) => prevCount + 1);
   };
@@ -95,12 +85,13 @@ const ShopDetail = ({
   const popOff = () => {
     setShowModal(!showModal);
   };
-  // const img = () => {
-  //   axios
-  //     .get("http://192.168.0.56:8888/download/food/{uri}")
-  //     .then((res) => {})
-  //     .catch((err) => {});
-  // };
+  const body = {
+    ciSeq: user.ciSeq,
+    stdSeq: stdSeq,
+    fmiSeq: menuSeq,
+    fdoSeqList: fdoSeqList,
+    count: count,
+  };
   const goToCart = () => {
     axios
       .post("http://192.168.0.56:8888/order/basket", body)
@@ -116,10 +107,23 @@ const ShopDetail = ({
     setShowModal(!showModal);
     setToTable(toTable + 1);
   };
-  const goToOrder = () => {
-    dispatch();
+  const goToOrder = (e) => {
+    axios
+      .post("http://192.168.0.56:8888/order/basket", body)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(cartLookup(res.data.data));
+        setToTable(!toTable);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     navigate("/order");
   };
+  function priceToString(price) {
+    if (price === undefined || price === null) return;
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <>
       <SDbackground onClick={(e) => e.stopPropagation()}>
@@ -132,22 +136,21 @@ const ShopDetail = ({
               옵션선택
             </div>
           </div>
-          <div className="flex flex-col justify-center item-center">
-            <div className="">
-              <div className="flex justify-center item-center w-80">
-                <div className="flex flex-col justify-start">
-                  <Title>{option.name}</Title>
-                  <div>{option.explain}</div>
-                </div>
+          <div className="flex flex-col justify-center items-center">
+            <div className="flex justify-center items-center">
+              <div className="flex flex-col justify-start">
+                <Title>{option.name}</Title>
+                <div>{option.explain}</div>
               </div>
             </div>
-            <div className="flex justify-between item-center m-0 w">
-              <div>
-                <input type="radio" defaultChecked className="mr-2" />
+            <div className="flex justify-center items-center gap-10 mt-3">
+              <div className="flex items-center">
+                <input type="radio" defaultChecked className="mr-1  w-4 h-4" />
                 <span>기본</span>
               </div>
-              <div>{option.discountPrice}원</div>
+              <div>{priceToString(option.discountPrice)}원</div>
             </div>
+            <Line />
             <div>
               <div className="flex flex-col justify-center items-center">
                 <div className="flex justify-center items-center">
@@ -163,13 +166,14 @@ const ShopDetail = ({
                                   key={index}
                                   className="flex justify-between"
                                 >
-                                  <div>
+                                  <div className="flex justify-center items-center">
                                     <input
                                       type="checkbox"
                                       id={list.optionSeq}
                                       name={list.optionName}
                                       value={list.optionPrice}
                                       onChange={handleCheck}
+                                      className="w-4 h-4 mt-0.5"
                                       checked={
                                         checkList.includes(
                                           list.optionSeq.toString()
@@ -178,11 +182,13 @@ const ShopDetail = ({
                                           : false
                                       }
                                     />
-                                    <span className="ml-2">
+                                    <label className="ml-2">
                                       {list.optionName}
-                                    </span>
+                                    </label>
                                   </div>
-                                  <span>{list.optionPrice}원</span>
+                                  <span>
+                                    {priceToString(list.optionPrice)}원
+                                  </span>
                                 </div>
                               ))}
                             </div>
@@ -193,13 +199,14 @@ const ShopDetail = ({
                                   key={index}
                                   className="flex justify-between"
                                 >
-                                  <div>
+                                  <div className="flex justify-center items-center">
                                     <input
                                       type="radio"
                                       id={list.optionSeq}
                                       name="check"
                                       value={list.optionPrice}
                                       onChange={handleCheck}
+                                      className="appearnce-none w-4 h-4 mt-0.5"
                                       checked={
                                         checkList.includes(
                                           list.optionSeq.toString()
@@ -208,23 +215,26 @@ const ShopDetail = ({
                                           : false
                                       }
                                     />
-                                    <span className="ml-2">
+                                    <label className="ml-2">
                                       {list.optionName}
-                                    </span>
+                                    </label>
                                   </div>
-                                  <span>{list.optionPrice}원</span>
+                                  <span>
+                                    {priceToString(list.optionPrice)}원
+                                  </span>
                                 </div>
                               ))}
                             </div>
                           )}
                         </div>
+                        <Line />
                       </div>
                     ))}
                   </div>
                 </div>
-                <Title className="flex justify-between">
+                <Title className="flex justify-center gap-4">
                   <div>수량</div>
-                  <div className="">
+                  <div className="flex gap-1.5">
                     <button onClick={onDecrease}>
                       <FontAwesomeIcon icon={faCaretLeft} />
                     </button>
@@ -237,18 +247,30 @@ const ShopDetail = ({
               </div>
             </div>
             <Title className="flex justify-center">
-              합계 {(option.price + priceCheck) * count}원
+              <span>합계</span>
+              <span className="ml-4">
+                {priceToString((option.price + priceCheck) * count)}
+              </span>
+              <span>원</span>
             </Title>
-            <div className="flex justify-center item-center">
-              <button className="w-1/2 h-16" onClick={goToCart}>
-                장바구니
-              </button>
-              <button
-                className="bg-main text-white w-1/2 h-16"
-                onClick={goToOrder}
-              >
-                주문하기
-              </button>
+            <div className="flex justify-center mb-10 w-full">
+              <div className="w-2/3">
+                <div className="flex justify-center">
+                  <button
+                    className="w-1/2 h-16 font-semibold rounded-lg border-gray-300 rounded-lg mx-5
+                    border-2"
+                    onClick={goToCart}
+                  >
+                    장바구니 추가
+                  </button>
+                  <button
+                    className="bg-main text-white w-1/2 h-16 font-semibold rounded-lg border-solid mx-5"
+                    onClick={goToOrder}
+                  >
+                    주문하기
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </SDmodal>

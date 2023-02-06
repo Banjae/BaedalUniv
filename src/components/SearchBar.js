@@ -47,9 +47,6 @@ const SearchBar = () => {
   const clickFunc = (e) => {
     const { name } = e.target;
     setSearch(name);
-    const matchName = (ele) => {
-      if (ele.uiName === name) return true;
-    };
     searchList.current.classList.add("hidden");
     navigate(`/Shopmain/${name}`);
   };

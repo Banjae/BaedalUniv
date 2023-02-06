@@ -1,20 +1,20 @@
 import React from "react";
+import axios from "axios";
 import { useState } from "react";
+import { changeUser } from "../../reducer/userSlice";
 
 // user 정보 가져오기
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // tailwind-styled-component
 import tw from "tailwind-styled-components";
-
-import axios from "axios";
-import { useEffect } from "react";
 
 const Modal = ({ title, name }) => {
   const user = useSelector((state) => state.user);
   const [showModal, setShowModal] = useState(false);
   const [nickName, setNickName] = useState("");
   const [nickNameCheck, setNickNameCheck] = useState(false);
+  const dispatch = useDispatch();
 
   // 1. 닉네임 중복검사
   const nickNameCheckFn = (e) => {
@@ -52,9 +52,6 @@ const Modal = ({ title, name }) => {
         alert(error.response.data.message);
       });
   };
-  // useEffect(() => {
-  //   return () => {};
-  // }, []);
 
   // 2. 닉네임 변경요청
   const nameUpdateFn = (e) => {
@@ -82,6 +79,8 @@ const Modal = ({ title, name }) => {
         // 서버에서 정상적 처리 완료
         if (response.data.status) {
           alert(response.data.message);
+          dispatch(changeUser(body));
+          setShowModal(!showModal);
         } else {
           alert(response.data.message);
         }
@@ -206,8 +205,6 @@ const Bt = tw.div`
   cursor-pointer
   rounded-lg
 `;
-
-
 
 const Check = tw.button`
 text-xs

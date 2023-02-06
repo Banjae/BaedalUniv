@@ -31,6 +31,9 @@ const userSlice = createSlice({
       state.ciStatus = action.payload.ciStatus;
       state.ciUiSeq = action.payload.ciUiSeq;
     },
+    changeUser: (state, action) => {
+      state.ciNickName = action.payload.ciNickName;
+    },
     clearUser: (state, action) => {
       state.ciBirthday = "";
       state.ciEmail = "";
@@ -47,5 +50,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { loginUser, clearUser } = userSlice.actions;
+export const { loginUser, clearUser, changeUser } = userSlice.actions;
 export default userSlice;
