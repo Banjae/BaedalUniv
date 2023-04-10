@@ -26,4 +26,4 @@ Notion / gitHub / Slack
 
 ### PPT 
 
-https://www.canva.com/design/DAFZZ5L5D0g/rcl4bEl_ebh8Cq5AFf7otg/edit?analyticsCorrelationId=1e91b336-5364-49a9-a3b1-cd200bd93dc5
+[배달대.pdf](https://github.com/Banjae/BaedalUniv/files/11188705/default.pdf)
